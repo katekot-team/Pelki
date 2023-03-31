@@ -255,7 +255,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -339,77 +339,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &963023144
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 188086466629136933, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 188086466629136933, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188086466629136933, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188086466629136933, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188086466629136933, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 188086466629136933, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188086466629136933, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188086466629136933, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188086466629136933, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188086466629136933, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188086466629136933, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188086466629136935, guid: c178d0cd48290754090db39688a14bc9,
-        type: 3}
-      propertyPath: m_Name
-      value: _GameManger
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c178d0cd48290754090db39688a14bc9, type: 3}
 --- !u!1 &1156747178
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +353,6 @@ GameObject:
   - component: {fileID: 1156747181}
   - component: {fileID: 1156747180}
   - component: {fileID: 1156747179}
-  - component: {fileID: 1156747183}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -533,45 +463,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1156747183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1156747178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4af389105722f64d8db36af0a4eb949, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  jumpForce: 5
-  fallMultiplier: 0
-  groundCheck: {fileID: 1156747182}
-  groundCheckRadius: 0.5
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
-  extraJumpCount: 1
-  jumpEffect: {fileID: 1756864995990567119, guid: 84373b93397a4544b9f154581f7b7cf4,
-    type: 3}
-  dashSpeed: 30
-  startDashTime: 0.1
-  dashCooldown: 0.2
-  dashEffect: {fileID: 8212761198797595994, guid: aa9df449b161ff64a9fe962a6a3f05fb,
-    type: 3}
-  isGrounded: 0
-  moveInput: 0
-  canMove: 1
-  isDashing: 0
-  actuallyWallGrabbing: 0
-  isCurrentlyPlayable: 0
-  grabRightOffset: {x: 0.16, y: 0}
-  grabLeftOffset: {x: -0.16, y: 0}
-  grabCheckRadius: 0.24
-  slideSpeed: 2.5
-  wallJumpForce: {x: 10.5, y: 18}
-  wallClimbForce: {x: 4, y: 14}

@@ -6,18 +6,25 @@ public class PlayerManager : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
-    [SerializeField] float normalY = 80;
+    [SerializeField] float dashObstacleSize;
+    [SerializeField] GameObject hitPoint;
+    [SerializeField] Transform hitRight;
+    [SerializeField] Transform hitLeft;
 
     Rigidbody2D rb;
     SpriteRenderer rend;
     CapsuleCollider2D capsule;
-    IEnumerator toDash;
+
+    IEnumerator toHitObject;
+    
     public float move { get; set; }
     public bool jump { get; set; }
     public bool dash { get; set; }
+    public bool hit { get; set; }
 
     bool isGround;
     bool isCollision;
+    public int direction = 1;
 
     void Start()
     {
@@ -25,7 +32,7 @@ public class PlayerManager : MonoBehaviour
         rend = GetComponent<SpriteRenderer>();
         capsule = GetComponent<CapsuleCollider2D>();
 
-        
+        hitPoint.SetActive(false);
     }
 
     
@@ -39,13 +46,25 @@ public class PlayerManager : MonoBehaviour
     {
         Jump();
         Dash();
+        ToHit();
     }
 
     void Move()
     {
 
-        if (move < 0) rend.flipX = true;
-        else if (move > 0) rend.flipX = false;
+        if (move < 0)
+        {
+            rend.flipX = true;
+            direction = -1;
+            
+        }
+        else if (move > 0)
+        {
+            rend.flipX = false;
+            direction = 1;
+            
+        }
+        //hitPoint.transform.localPosition = new Vector2(Mathf.Abs(hitPoint.transform.localPosition.x) * direction, hitPoint.transform.localPosition.y);
         Vector2 movement = new Vector2();
         movement = new Vector2(move, 0) * moveSpeed;
         movement = Vector2.ClampMagnitude(movement, moveSpeed);
@@ -82,7 +101,7 @@ public class PlayerManager : MonoBehaviour
         if (dash)
         {
 
-            transform.position = new Vector2(transform.position.x + 3 * move, transform.position.y);
+            transform.position = new Vector2(transform.position.x + dashObstacleSize * move, transform.position.y);
         }
     }
 
@@ -100,5 +119,28 @@ public class PlayerManager : MonoBehaviour
         
     }
 
+    void ToHit()
+    {
+        if (hit)
+        {
+            Debug.Log("Kick it!");
+            hitPoint.transform.position = new Vector2(transform.position.x, transform.position.y);
+            toHitObject = ToHitObject();
+            StartCoroutine(toHitObject);
 
+
+        }
+        
+    }
+
+    IEnumerator ToHitObject()
+    {
+        hitPoint.SetActive(true);
+        if (direction > 0) hitPoint.transform.position = hitRight.position;
+        else hitPoint.transform.position = hitLeft.position;
+        yield return new WaitForSeconds(0.1f);
+        hitPoint.transform.position = new Vector2(transform.position.x, transform.position.y);
+        hitPoint.SetActive(false);
+        StopCoroutine(toHitObject);
+    }
 }

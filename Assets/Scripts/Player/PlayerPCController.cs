@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerPCController : MonoBehaviour
+{
+    PlayerManager playerManager;
+
+
+    void Start()
+    {
+        playerManager = GetComponent<PlayerManager>();
+    }
+
+    void Update()
+    {
+        playerManager.move = Input.GetAxis("Horizontal");
+        playerManager.jump = Input.GetButtonDown("Jump");
+        playerManager.dash = Input.GetButtonDown("Dash");
+        playerManager.hit = Input.GetButtonDown("Fire1");
+    }
+
+
+}

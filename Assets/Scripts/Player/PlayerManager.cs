@@ -16,8 +16,10 @@ public class PlayerManager : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer rend;
     CapsuleCollider2D capsule;
+    PlatformEffector2D platformEffector2D;
 
     IEnumerator toHitObject;
+    IEnumerator toDash;
     
     public float move { get; set; }
     public bool jump { get; set; }
@@ -25,16 +27,20 @@ public class PlayerManager : MonoBehaviour
     public bool hit { get; set; }
 
     bool isGround;
+    public bool isWall;
     bool isCollision;
     public int direction = 1;
+    Vector2 capsuleColliderSize;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         capsule = GetComponent<CapsuleCollider2D>();
+        platformEffector2D = GetComponent<PlatformEffector2D>();
 
         hitPoint.SetActive(false);
+        capsuleColliderSize = capsule.size;
     }
 
     
@@ -49,6 +55,13 @@ public class PlayerManager : MonoBehaviour
         Jump();
         Dash();
         ToHit();
+
+        
+    }
+
+    private void LateUpdate()
+    {
+        
     }
 
     public int GetDamagePowerWeak()
@@ -108,19 +121,52 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    void Dash() 
+    void Dash()//проход сквозь препятствия
     {
-        if (dash)
+        if (dash && !isWall)
         {
-
-            transform.position = new Vector2(transform.position.x + dashObstacleSize * move, transform.position.y);
+            toDash = ToDash();
+            StartCoroutine(toDash);
+            
         }
+         
+    }
+
+    
+    IEnumerator ToDash()
+    {
+        Vector2 lastPosition = transform.position;
+        dash = false;
+        float time = 100;
+        capsule.size = new Vector2(capsuleColliderSize.x/2, capsule.size.y);
+        platformEffector2D.enabled = true;
+        while (true)
+        {
+            if (isWall) 
+            {
+                transform.position = lastPosition;
+                break;
+            } 
+            yield return new WaitForSeconds(0.01f);
+            time--;
+            if (time <= 0) break;
+            
+        }
+
+        capsule.size = capsuleColliderSize;
+        platformEffector2D.enabled = false;
+
+        StopCoroutine(toDash);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(!isGround) isCollision = true;
-
+        if (collision.gameObject.tag == "Wall") 
+        {
+            isWall = true;
+        } 
+        
 
     }
 
@@ -128,7 +174,8 @@ public class PlayerManager : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (!isGround) isCollision = false;
-        
+        if (collision.gameObject.tag == "Wall") isWall = false;
+
     }
 
     void ToHit()

@@ -23,7 +23,9 @@ public class FireBall : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            Debug.Log("player DAMAGE!");
+            int direction = 1;
+            if (collision.transform.position.x < transform.position.x) direction = -1;
+            collision.gameObject.GetComponent<PlayerManager>().Damage(direction);
         }
         
         Destroy(gameObject);

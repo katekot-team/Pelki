@@ -27,10 +27,11 @@ public class PlayerManager : MonoBehaviour
     public bool hit { get; set; }
 
     bool isGround;
-    public bool isWall;
+    bool isWall;
     bool isCollision;
     public int direction = 1;
     Vector2 capsuleColliderSize;
+    Vector2 damageVector = new Vector2(5000, 100);
 
     void Start()
     {
@@ -139,6 +140,7 @@ public class PlayerManager : MonoBehaviour
         dash = false;
         float time = 100;
         capsule.size = new Vector2(capsuleColliderSize.x/2, capsule.size.y);
+        gameObject.tag = "Untagged";
         platformEffector2D.enabled = true;
         while (true)
         {
@@ -152,7 +154,7 @@ public class PlayerManager : MonoBehaviour
             if (time <= 0) break;
             
         }
-
+        gameObject.tag = "Player";
         capsule.size = capsuleColliderSize;
         platformEffector2D.enabled = false;
 
@@ -202,4 +204,24 @@ public class PlayerManager : MonoBehaviour
         hitPoint.SetActive(false);
         StopCoroutine(toHitObject);
     }
+
+    IEnumerator toDamage;
+    public void Damage(int d)
+    {
+        Debug.Log("player DAMAGE!");
+        rb.AddForce(new Vector2(damageVector.x * d, damageVector.y), ForceMode2D.Force);
+        toDamage = ToDamage();
+        StartCoroutine(toDamage);
+
+        IEnumerator ToDamage()
+        {
+            Color32 defaulColor = rend.color;
+            rend.color = new Color32(255, 0, 0, 100);
+            yield return new WaitForSeconds(0.3f);
+            rend.color = defaulColor;
+            StopCoroutine(toDamage);
+        }
+    }
+
+
 }

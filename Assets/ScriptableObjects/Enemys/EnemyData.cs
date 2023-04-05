@@ -19,5 +19,6 @@ public class EnemyData : ScriptableObject
     [field: SerializeField] public int health { get; private set; }
     [field: SerializeField] public int speed { get; private set; }
     [field: SerializeField] public int detectionDistance { get; private set; }
+    [field: SerializeField] public float speedAttack { get; private set; }
 
 }

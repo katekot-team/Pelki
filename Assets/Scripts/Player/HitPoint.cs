@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class HitPoint : MonoBehaviour
 {
-    int damageStrong;
+    
     int damageWeak;
 
     private void Start()
     {
         PlayerManager playerManager = transform.parent.GetComponent<PlayerManager>();
-        damageStrong = playerManager.GetDamagePowerStrong();
+        
         damageWeak = playerManager.GetDamagePowerWeak();
     }
 

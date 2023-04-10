@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
 
     public float moveSpeed;
 
+    public int damage { get; private set; }
     public int moveDirection { get; set; }
     public bool isAttack { get; set; }
     
@@ -32,18 +33,23 @@ public class Enemy : MonoBehaviour
         notactive,
     }
 
-
-    void Start()
+    private void Awake()
     {
         health = enemyData.health;
         detectionDistance = enemyData.detectionDistance;
         speed = enemyData.speed;
         speedAttack = enemyData.speedAttack;
+        damage = enemyData.damage;
         moveDirection = -1;
 
         rb = GetComponent<Rigidbody2D>();
 
         isAttack = false;
+    }
+
+    void Start()
+    {
+
 
         if (item != null)
         {
@@ -128,7 +134,7 @@ public class Enemy : MonoBehaviour
     {
         if(moveDirection < 0) transform.eulerAngles = new Vector2(0, 0);
         else transform.eulerAngles = new Vector2(0, 180);
-        rb.velocity = Vector2.right * moveSpeed * moveDirection;
+        if(rb != null)rb.velocity = Vector2.right * moveSpeed * moveDirection;
     }
 
     public void Damage(int dmg)

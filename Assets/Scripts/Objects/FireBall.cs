@@ -39,7 +39,7 @@ public class FireBall : MonoBehaviour
 
             if (toDamage == "Player")
             {
-                if (collision.gameObject.GetComponent<PlayerManager>() != null) collision.gameObject.GetComponent<PlayerManager>().Damage(direction);
+                if (collision.gameObject.GetComponent<PlayerManager>() != null) collision.gameObject.GetComponent<PlayerManager>().Damage(direction, damage);
             }
             if (toDamage == "Enemy") 
             {

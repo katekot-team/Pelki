@@ -7,11 +7,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
     [SerializeField] float dashObstacleSize;
-    [SerializeField] int damagePowerWeak;
-    [SerializeField] int damagePowerStrong;
+    [SerializeField] int damagePowerHit;
     [SerializeField] GameObject hitPoint;
     [SerializeField] Transform hitRight;
-    [SerializeField] Transform hitLeft;
+    [SerializeField] GameObject climbUpObj;
     [SerializeField] GameObject fireball;
 
     Rigidbody2D rb;
@@ -28,12 +27,14 @@ public class PlayerManager : MonoBehaviour
     public bool hit { get; set; }
     public bool fire { get; set; }
 
+    bool isAlive;
     bool isGround;
     bool isWall;
     bool isCollision;
     public int direction = 1;
     Vector2 capsuleColliderSize;
     Vector2 damageVector = new Vector2(5000, 100);
+    //Vector2 climbObjStartPosition;
 
     void Start()
     {
@@ -44,21 +45,35 @@ public class PlayerManager : MonoBehaviour
 
         hitPoint.SetActive(false);
         capsuleColliderSize = capsule.size;
+
+        isAlive = true;
+
+        //climbObjStartPosition = climbUpObj.transform.localPosition;
     }
 
     
     void FixedUpdate()
     {
-        Move();
+        if (isAlive)
+        {
+            Move();
+        }
+        
         
     }
 
     private void Update()
     {
-        Jump();
-        Dash();
-        ToHit();
-        ToFire();
+        if (isAlive)
+        {
+            Jump();
+            Dash();
+            ToHit();
+            ToFire();
+
+            //ClimbUp();
+        }
+
         
     }
 
@@ -69,36 +84,38 @@ public class PlayerManager : MonoBehaviour
 
     public int GetDamagePowerWeak()
     {
-        return damagePowerWeak;
+        return damagePowerHit;
     }
 
-    public int GetDamagePowerStrong()
-    {
-        return damagePowerStrong;
-    }
+    //public int GetDamagePowerStrong()
+    //{
+    //    return damagePowerStrong;
+    //}
 
     void Move()
     {
 
         if (move < 0)
         {
-            rend.flipX = true;
+            //rend.flipX = true;
             direction = -1;
             
         }
         else if (move > 0)
         {
-            rend.flipX = false;
+            //rend.flipX = false;
             direction = 1;
             
         }
-        //hitPoint.transform.localPosition = new Vector2(Mathf.Abs(hitPoint.transform.localPosition.x) * direction, hitPoint.transform.localPosition.y);
+        
         Vector2 movement = new Vector2();
+        if (direction > 0) transform.eulerAngles = new Vector2(0, 0);
+        else transform.eulerAngles = new Vector2(0, 180);
         movement = new Vector2(move, 0) * moveSpeed;
         movement = Vector2.ClampMagnitude(movement, moveSpeed);
         movement.y = rb.velocity.y;
-        if(!isCollision || isGround)rb.velocity = movement;
-        
+        //if(!isCollision || isGround)rb.velocity = movement;
+        rb.velocity = movement;
 
     }
 
@@ -128,8 +145,13 @@ public class PlayerManager : MonoBehaviour
     {
         if (dash && !isWall)
         {
-            toDash = ToDash();
-            StartCoroutine(toDash);
+            if(GameManager.energyItem > 0)
+            {
+                toDash = ToDash();
+                StartCoroutine(toDash);
+                GameManager.energyItem--;
+            }
+
             
         }
          
@@ -144,6 +166,8 @@ public class PlayerManager : MonoBehaviour
         capsule.size = new Vector2(capsuleColliderSize.x/2, capsule.size.y);
         gameObject.tag = "Untagged";
         platformEffector2D.enabled = true;
+        Color32 defaulColor = rend.color;
+        rend.color = new Color32(0, 0, 0, 100);//цвет при активном dash
         while (true)
         {
             if (isWall) 
@@ -156,6 +180,7 @@ public class PlayerManager : MonoBehaviour
             if (time <= 0) break;
             
         }
+        rend.color = defaulColor;
         gameObject.tag = "Player";
         capsule.size = capsuleColliderSize;
         platformEffector2D.enabled = false;
@@ -163,23 +188,57 @@ public class PlayerManager : MonoBehaviour
         StopCoroutine(toDash);
     }
 
+    IEnumerator climbUp;
+    IEnumerator ClimbUp(Transform posFinish)//доделать залазанье на платформу, в часности двигать персонажа к платформе по горизонтали
+    {
+        float elasted = 0;
+        float translateTime = Vector2.Distance(transform.position, climbUpObj.transform.position);
+        Debug.Log("climb up to");
+        climbUpObj.SetActive(true);
+        rb.simulated = false;
+        Vector2 positionUp = climbUpObj.transform.position;
+        while(elasted < translateTime)
+        {
+            transform.position = Vector2.Lerp(transform.position, new Vector2(transform.position.x, posFinish.position.y + capsule.size.y/2), elasted/translateTime);
+            elasted += Time.deltaTime;
+            yield return null;
+        }
+        
+        //yield return new WaitForSeconds(1);
+        rb.simulated = true;
+        climbUpObj.SetActive(false);
+        StopCoroutine(climbUp);
+
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(!isGround) isCollision = true;
+        
         if (collision.gameObject.tag == "Wall") 
         {
             isWall = true;
         } 
-        
+        if(collision.gameObject.tag == "Untagged")
+        {
+            
+            if (!isGround)
+            {
+                climbUp = ClimbUp(collision.gameObject.transform);
+                StartCoroutine(climbUp);
+            }
+        }
 
     }
 
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (!isGround) isCollision = false;
+        
         if (collision.gameObject.tag == "Wall") isWall = false;
+        if (collision.gameObject.tag == "Untagged")
+        {
 
+        }
     }
 
     void ToHit()
@@ -200,18 +259,21 @@ public class PlayerManager : MonoBehaviour
     {
         if (fire)
         {
-            Transform shootPoint;
-            if (direction > 0) shootPoint = hitRight;
-            else shootPoint = hitLeft;
-            Instantiate(fireball, shootPoint.position, shootPoint.rotation);
+            if(GameManager.energyItem > 0)
+            {
+                Transform shootPoint;
+                shootPoint = hitRight;;
+                Instantiate(fireball, shootPoint.position, shootPoint.rotation);
+                GameManager.energyItem--;
+            }
+
         }
     }
 
     IEnumerator ToHitObject()
     {
         hitPoint.SetActive(true);
-        if (direction > 0) hitPoint.transform.position = hitRight.position;
-        else hitPoint.transform.position = hitLeft.position;
+        hitPoint.transform.position = hitRight.position;
         yield return new WaitForSeconds(0.1f);
         hitPoint.transform.position = new Vector2(transform.position.x, transform.position.y);
         hitPoint.SetActive(false);
@@ -219,20 +281,30 @@ public class PlayerManager : MonoBehaviour
     }
 
     IEnumerator toDamage;
-    public void Damage(int d)
+    public void Damage(int direct, int value)
     {
+        
         Debug.Log("player DAMAGE!");
-        rb.AddForce(new Vector2(damageVector.x * d, damageVector.y), ForceMode2D.Force);
+        rb.AddForce(new Vector2(damageVector.x * direct, damageVector.y), ForceMode2D.Force);
         toDamage = ToDamage();
         StartCoroutine(toDamage);
 
         IEnumerator ToDamage()
         {
             Color32 defaulColor = rend.color;
-            rend.color = new Color32(255, 0, 0, 100);
+            rend.color = new Color32(255, 0, 0, 100);//цвет при активном damage
             yield return new WaitForSeconds(0.3f);
             rend.color = defaulColor;
             StopCoroutine(toDamage);
+        }
+        if(GameManager.health > 0)
+        {
+            GameManager.health-=value;
+            
+        }
+        else
+        {
+            isAlive = false;
         }
     }
 

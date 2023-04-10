@@ -5,9 +5,12 @@ using UnityEngine;
 public class Fish : MonoBehaviour
 {
     Enemy enemy;
+    int damage;
+
     void Start()
     {
         enemy = GetComponent<Enemy>();
+        damage = enemy.damage;
     }
 
 
@@ -33,7 +36,7 @@ public class Fish : MonoBehaviour
                 }
             }
 
-            collision.gameObject.GetComponent<PlayerManager>().Damage(direction);
+            collision.gameObject.GetComponent<PlayerManager>().Damage(direction, damage);
         }
     }
 }

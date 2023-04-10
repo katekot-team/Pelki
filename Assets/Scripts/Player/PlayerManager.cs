@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject hitPoint;
     [SerializeField] Transform hitRight;
     [SerializeField] Transform hitLeft;
+    [SerializeField] GameObject fireball;
 
     Rigidbody2D rb;
     SpriteRenderer rend;
@@ -25,6 +26,7 @@ public class PlayerManager : MonoBehaviour
     public bool jump { get; set; }
     public bool dash { get; set; }
     public bool hit { get; set; }
+    public bool fire { get; set; }
 
     bool isGround;
     bool isWall;
@@ -56,7 +58,7 @@ public class PlayerManager : MonoBehaviour
         Jump();
         Dash();
         ToHit();
-
+        ToFire();
         
     }
 
@@ -192,6 +194,17 @@ public class PlayerManager : MonoBehaviour
 
         }
         
+    }
+
+    void ToFire()
+    {
+        if (fire)
+        {
+            Transform shootPoint;
+            if (direction > 0) shootPoint = hitRight;
+            else shootPoint = hitLeft;
+            Instantiate(fireball, shootPoint.position, shootPoint.rotation);
+        }
     }
 
     IEnumerator ToHitObject()

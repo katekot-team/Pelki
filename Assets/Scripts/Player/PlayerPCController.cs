@@ -18,6 +18,7 @@ public class PlayerPCController : MonoBehaviour
         playerManager.jump = Input.GetButtonDown("Jump");
         playerManager.dash = Input.GetButtonDown("Dash");
         playerManager.hit = Input.GetButtonDown("Fire1");
+        playerManager.fire = Input.GetButtonDown("Fire2");
     }
 
 

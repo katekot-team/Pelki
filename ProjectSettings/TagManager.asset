@@ -7,6 +7,7 @@ TagManager:
   - Interactible
   - HitPoint
   - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX

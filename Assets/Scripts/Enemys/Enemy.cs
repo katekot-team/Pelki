@@ -107,7 +107,7 @@ public class Enemy : MonoBehaviour
                 {
                     behavior = Behavior.notactive;
                     BehaviorEnemy();
-                    Debug.Log(hit.collider.name);
+                    //Debug.Log(hit.collider.name);
                     if (speed > 0)
                     {
                         if (hit.collider.transform.position.x > transform.position.x) moveDirection = -1;

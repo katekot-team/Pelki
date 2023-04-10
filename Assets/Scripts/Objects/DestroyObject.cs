@@ -24,6 +24,7 @@ public class DestroyObject : MonoBehaviour
     public void Destroy(int dmg)
     {
         health-=dmg;
+        //Debug.Log("health " + health);
         if(health <= 0)
         {
             if (item != null) itemObject.SetActive(true);

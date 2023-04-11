@@ -10,7 +10,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] int damagePowerHit;
     [SerializeField] GameObject hitPoint;
     [SerializeField] Transform hitRight;
-    [SerializeField] GameObject climbUpObj;
     [SerializeField] GameObject fireball;
 
     Rigidbody2D rb;
@@ -34,7 +33,7 @@ public class PlayerManager : MonoBehaviour
     public int direction = 1;
     Vector2 capsuleColliderSize;
     Vector2 damageVector = new Vector2(5000, 100);
-    //Vector2 climbObjStartPosition;
+
 
     void Start()
     {
@@ -48,7 +47,6 @@ public class PlayerManager : MonoBehaviour
 
         isAlive = true;
 
-        //climbObjStartPosition = climbUpObj.transform.localPosition;
     }
 
     
@@ -71,7 +69,6 @@ public class PlayerManager : MonoBehaviour
             ToHit();
             ToFire();
 
-            //ClimbUp();
         }
 
         
@@ -87,25 +84,18 @@ public class PlayerManager : MonoBehaviour
         return damagePowerHit;
     }
 
-    //public int GetDamagePowerStrong()
-    //{
-    //    return damagePowerStrong;
-    //}
 
     void Move()
     {
 
         if (move < 0)
         {
-            //rend.flipX = true;
             direction = -1;
             
         }
         else if (move > 0)
         {
-            //rend.flipX = false;
             direction = 1;
-            
         }
         
         Vector2 movement = new Vector2();
@@ -191,22 +181,30 @@ public class PlayerManager : MonoBehaviour
     IEnumerator climbUp;
     IEnumerator ClimbUp(Transform posFinish)//доделать залазанье на платформу, в часности двигать персонажа к платформе по горизонтали
     {
-        float elasted = 0;
-        float translateTime = Vector2.Distance(transform.position, climbUpObj.transform.position);
         Debug.Log("climb up to");
-        climbUpObj.SetActive(true);
         rb.simulated = false;
-        Vector2 positionUp = climbUpObj.transform.position;
-        while(elasted < translateTime)
+        float elapsed = 0;
+        
+        Vector2 targetUpPosition = new Vector2(transform.position.x, posFinish.position.y + capsule.size.y / 2 + posFinish.localScale.y / 2);
+        float timeUp = Vector2.Distance(transform.position, targetUpPosition)/4;
+        while (elapsed < timeUp)
         {
-            transform.position = Vector2.Lerp(transform.position, new Vector2(transform.position.x, posFinish.position.y + capsule.size.y/2), elasted/translateTime);
-            elasted += Time.deltaTime;
+            transform.position = Vector2.Lerp(transform.position, targetUpPosition, elapsed/timeUp);
+            elapsed += Time.deltaTime;
             yield return null;
         }
         
-        //yield return new WaitForSeconds(1);
+        elapsed = 0;
+        Vector2 targetTranslatePosition = new Vector2(transform.position.x + capsule.size.x * direction, transform.position.y);
+        float timeTranslate = Vector2.Distance(transform.position, targetTranslatePosition)/4;
+        while (elapsed < timeTranslate)
+        {
+            transform.position = Vector2.Lerp(transform.position, targetTranslatePosition, elapsed / timeTranslate);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
         rb.simulated = true;
-        climbUpObj.SetActive(false);
         StopCoroutine(climbUp);
 
     }
@@ -223,8 +221,14 @@ public class PlayerManager : MonoBehaviour
             
             if (!isGround)
             {
-                climbUp = ClimbUp(collision.gameObject.transform);
-                StartCoroutine(climbUp);
+                Transform platformTransform = collision.gameObject.transform;
+                if (platformTransform.position.x + platformTransform.localScale.x/2 < transform.position.x || platformTransform.position.x - platformTransform.localScale.x / 2 > transform.position.x)
+                {
+                    climbUp = ClimbUp(collision.gameObject.transform);
+                    StartCoroutine(climbUp);
+                }
+
+
             }
         }
 
@@ -235,10 +239,7 @@ public class PlayerManager : MonoBehaviour
     {
         
         if (collision.gameObject.tag == "Wall") isWall = false;
-        if (collision.gameObject.tag == "Untagged")
-        {
 
-        }
     }
 
     void ToHit()

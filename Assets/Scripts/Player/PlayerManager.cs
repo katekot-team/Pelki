@@ -131,52 +131,83 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    void Dash()//проход сквозь препятствия
+    Transform RayCast()
     {
-        if (dash && !isWall)
+        RaycastHit2D[] hits;
+        Debug.DrawRay(hitRight.transform.position, transform.right * dashObstacleSize, Color.red);
+
+        hits = Physics2D.RaycastAll(hitRight.transform.position, transform.right, dashObstacleSize);
+
+        if(hits.Length > 0)
         {
-            if(GameManager.energyItem > 0)
+            return hits[hits.Length - 1].transform;
+
+        }
+        return transform;
+    }
+
+    void Dash()
+    {
+        if (dash)
+        {
+            
+            Transform target = RayCast();
+            if(target.tag != "Wall")
             {
-                toDash = ToDash();
-                StartCoroutine(toDash);
-                GameManager.energyItem--;
+                float sizeTarget = target.lossyScale.x;
+                if(sizeTarget < dashObstacleSize)transform.position = new Vector2(target.position.x + (sizeTarget + capsule.size.x) * direction, transform.position.y);
             }
 
-            
         }
-         
+        
     }
+
+    //void Dash()//проход сквозь препятствия
+    //{
+    //    if (dash && !isWall)
+    //    {
+    //        if(GameManager.energyItem > 0)
+    //        {
+    //            toDash = ToDash();
+    //            StartCoroutine(toDash);
+    //            GameManager.energyItem--;
+    //        }
+
+            
+    //    }
+         
+    //}
 
     
-    IEnumerator ToDash()
-    {
-        Vector2 lastPosition = transform.position;
-        dash = false;
-        float time = 100;
-        capsule.size = new Vector2(capsuleColliderSize.x/2, capsule.size.y);
-        gameObject.tag = "Untagged";
-        platformEffector2D.enabled = true;
-        Color32 defaulColor = rend.color;
-        rend.color = new Color32(0, 0, 0, 100);//цвет при активном dash
-        while (true)
-        {
-            if (isWall) 
-            {
-                transform.position = lastPosition;
-                break;
-            } 
-            yield return new WaitForSeconds(0.01f);
-            time--;
-            if (time <= 0) break;
+    //IEnumerator ToDash()
+    //{
+    //    Vector2 lastPosition = transform.position;
+    //    dash = false;
+    //    float time = 100;
+    //    capsule.size = new Vector2(capsuleColliderSize.x/2, capsule.size.y);
+    //    gameObject.tag = "Untagged";
+    //    platformEffector2D.enabled = true;
+    //    Color32 defaulColor = rend.color;
+    //    rend.color = new Color32(0, 0, 0, 100);//цвет при активном dash
+    //    while (true)
+    //    {
+    //        if (isWall) 
+    //        {
+    //            transform.position = lastPosition;
+    //            break;
+    //        } 
+    //        yield return new WaitForSeconds(0.01f);
+    //        time--;
+    //        if (time <= 0) break;
             
-        }
-        rend.color = defaulColor;
-        gameObject.tag = "Player";
-        capsule.size = capsuleColliderSize;
-        platformEffector2D.enabled = false;
+    //    }
+    //    rend.color = defaulColor;
+    //    gameObject.tag = "Player";
+    //    capsule.size = capsuleColliderSize;
+    //    platformEffector2D.enabled = false;
 
-        StopCoroutine(toDash);
-    }
+    //    StopCoroutine(toDash);
+    //}
 
     IEnumerator climbUp;
     IEnumerator ClimbUp(Transform posFinish)//доделать залазанье на платформу, в часности двигать персонажа к платформе по горизонтали
@@ -260,12 +291,12 @@ public class PlayerManager : MonoBehaviour
     {
         if (fire)
         {
-            if(GameManager.energyItem > 0)
+            if(GameManager.energy > 0)
             {
                 Transform shootPoint;
                 shootPoint = hitRight;;
                 Instantiate(fireball, shootPoint.position, shootPoint.rotation);
-                GameManager.energyItem--;
+                GameManager.energy--;
             }
 
         }

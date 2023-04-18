@@ -5,20 +5,35 @@ using UnityEngine;
 public class Items : MonoBehaviour
 {
     [SerializeField] ItemData itemData;
-    int energy;
+    ItemType type;
+    int score;
 
     private void Awake()
     {
-        energy = itemData.score;
+        score = itemData.score;
+        type = itemData.type;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            Debug.Log("energy = " + energy);
-            GameManager.energyItem += energy;
+            switch (type)
+            {
+                case ItemType.largeEnergyItem:
+                case ItemType.smallEnergyItem:
+                    GameManager.energy += score;
+                    break;
+                case ItemType.largeHealthItem:
+                case ItemType.smallHealthItem:
+                    GameManager.health += score;
+                    break;
+            }
+            Debug.Log(type + " = " + score);
             Destroy(gameObject);
+            
+
+
             
         }
     }

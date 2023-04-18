@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        energyBar.fillAmount = (float)GameManager.energyItem/10;
+        energyBar.fillAmount = (float)GameManager.energy/10;
         healthBar.fillAmount = (float)GameManager.health / 10;
         if (GameManager.health <= 0) GameOver();
     }

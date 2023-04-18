@@ -9,13 +9,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] int startEnergyValue;
     [SerializeField] int startHealthValue;
     
-    public static int energyItem;
+    public static int energy;
     public static int health;
 
     private void Start()
     {
         health = startHealthValue;
-        energyItem = startEnergyValue;
+        energy = startEnergyValue;
     }
 
     public static void OnApplicationPause(bool pause)

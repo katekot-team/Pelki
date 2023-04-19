@@ -11,14 +11,16 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject hitPoint;
     [SerializeField] Transform hitRight;
     [SerializeField] GameObject fireball;
+    [SerializeField] Transform pointCompanion;
 
     Rigidbody2D rb;
     SpriteRenderer rend;
     CapsuleCollider2D capsule;
-    PlatformEffector2D platformEffector2D;
+    //PlatformEffector2D platformEffector2D;
 
     IEnumerator toHitObject;
-    IEnumerator toDash;
+    //IEnumerator toDash;
+    
     
     public float move { get; set; }
     public bool jump { get; set; }
@@ -34,13 +36,14 @@ public class PlayerManager : MonoBehaviour
     Vector2 capsuleColliderSize;
     Vector2 damageVector = new Vector2(5000, 100);
 
+    public Transform GetPointCompanion() { return pointCompanion; }
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         capsule = GetComponent<CapsuleCollider2D>();
-        platformEffector2D = GetComponent<PlatformEffector2D>();
+        //platformEffector2D = GetComponent<PlatformEffector2D>();
 
         hitPoint.SetActive(false);
         capsuleColliderSize = capsule.size;

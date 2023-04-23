@@ -16612,7 +16612,7 @@ GameObject:
   - component: {fileID: 1815710800}
   - component: {fileID: 1815710799}
   m_Layer: 0
-  m_Name: water
+  m_Name: waterFall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

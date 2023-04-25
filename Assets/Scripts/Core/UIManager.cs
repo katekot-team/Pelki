@@ -18,9 +18,27 @@ public class UIManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        energyBar.fillAmount = (float)GameManager.energy/10;
-        healthBar.fillAmount = (float)GameManager.health / 10;
+        EnergyDisplay();
+        HealthDisplay();
         if (GameManager.health <= 0) GameOver();
+    }
+
+    void EnergyDisplay()
+    {
+        if (GameManager.haveCompanion) 
+        {
+            energyBar.gameObject.SetActive(true);
+            energyBar.fillAmount = (float)GameManager.energy / 10;
+        }
+        else
+        {
+            energyBar.gameObject.SetActive(false);
+        }
+    }
+
+    void HealthDisplay()
+    {
+        healthBar.fillAmount = (float)GameManager.health / 10;
     }
 
     public void Pause()

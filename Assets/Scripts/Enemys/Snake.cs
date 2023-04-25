@@ -27,8 +27,10 @@ public class Snake : MonoBehaviour
             if (enemy.isAttack) 
             {
                 Instantiate(fireball, shootPoint.position, shootPoint.rotation);
+                yield return new WaitForSeconds(shotFrequency);
             }
-            yield return new WaitForSeconds(shotFrequency);
+            yield return new WaitForFixedUpdate();
+
         }
         
     }

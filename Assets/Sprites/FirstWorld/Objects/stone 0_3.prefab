@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1224789688610282426}
   - component: {fileID: 1224789688610282425}
   - component: {fileID: 3725728942072704764}
+  - component: {fileID: 6674698413181491293}
   m_Layer: 0
   m_Name: stone 0_3
   m_TagString: Enemy
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: 1364242650, guid: 3762038d9934ecc4c980ae83c1bc4476, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.745283, g: 0.089058906, b: 0.6516791, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -113,3 +114,17 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &6674698413181491293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224789688610282429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d589e90196a75a42b3d925b2dfd647f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: 3830d5082f54dc34e92b2ba2825572d7, type: 2}
+  item: {fileID: 0}

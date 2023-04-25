@@ -6,6 +6,7 @@ public class CompanionLight : MonoBehaviour
 {
     [SerializeField] float speed;
     Transform target;
+    PlayerManager playerManager;
 
     private void Start()
     {
@@ -16,9 +17,10 @@ public class CompanionLight : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            if(target == null)target = collision.gameObject.GetComponent<PlayerManager>().GetPointCompanion();
-            
-            
+            playerManager = collision.gameObject.GetComponent<PlayerManager>();
+            if (target == null)target = playerManager.GetPointCompanion();
+            playerManager.TakeACompanion();
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 

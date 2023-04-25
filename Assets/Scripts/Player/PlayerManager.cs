@@ -16,22 +16,18 @@ public class PlayerManager : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer rend;
     CapsuleCollider2D capsule;
-    //PlatformEffector2D platformEffector2D;
 
     IEnumerator toHitObject;
-    //IEnumerator toDash;
-    
     
     public float move { get; set; }
     public bool jump { get; set; }
     public bool dash { get; set; }
     public bool hit { get; set; }
     public bool fire { get; set; }
+    
 
     bool isAlive;
     bool isGround;
-    bool isWall;
-    bool isCollision;
     public int direction = 1;
     Vector2 capsuleColliderSize;
     Vector2 damageVector = new Vector2(5000, 100);
@@ -43,7 +39,6 @@ public class PlayerManager : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         capsule = GetComponent<CapsuleCollider2D>();
-        //platformEffector2D = GetComponent<PlatformEffector2D>();
 
         hitPoint.SetActive(false);
         capsuleColliderSize = capsule.size;
@@ -77,10 +72,6 @@ public class PlayerManager : MonoBehaviour
         
     }
 
-    private void LateUpdate()
-    {
-        
-    }
 
     public int GetDamagePowerWeak()
     {
@@ -107,7 +98,6 @@ public class PlayerManager : MonoBehaviour
         movement = new Vector2(move, 0) * moveSpeed;
         movement = Vector2.ClampMagnitude(movement, moveSpeed);
         movement.y = rb.velocity.y;
-        //if(!isCollision || isGround)rb.velocity = movement;
         rb.velocity = movement;
 
     }
@@ -151,7 +141,7 @@ public class PlayerManager : MonoBehaviour
 
     void Dash()
     {
-        if (dash)
+        if (dash && GameManager.haveCompanion)
         {
             
             Transform target = RayCast();
@@ -159,58 +149,13 @@ public class PlayerManager : MonoBehaviour
             {
                 float sizeTarget = target.lossyScale.x;
                 if(sizeTarget < dashObstacleSize)transform.position = new Vector2(target.position.x + (sizeTarget + capsule.size.x) * direction, transform.position.y);
+                GameManager.energy--;
             }
 
         }
         
     }
 
-    //void Dash()//проход сквозь препятствия
-    //{
-    //    if (dash && !isWall)
-    //    {
-    //        if(GameManager.energyItem > 0)
-    //        {
-    //            toDash = ToDash();
-    //            StartCoroutine(toDash);
-    //            GameManager.energyItem--;
-    //        }
-
-            
-    //    }
-         
-    //}
-
-    
-    //IEnumerator ToDash()
-    //{
-    //    Vector2 lastPosition = transform.position;
-    //    dash = false;
-    //    float time = 100;
-    //    capsule.size = new Vector2(capsuleColliderSize.x/2, capsule.size.y);
-    //    gameObject.tag = "Untagged";
-    //    platformEffector2D.enabled = true;
-    //    Color32 defaulColor = rend.color;
-    //    rend.color = new Color32(0, 0, 0, 100);//цвет при активном dash
-    //    while (true)
-    //    {
-    //        if (isWall) 
-    //        {
-    //            transform.position = lastPosition;
-    //            break;
-    //        } 
-    //        yield return new WaitForSeconds(0.01f);
-    //        time--;
-    //        if (time <= 0) break;
-            
-    //    }
-    //    rend.color = defaulColor;
-    //    gameObject.tag = "Player";
-    //    capsule.size = capsuleColliderSize;
-    //    platformEffector2D.enabled = false;
-
-    //    StopCoroutine(toDash);
-    //}
 
     IEnumerator climbUp;
     IEnumerator ClimbUp(Transform posFinish)//доделать залазанье на платформу, в часности двигать персонажа к платформе по горизонтали
@@ -243,13 +188,14 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+    public void TakeACompanion()
+    {
+        GameManager.haveCompanion = true;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-        if (collision.gameObject.tag == "Wall") 
-        {
-            isWall = true;
-        } 
+
         if(collision.gameObject.tag == "Untagged")
         {
             
@@ -269,13 +215,6 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        
-        if (collision.gameObject.tag == "Wall") isWall = false;
-
-    }
-
     void ToHit()
     {
         if (hit)
@@ -292,12 +231,12 @@ public class PlayerManager : MonoBehaviour
 
     void ToFire()
     {
-        if (fire)
+        if (fire && GameManager.haveCompanion)
         {
             if(GameManager.energy > 0)
             {
                 Transform shootPoint;
-                shootPoint = hitRight;;
+                shootPoint = hitRight;
                 Instantiate(fireball, shootPoint.position, shootPoint.rotation);
                 GameManager.energy--;
             }

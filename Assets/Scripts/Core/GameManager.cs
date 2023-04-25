@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     
     public static int energy;
     public static int health;
+    public static bool haveCompanion;
 
     private void Start()
     {

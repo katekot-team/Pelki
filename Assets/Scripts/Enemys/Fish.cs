@@ -25,6 +25,7 @@ public class Fish : MonoBehaviour
                 if (enemy.moveDirection < 0)
                 {
                     enemy.moveDirection = 1;
+
                 }
             }
             else
@@ -35,8 +36,8 @@ public class Fish : MonoBehaviour
                     enemy.moveDirection = -1;
                 }
             }
+            if(enemy.isAttack)collision.gameObject.GetComponent<PlayerManager>().Damage(direction, damage);
 
-            collision.gameObject.GetComponent<PlayerManager>().Damage(direction, damage);
         }
     }
 }

@@ -54,8 +54,7 @@ public class PlayerManager : MonoBehaviour
         {
             Move();
         }
-        
-        
+
     }
 
     private void Update()
@@ -158,7 +157,7 @@ public class PlayerManager : MonoBehaviour
 
 
     IEnumerator climbUp;
-    IEnumerator ClimbUp(Transform posFinish)//доделать залазанье на платформу, в часности двигать персонажа к платформе по горизонтали
+    IEnumerator ClimbUp(Transform posFinish)
     {
         Debug.Log("climb up to");
         rb.simulated = false;

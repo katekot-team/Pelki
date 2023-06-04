@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{782ca0bf-938a-4cce-9b97-afec9bf8acfe}">
+		<property name="assetPath">
+			<value>Ambience, Forest, Night, Wind In Trees, Quiet, Distant Rumbling Bass SND78910 3.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>7.684895833333333</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{66139dab-5110-414f-88da-0ec17e51f6a8}</destination>
+		</relationship>
+	</object>
+</objects>

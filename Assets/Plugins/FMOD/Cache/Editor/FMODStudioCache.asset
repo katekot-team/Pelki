@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: FMOD/Pelki/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638214635929234296
+  lastModified: 638215524429155558
   FileSizes:
   - Name: Desktop
-    Value: 828
+    Value: 764
   Exists: 1
 --- !u!114 &-4801154992969027803
 MonoBehaviour:
@@ -35,11 +35,38 @@ MonoBehaviour:
   Path: FMOD/Pelki/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638214635929198717
+  lastModified: 638215524429135554
   FileSizes:
   - Name: Desktop
-    Value: 101344
+    Value: 6528
   Exists: 1
+--- !u!114 &-2434449774917133975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Soul/HitDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Soul/HitDamage
+  Guid:
+    Data1: -1497790515
+    Data2: 1123890535
+    Data3: -1525642071
+    Data4: 44718275
+  Banks:
+  - {fileID: -4801154992969027803}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 566
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,40 +83,11 @@ MonoBehaviour:
   - {fileID: -6164662846043127744}
   - {fileID: -4801154992969027803}
   EditorEvents:
-  - {fileID: 9063282233896680485}
+  - {fileID: -2434449774917133975}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4801154992969027803}
   StringsBanks:
   - {fileID: -6164662846043127744}
-  cacheTime: 638214635929234296
+  cacheTime: 638215524429155558
   cacheVersion: 131603
---- !u!114 &9063282233896680485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Ambience, Forest, Night, Wind In Trees, Quiet, Distant Rumbling
-    Bass SND78910 3
-  m_EditorClassIdentifier: 
-  Path: event:/Ambience, Forest, Night, Wind In Trees, Quiet, Distant Rumbling Bass
-    SND78910 3
-  Guid:
-    Data1: -1643301229
-    Data2: 1197854743
-    Data3: -1258227017
-    Data4: 1850862657
-  Banks:
-  - {fileID: -4801154992969027803}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 6300

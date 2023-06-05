@@ -6104,7 +6104,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
   m_Name: 
@@ -11745,6 +11745,7 @@ GameObject:
   - component: {fileID: 1156747184}
   - component: {fileID: 1156747183}
   - component: {fileID: 1156747186}
+  - component: {fileID: 1156747187}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -11877,6 +11878,13 @@ MonoBehaviour:
     type: 3}
   pointCompanion: {fileID: 174865337}
   direction: 1
+  HitDamage:
+    Guid:
+      Data1: -1497790515
+      Data2: 1123890535
+      Data3: -1525642071
+      Data4: 44718275
+    Path: event:/Soul/HitDamage
 --- !u!70 &1156747185
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -11909,6 +11917,19 @@ MonoBehaviour:
   buttonAbilities:
   - {fileID: 81880654}
   - {fileID: 367277827}
+--- !u!114 &1156747187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156747178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &1162900020
 GameObject:
   m_ObjectHideFlags: 0

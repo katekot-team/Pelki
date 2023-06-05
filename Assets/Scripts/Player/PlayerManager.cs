@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,8 +32,14 @@ public class PlayerManager : MonoBehaviour
     public int direction = 1;
     Vector2 capsuleColliderSize;
     Vector2 damageVector = new Vector2(5000, 100);
-
+    
     public Transform GetPointCompanion() { return pointCompanion; }
+
+    public FMODUnity.EventReference HitDamage;
+
+    
+    
+    
 
     void Start()
     {
@@ -273,7 +280,7 @@ public class PlayerManager : MonoBehaviour
         if(GameManager.health > 0)
         {
             GameManager.health-=value;
-            
+            FMODUnity.RuntimeManager.PlayOneShot(HitDamage, gameObject.transform.position);
         }
         else
         {

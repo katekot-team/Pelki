@@ -8950,7 +8950,7 @@ GameObject:
   - component: {fileID: 822880483}
   - component: {fileID: 822880484}
   m_Layer: 0
-  m_Name: wind
+  m_Name: Ambience
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8986,12 +8986,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -1643301229
-      Data2: 1197854743
-      Data3: -1258227017
-      Data4: 1850862657
-    Path: event:/Ambience, Forest, Night, Wind In Trees, Quiet, Distant Rumbling
-      Bass SND78910 3
+      Data1: -220824635
+      Data2: 1115415692
+      Data3: 2052887433
+      Data4: -1039124069
+    Path: event:/Ambience/Ambience
   Event: 
   PlayEvent: 1
   StopEvent: 0

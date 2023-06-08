@@ -1,99 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7247957791820387494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Ambience/Ambience
-  m_EditorClassIdentifier: 
-  Path: event:/Ambience/Ambience
-  Guid:
-    Data1: -220824635
-    Data2: 1115415692
-    Data3: 2052887433
-    Data4: -1039124069
-  Banks:
-  - {fileID: -4801154992969027803}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 36000
---- !u!114 &-6164662846043127744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: FMOD/Pelki/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638215869466134168
-  FileSizes:
-  - Name: Desktop
-    Value: 824
-  Exists: 1
---- !u!114 &-4801154992969027803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: FMOD/Pelki/Build/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638215869466017940
-  FileSizes:
-  - Name: Desktop
-    Value: 1785728
-  Exists: 1
---- !u!114 &-2434449774917133975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Soul/HitDamage
-  m_EditorClassIdentifier: 
-  Path: event:/Soul/HitDamage
-  Guid:
-    Data1: -1497790515
-    Data2: 1123890535
-    Data3: -1525642071
-    Data4: 44718275
-  Banks:
-  - {fileID: -4801154992969027803}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 566
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,16 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
-  EditorBanks:
-  - {fileID: -6164662846043127744}
-  - {fileID: -4801154992969027803}
-  EditorEvents:
-  - {fileID: -2434449774917133975}
-  - {fileID: -7247957791820387494}
+  EditorBanks: []
+  EditorEvents: []
   EditorParameters: []
-  MasterBanks:
-  - {fileID: -4801154992969027803}
-  StringsBanks:
-  - {fileID: -6164662846043127744}
-  cacheTime: 638215869466134168
+  MasterBanks: []
+  StringsBanks: []
+  cacheTime: 0
   cacheVersion: 131603

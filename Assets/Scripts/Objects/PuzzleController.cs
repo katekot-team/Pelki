@@ -2,18 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Cinemachine;
 
 public class PuzzleController : MonoBehaviour
 {
+    [SerializeField] CinemachineVirtualCamera virtualCamera;
+    [SerializeField] float cameraOrthoSize;
     [SerializeField] float speedRotate;
     [SerializeField] GameObject[] puzzleElements;
     [SerializeField] GameObject[] activateObjects;
     [SerializeField] GameObject[] deactivateObjects;
 
-    [SerializeField] bool puzzleActive = false;
+    float cameraOrthoSizeStart;
+    bool puzzleActive = false;
+    bool isSolved = false;
 
     private void Start()
     {
+        cameraOrthoSizeStart = virtualCamera.m_Lens.OrthographicSize;
+
         SetReward(false, activateObjects);
 
         foreach (var puzzleElement in puzzleElements)
@@ -31,12 +38,47 @@ public class PuzzleController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player") puzzleActive = true;
+        if (collision.tag == "Player") 
+        {
+            if(cameraBehavior != null)StopCoroutine(cameraBehavior);
+
+            puzzleActive = true;
+            if (!isSolved)
+            {
+                cameraBehavior = CameraBehavior(cameraOrthoSize);
+                StartCoroutine(cameraBehavior);
+            }
+
+        } 
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player") puzzleActive = false;
+        if (collision.tag == "Player")
+        {
+            if (cameraBehavior != null) StopCoroutine(cameraBehavior);
+
+            puzzleActive = false;
+
+            cameraBehavior = CameraBehavior(cameraOrthoSizeStart);
+            StartCoroutine(cameraBehavior);
+
+        }
+    }
+
+    IEnumerator cameraBehavior;
+
+    IEnumerator CameraBehavior(float orthoSize)
+    {
+        float elapsed = 0;
+        while (virtualCamera.m_Lens.OrthographicSize != orthoSize)
+        {
+            virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize, orthoSize, elapsed/orthoSize);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        StopCoroutine(cameraBehavior);
     }
 
     void CheckSolution()
@@ -60,6 +102,7 @@ public class PuzzleController : MonoBehaviour
             SetReward(false, deactivateObjects);
             SetReward(true, activateObjects);
             activateObjects = null;
+            isSolved = true;
         }
     }
 
@@ -75,3 +118,4 @@ public class PuzzleController : MonoBehaviour
 
     }
 }
+

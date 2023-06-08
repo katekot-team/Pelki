@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{a229074a-2d10-42c7-a7ea-4709cb85a5bb}">
+		<property name="assetPath">
+			<value>Birds, Bird Of Prey, Little Owl Bush, Singing, Crickets, Insect, Night SND53829 3.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.9093020833333334</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{66139dab-5110-414f-88da-0ec17e51f6a8}</destination>
+		</relationship>
+	</object>
+</objects>

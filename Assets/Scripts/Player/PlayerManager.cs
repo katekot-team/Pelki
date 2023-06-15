@@ -247,7 +247,7 @@ public class PlayerManager : MonoBehaviour
             hitPoint.transform.position = new Vector2(transform.position.x, transform.position.y);
             toHitObject = ToHitObject();
             StartCoroutine(toHitObject);
-            SetAnimation(AnimationPlayer.kick);
+            
         }
         
     }
@@ -269,12 +269,18 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator ToHitObject()
     {
+        SetAnimation(AnimationPlayer.kick);
+        yield return new WaitForSeconds(0.3f);
         hitPoint.SetActive(true);
+        
         hitPoint.transform.position = hitRight.position;
         yield return new WaitForSeconds(0.1f);
         
         hitPoint.transform.position = new Vector2(transform.position.x, transform.position.y);
         hitPoint.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        SetAnimation(AnimationPlayer.idle, true);
+        
         StopCoroutine(toHitObject);
     }
 

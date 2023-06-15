@@ -1,9 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine.Unity;
+
+public enum AnimationPlayer
+{
+    idle,
+    run,
+    jump,
+    kick,
+}
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] SkeletonAnimation skeletonAnimation;
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
     [SerializeField] float dashObstacleSize;
@@ -16,10 +26,13 @@ public class PlayerManager : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer rend;
     CapsuleCollider2D capsule;
+    Spine.AnimationState spineAnimationState;
 
+    
     IEnumerator toHitObject;
     
     public float move { get; set; }
+    public bool toMove { get; set; }
     public bool jump { get; set; }
     public bool dash { get; set; }
     public bool hit { get; set; }
@@ -32,13 +45,20 @@ public class PlayerManager : MonoBehaviour
     Vector2 capsuleColliderSize;
     Vector2 damageVector = new Vector2(5000, 100);
 
+    [SerializeField] Animation anim;
+
     public Transform GetPointCompanion() { return pointCompanion; }
+
+
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         capsule = GetComponent<CapsuleCollider2D>();
+
+        spineAnimationState = skeletonAnimation.AnimationState;
 
         hitPoint.SetActive(false);
         capsuleColliderSize = capsule.size;
@@ -71,6 +91,11 @@ public class PlayerManager : MonoBehaviour
         
     }
 
+    public void SetAnimation(AnimationPlayer anim, bool loop = false)
+    {
+        spineAnimationState.SetAnimation(0, anim.ToString(), loop);
+
+    }
 
     public int GetDamagePowerWeak()
     {
@@ -222,8 +247,7 @@ public class PlayerManager : MonoBehaviour
             hitPoint.transform.position = new Vector2(transform.position.x, transform.position.y);
             toHitObject = ToHitObject();
             StartCoroutine(toHitObject);
-
-
+            SetAnimation(AnimationPlayer.kick);
         }
         
     }
@@ -248,6 +272,7 @@ public class PlayerManager : MonoBehaviour
         hitPoint.SetActive(true);
         hitPoint.transform.position = hitRight.position;
         yield return new WaitForSeconds(0.1f);
+        
         hitPoint.transform.position = new Vector2(transform.position.x, transform.position.y);
         hitPoint.SetActive(false);
         StopCoroutine(toHitObject);

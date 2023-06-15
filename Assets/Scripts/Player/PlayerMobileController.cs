@@ -42,7 +42,15 @@ public class PlayerMobileController : MonoBehaviour
     void Move()
     {
         playerManager.move = joystick.Horizontal;
+        
     }
+
+    public void ClickJoystick(bool click)
+    {
+        if(click)playerManager.SetAnimation(AnimationPlayer.run, true);
+        else playerManager.SetAnimation(AnimationPlayer.idle, true);
+    }
+
 
     public void Jump()
     {
@@ -92,5 +100,6 @@ public class PlayerMobileController : MonoBehaviour
         playerManager.dash = true;
         yield return new WaitForEndOfFrame();
         playerManager.dash = false;
+
     }
 }

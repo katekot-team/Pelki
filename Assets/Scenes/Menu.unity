@@ -770,6 +770,7 @@ MonoBehaviour:
   - {fileID: 415356395}
   - {fileID: 1348576264}
   speedRotate: 0.3
+  sceneName: FirstWorld
 --- !u!1 &597056981
 GameObject:
   m_ObjectHideFlags: 0
@@ -6751,7 +6752,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1521368508}
   m_OnClick:
     m_PersistentCalls:
@@ -7173,7 +7174,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2140261511}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 570144848}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2140261511
 MonoBehaviour:
   m_ObjectHideFlags: 0

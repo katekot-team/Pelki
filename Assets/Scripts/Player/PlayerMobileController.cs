@@ -47,8 +47,7 @@ public class PlayerMobileController : MonoBehaviour
 
     public void ClickJoystick(bool click)
     {
-        if(click)playerManager.SetAnimation(AnimationPlayer.run, true);
-        else playerManager.SetAnimation(AnimationPlayer.idle, true);
+        playerManager.ClickJoystick(click);
     }
 
 

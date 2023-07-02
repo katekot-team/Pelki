@@ -7,7 +7,9 @@ public enum AnimationPlayer
 {
     idle,
     run,
-    jump,
+    run_jump,
+    jump_up_state,
+    jump_up_to_down,
     kick,
 }
 
@@ -126,6 +128,12 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+    public void ClickJoystick(bool click)
+    {
+        if (click) SetAnimation(AnimationPlayer.run, true);
+        else SetAnimation(AnimationPlayer.idle, true);
+    }
+
     void Jump()
     {
         if (jump)
@@ -133,6 +141,7 @@ public class PlayerManager : MonoBehaviour
             if (isGround) 
             {
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                StartCoroutine(JumpAnim());
             } 
 
         }
@@ -146,6 +155,13 @@ public class PlayerManager : MonoBehaviour
         isGround = false;
         if (hit != null) isGround = true;
 
+    }
+
+    IEnumerator JumpAnim()
+    {
+        SetAnimation(AnimationPlayer.jump_up_to_down);
+        yield return new WaitForSeconds(0.7f);
+        SetAnimation(AnimationPlayer.idle);
     }
 
     Transform RayCast()

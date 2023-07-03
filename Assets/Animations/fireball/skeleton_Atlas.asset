@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585b0fc3e5207084186a1c112dbce893, type: 3}
-  m_Name: FireballPlayer
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: skeleton_Atlas
   m_EditorClassIdentifier: 
-  <toDamage>k__BackingField: 1
-  <speed>k__BackingField: 20
-  <lifeTime>k__BackingField: 3
-  <damage>k__BackingField: 3
+  atlasFile: {fileID: 4900000, guid: 9156fbc74a3320846859bf3135b95135, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 6013e5bb2aa302440a414021e8572365, type: 2}

@@ -1,0 +1,7 @@
+Key,English,German,Russian
+Tests.Title,Tests,Prüfungen,Тесты
+Tests.Multiline,"Line#1
+Line#2","Linie#1
+Linie#2","Строка#1
+Строка#2"
+Tests.Quotes,"Cat said ""MEOW""","Katze sagte ""MIAU""","Кот сказал ""МЯУ"""

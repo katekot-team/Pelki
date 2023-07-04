@@ -163,7 +163,8 @@ public class PlayerManager : MonoBehaviour
     {
         SetAnimation(AnimationPlayer.jump_up_to_down);
         yield return new WaitForSeconds(0.7f);
-        SetAnimation(AnimationPlayer.idle);
+        if(rb.velocity.x == 0)SetAnimation(AnimationPlayer.idle);
+        else SetAnimation(AnimationPlayer.run);
     }
 
     Transform RayCast()

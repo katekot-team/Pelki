@@ -28,7 +28,16 @@ namespace Assets.SimpleLocalization
             set { _language = value; LocalizationChanged(); }
         }
 
-		/// <summary>
+        public static IReadOnlyList<string> GetKeys()
+        {
+            if (Dictionary.Count == 0)
+            {
+                Read();
+            }
+            return Dictionary[Language].Keys.ToList();
+        }
+
+        /// <summary>
 		/// Set default language.
 		/// </summary>
         public static void AutoLanguage()

@@ -35,6 +35,15 @@ namespace Assets.SimpleLocalization
                 Read();
             }
             return Dictionary[Language].Keys.ToList();
+        }       
+        
+        public static IReadOnlyList<string> GetLanguagesKeys()
+        {
+            if (Dictionary.Count == 0)
+            {
+                Read();
+            }
+            return Dictionary.Keys.ToList();
         }
 
         /// <summary>

@@ -10,6 +10,7 @@ public enum AnimationPlayer
     run_jump,
     jump_up_state,
     jump_up_to_down,
+    cast_fireball,
     kick,
 }
 
@@ -19,6 +20,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
     [SerializeField] float dashObstacleSize;
+    [SerializeField] float castFireballDelay;
     [SerializeField] int damagePowerHit;
     [SerializeField] GameObject hitPoint;
     [SerializeField] Transform hitRight;
@@ -161,7 +163,8 @@ public class PlayerManager : MonoBehaviour
     {
         SetAnimation(AnimationPlayer.jump_up_to_down);
         yield return new WaitForSeconds(0.7f);
-        SetAnimation(AnimationPlayer.idle);
+        if(rb.velocity.x == 0)SetAnimation(AnimationPlayer.idle);
+        else SetAnimation(AnimationPlayer.run);
     }
 
     Transform RayCast()
@@ -274,13 +277,21 @@ public class PlayerManager : MonoBehaviour
         {
             if(GameManager.energy > 0)
             {
-                Transform shootPoint;
-                shootPoint = hitRight;
-                Instantiate(fireball, shootPoint.position, shootPoint.rotation);
-                GameManager.energy--;
+                StartCoroutine(CastFireball());
+               
             }
 
         }
+    }
+
+    IEnumerator CastFireball()
+    {
+        SetAnimation(AnimationPlayer.cast_fireball);
+        yield return new WaitForSeconds(castFireballDelay);
+        Transform shootPoint;
+        shootPoint = hitRight;
+        Instantiate(fireball, shootPoint.position, shootPoint.rotation);
+        GameManager.energy--;
     }
 
     IEnumerator ToHitObject()

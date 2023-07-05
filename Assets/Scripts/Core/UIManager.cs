@@ -9,21 +9,22 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image energyBar;
     [SerializeField] Image panelPause;
     [SerializeField] Image panelGameOver;
+
     bool pause;
 
-    void Start()
+    private void Start()
     {
         pause = false;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         EnergyDisplay();
         HealthDisplay();
         if (GameManager.health <= 0) GameOver();
     }
 
-    void EnergyDisplay()
+    private void EnergyDisplay()
     {
         if (GameManager.haveCompanion) 
         {
@@ -36,7 +37,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void HealthDisplay()
+    private void HealthDisplay()
     {
         healthBar.fillAmount = (float)GameManager.health / 10;
     }
@@ -54,7 +55,7 @@ public class UIManager : MonoBehaviour
         GameManager.OnLevelReplay();
     }
 
-    void GameOver()
+    private void GameOver()
     {
         GameManager.OnApplicationPause(true);
         panelGameOver.gameObject.SetActive(true);

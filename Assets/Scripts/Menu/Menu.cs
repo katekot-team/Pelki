@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.SimpleLocalization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
@@ -9,16 +11,48 @@ public class Menu : MonoBehaviour
     [SerializeField] float speedRotate;
     [SerializeField] string sceneName;
 
-    AsyncOperation asyncOperation;
+    [Header("Language")]
+    [NaughtyAttributes.Dropdown(nameof(GetAllLanguagesKeys))]
+    [SerializeField] string ruLanguageKey;
 
-    void FixedUpdate()
+    [NaughtyAttributes.Dropdown(nameof(GetAllLanguagesKeys))]
+    [SerializeField] string enLanguageKey;
+
+    [Header("Buttons")]
+    [SerializeField] Button enLocalizationButton;
+
+    [SerializeField] Button ruLocalizationButton;
+
+    private void Update()
     {
-        WheelRotate();
+        WheelRotateTick();
     }
 
-    void WheelRotate()
+    private void OnEnable()
     {
-        foreach(GameObject wheel in listWheelDecor)
+        enLocalizationButton.onClick.AddListener(EnLocalizationButtonOnClick);
+        ruLocalizationButton.onClick.AddListener(RuLocalizationButtonOnClick);
+    }
+
+    private void OnDisable()
+    {
+        enLocalizationButton.onClick.RemoveListener(EnLocalizationButtonOnClick);
+        ruLocalizationButton.onClick.RemoveListener(RuLocalizationButtonOnClick);
+    }
+
+    private void RuLocalizationButtonOnClick()
+    {
+        LocalizationManager.Language = ruLanguageKey;
+    }
+
+    private void EnLocalizationButtonOnClick()
+    {
+        LocalizationManager.Language = enLanguageKey;
+    }
+
+    void WheelRotateTick()
+    {
+        foreach (GameObject wheel in listWheelDecor)
         {
             wheel.transform.Rotate(0, 0, speedRotate);
             speedRotate *= -1;
@@ -33,6 +67,12 @@ public class Menu : MonoBehaviour
     IEnumerator LoaderScene(string sceneName)
     {
         yield return null;
-        asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation _ = SceneManager.LoadSceneAsync(sceneName);
+    }
+
+    private IReadOnlyList<string> GetAllLanguagesKeys()
+    {
+        IReadOnlyList<string> result = LocalizationManager.GetLanguagesKeys();
+        return result;
     }
 }

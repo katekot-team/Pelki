@@ -10,7 +10,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] Behavior behavior;
     [SerializeField] GameObject item;
     [SerializeField] Transform pointRaycastEmit;
-
+    [SerializeField] Transform pointSpawnItem;
+    
     GameObject itemObject;
     Rigidbody2D rb;
 
@@ -18,15 +19,12 @@ public class Enemy : MonoBehaviour
     int health;
     float speed;
     float speedAttack;
-
-    public float moveSpeed;
+    float moveSpeed;
 
     public int damage { get; private set; }
     public int moveDirection { get; set; }
     public bool isAttack { get; set; }
     
-
-
     enum Behavior
     {
         active,
@@ -47,7 +45,7 @@ public class Enemy : MonoBehaviour
         isAttack = false;
     }
 
-    void Start()
+    private void Start()
     {
 
 
@@ -61,17 +59,16 @@ public class Enemy : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Move();
         Raycast();
 
-
-        if (health <= 0) ToDestroy();
+        
     }
 
 
-    void BehaviorEnemy()
+    private void BehaviorEnemy()
     {
         switch (behavior)
         {
@@ -87,7 +84,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Raycast()
+    private void Raycast()
     {
         RaycastHit2D[] hits;
         Debug.DrawRay(pointRaycastEmit.position, -transform.right * detectionDistance, Color.red);
@@ -130,7 +127,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Move()
+    private void Move()
     {
         if(moveDirection < 0) transform.eulerAngles = new Vector2(0, 0);
         else transform.eulerAngles = new Vector2(0, 180);
@@ -138,14 +135,21 @@ public class Enemy : MonoBehaviour
     }
 
     public void Damage(int dmg)
-    {
+    {       
         health -= dmg;
+        if (health <= 0) ToDestroy();
     }
 
-    void ToDestroy()
+    private void ToDestroy()
     {
-        if(itemObject != null)itemObject.SetActive(true);
-
+        if (itemObject != null)
+        {
+            GameObject itemObj = Instantiate(itemObject, pointSpawnItem.position, Quaternion.identity);
+            itemObj.transform.position = transform.position;
+            itemObj.SetActive(true);
+        }
         gameObject.SetActive(false);
     }
+
+
 }

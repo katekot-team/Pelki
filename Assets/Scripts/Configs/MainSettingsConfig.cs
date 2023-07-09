@@ -6,7 +6,9 @@ namespace Pelki.Configs
     public class MainSettingsConfig : ScriptableObject
     {
         [SerializeField] private LevelsConfig levelsConfig;
+        [SerializeField] private InputConfig inputConfig;
 
         public LevelsConfig LevelsConfig => levelsConfig;
+        public InputConfig InputConfig => inputConfig;
     }
 }

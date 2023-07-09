@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c86a250173f495aa2388a656e451e31, type: 3}
-  m_Name: MainSettingsConfig
+  m_Script: {fileID: 11500000, guid: 6ed22a5eb707461aa916b8e7290d9643, type: 3}
+  m_Name: InputConfig
   m_EditorClassIdentifier: 
-  levelsConfig: {fileID: 11400000, guid: b2bbc92dc286444e3a2a3209f22c2091, type: 2}
-  inputConfig: {fileID: 11400000, guid: aa525f9fdbeae4eac8157163741a3550, type: 2}
+  horizontalAxisKey: Horizontal
+  verticalAxisKey: Vertical

@@ -12,7 +12,7 @@ namespace Pelki.UI
 
         private BaseScreen currentScreen;
 
-        public void ShowScreen<TScreen>() where TScreen : BaseScreen
+        public TScreen ShowScreen<TScreen>() where TScreen : BaseScreen
         {
             Type screenType = typeof(TScreen);
 
@@ -30,7 +30,7 @@ namespace Pelki.UI
                 {
                     BaseScreen newScreen = Instantiate(prefab, transform);
                     screenCache[screenType] = newScreen;
-                    currentScreen.Hide();
+                    currentScreen?.Hide();
                     currentScreen = newScreen;
                     currentScreen.Show();
                 }
@@ -39,6 +39,8 @@ namespace Pelki.UI
                     Debug.LogError($"Screen prefab not found for type {screenType}");
                 }
             }
+
+            return (TScreen)currentScreen;
         }
 
         private void HideCurrentScreen()

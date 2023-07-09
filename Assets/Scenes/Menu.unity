@@ -1068,11 +1068,11 @@ MonoBehaviour:
   - {fileID: 415356395}
   - {fileID: 1348576264}
   speedRotate: 0.3
-  sceneName: FirstWorld
   ruLanguageKey: Russian
   enLanguageKey: English
   enLocalizationButton: {fileID: 172433631}
   ruLocalizationButton: {fileID: 1933545534}
+  newGameButton: {fileID: 0}
 --- !u!1 &597056981
 GameObject:
   m_ObjectHideFlags: 0

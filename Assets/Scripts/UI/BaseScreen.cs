@@ -4,8 +4,14 @@ namespace Pelki.UI
 {
     public abstract class BaseScreen : MonoBehaviour
     {
-        public abstract void Hide();
+        public virtual void Show()
+        {
+            this.gameObject.SetActive(true);
+        }
 
-        public abstract void Show();
+        public virtual void Hide()
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 }

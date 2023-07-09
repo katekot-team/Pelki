@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3922283374596070598
+--- !u!1 &6807190057201685264
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6952522188762965897}
-  - component: {fileID: 7399477765357014425}
-  m_Layer: 5
-  m_Name: ScreenSwitcher
+  - component: {fileID: 6807190057201685270}
+  - component: {fileID: 6807190057201685265}
+  m_Layer: 0
+  m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &6952522188762965897
-RectTransform:
+--- !u!4 &6807190057201685270
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3922283374596070598}
+  m_GameObject: {fileID: 6807190057201685264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,23 +32,17 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7399477765357014425
+--- !u!114 &6807190057201685265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3922283374596070598}
+  m_GameObject: {fileID: 6807190057201685264}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce397c471744c9787ba2c1cfae3c138, type: 3}
+  m_Script: {fileID: 11500000, guid: 38b7a0ef18b34c8990e496dd6e14fc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screensPrefabs:
-  - {fileID: 7398622542192392854, guid: 122aa7bfe186c4757a473cb0b5b3e160, type: 3}
-  - {fileID: 2411395312373688527, guid: db3ba852eff9a4e48ba34aabb5db33af, type: 3}
+  mainSettingsConfig: {fileID: 11400000, guid: 5dc771c5d2c2b438cb848aaa24c15f10, type: 2}
+  screenSwitcher: {fileID: 0}

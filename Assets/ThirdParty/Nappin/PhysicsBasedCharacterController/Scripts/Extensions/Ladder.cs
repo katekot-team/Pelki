@@ -26,8 +26,8 @@ namespace PhysicsBasedCharacterController
                 {
                     Rigidbody rb = rigidbodies[i];
 
-                    if (input.axisInput.y > 0) rb.velocity = new Vector3(0f, climbSpeed, 0f);
-                    else if (input.axisInput.y < 0) rb.AddForce(forceOnDismount * this.transform.forward);
+                    if (input.AxisInput.y > 0) rb.velocity = new Vector3(0f, climbSpeed, 0f);
+                    else if (input.AxisInput.y < 0) rb.AddForce(forceOnDismount * this.transform.forward);
                 }
             }
         }

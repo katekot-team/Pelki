@@ -129,7 +129,7 @@ namespace PhysicsBasedCharacterController
         [Space(10)]
 
         [Tooltip("Input reference")]
-        public InputReader input;
+        public BaseInputReader input;
         [Space(10)]
 
         public bool debug = true;
@@ -216,11 +216,11 @@ namespace PhysicsBasedCharacterController
         private void Update()
         {
             //input
-            axisInput = input.axisInput;
-            jump = input.jump;
-            jumpHold = input.jumpHold;
-            sprint = input.sprint;
-            crouch = input.crouch;
+            axisInput = input.AxisInput;
+            jump = input.Jump;
+            jumpHold = input.JumpHold;
+            sprint = input.Sprint;
+            crouch = input.Crouch;
 
 
             if (Input.GetKeyDown(KeyCode.X))

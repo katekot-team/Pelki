@@ -7,33 +7,26 @@ using UnityEngine.InputSystem;
 
 namespace PhysicsBasedCharacterController
 {
-    public class InputReader : MonoBehaviour
+    public class InputReader : BaseInputReader
     {
         [Header("Input specs")]
         public UnityEvent changedInputToMouseAndKeyboard;
+
         public UnityEvent changedInputToGamepad;
 
         [Header("Enable inputs")]
         public bool enableJump = true;
+
         public bool enableCrouch = true;
         public bool enableSprint = true;
 
-
-        [HideInInspector]
-        public Vector2 axisInput;
-        [HideInInspector]
-        public Vector2 cameraInput = Vector2.zero;
-        [HideInInspector]
-        public bool jump;
-        [HideInInspector]
-        public bool jumpHold;
-        [HideInInspector]
-        public float zoom;
-        [HideInInspector]
-        public bool sprint;
-        [HideInInspector]
-        public bool crouch;
-
+        public override Vector2 AxisInput { get; protected set; }
+        public override Vector2 CameraInput { get; protected set; } = Vector2.zero;
+        public override bool Jump { get; protected set; }
+        public override bool JumpHold { get; protected set; }
+        public override float Zoom { get; protected set; }
+        public override bool Sprint { get; protected set; }
+        public override bool Crouch { get; protected set; }
 
         private bool hasJumped = false;
         private bool skippedFrame = false;
@@ -124,7 +117,7 @@ namespace PhysicsBasedCharacterController
         //DISABLE if using old input system
         public void OnMove(InputAction.CallbackContext ctx)
         {
-            axisInput = ctx.ReadValue<Vector2>();
+            AxisInput = ctx.ReadValue<Vector2>();
             GetDeviceNew(ctx);
         }
 
@@ -133,8 +126,8 @@ namespace PhysicsBasedCharacterController
         {
             if (enableJump)
             {
-                jump = true;
-                jumpHold = true;
+                Jump = true;
+                JumpHold = true;
 
                 hasJumped = true;
                 skippedFrame = false;
@@ -144,30 +137,31 @@ namespace PhysicsBasedCharacterController
 
         public void JumpEnded()
         {
-            jump = false;
-            jumpHold = false;
+            Jump = false;
+            JumpHold = false;
         }
-
 
 
         private void FixedUpdate()
         {
             if (hasJumped && skippedFrame)
             {
-                jump = false;
+                Jump = false;
                 hasJumped = false;
             }
+
             if (!skippedFrame && enableJump) skippedFrame = true;
         }
-
 
 
         //DISABLE if using old input system
         public void OnCamera(InputAction.CallbackContext ctx)
         {
             Vector2 pointerDelta = ctx.ReadValue<Vector2>();
-            cameraInput.x += pointerDelta.x;
-            cameraInput.y += pointerDelta.y;
+            Vector2 newCameraInput = CameraInput;
+            newCameraInput.x += pointerDelta.x;
+            newCameraInput.y += pointerDelta.y;
+            CameraInput = newCameraInput;
             GetDeviceNew(ctx);
         }
 
@@ -175,28 +169,28 @@ namespace PhysicsBasedCharacterController
         //DISABLE if using old input system
         public void OnSprint(InputAction.CallbackContext ctx)
         {
-            if (enableSprint) sprint = true;
+            if (enableSprint) Sprint = true;
         }
 
 
         //DISABLE if using old input system
         public void SprintEnded(InputAction.CallbackContext ctx)
         {
-            sprint = false;
+            Sprint = false;
         }
 
 
         //DISABLE if using old input system
         public void OnCrouch(InputAction.CallbackContext ctx)
         {
-            if (enableCrouch) crouch = true;
+            if (enableCrouch) Crouch = true;
         }
 
 
         //DISABLE if using old input system
         public void CrouchEnded(InputAction.CallbackContext ctx)
         {
-            crouch = false;
+            Crouch = false;
         }
 
         #endregion

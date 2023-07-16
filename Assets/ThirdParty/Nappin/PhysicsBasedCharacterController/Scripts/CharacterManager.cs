@@ -485,7 +485,11 @@ namespace PhysicsBasedCharacterController
 
             if (axisInput.magnitude > movementThrashold)
             {
-                targetAngle = Mathf.Atan2(axisInput.x, axisInput.y) * Mathf.Rad2Deg + characterCamera.transform.eulerAngles.y;
+                targetAngle = Mathf.Atan2(axisInput.x, axisInput.y) * Mathf.Rad2Deg;
+                if (characterCamera != null)
+                {
+                    targetAngle += characterCamera.transform.eulerAngles.y;
+                }
 
                 if (!sprint) _rigidbody.velocity = Vector3.SmoothDamp(_rigidbody.velocity, forward * movementSpeed * crouchMultiplier, ref currVelocity, dampSpeedUp);
                 else _rigidbody.velocity = Vector3.SmoothDamp(_rigidbody.velocity, forward * sprintSpeed * crouchMultiplier, ref currVelocity, dampSpeedUp);

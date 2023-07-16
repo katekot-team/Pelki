@@ -323,7 +323,7 @@ public class PlayerManager : MonoBehaviour
         IEnumerator ToDamage()
         {
             Color32 defaulColor = rend.color;
-            rend.color = new Color32(255, 0, 0, 100);//цвет при активном damage
+            rend.color = new Color32(255, 0, 0, 100);//пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ damage
             yield return new WaitForSeconds(0.3f);
             rend.color = defaulColor;
             StopCoroutine(toDamage);

@@ -7,8 +7,10 @@ namespace Pelki.Configs
     {
         [SerializeField] private LevelsConfig levelsConfig;
         [SerializeField] private InputConfig inputConfig;
+        [SerializeField] private CharactersConfig charactersConfig;
 
         public LevelsConfig LevelsConfig => levelsConfig;
         public InputConfig InputConfig => inputConfig;
+        public CharactersConfig CharactersConfig => charactersConfig;
     }
 }

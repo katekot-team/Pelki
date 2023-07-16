@@ -4,7 +4,7 @@ namespace Pelki.Gameplay.Input
 {
     public class InputBySimpleInput : IInput
     {
-        private InputConfig inputConfig;
+        private readonly InputConfig inputConfig;
 
         public float Horizontal => SimpleInput.GetAxis(inputConfig.HorizontalAxisKey);
 

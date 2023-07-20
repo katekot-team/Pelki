@@ -7,6 +7,7 @@ namespace Pelki.Gameplay.Input
         private readonly InputConfig inputConfig;
 
         public float Horizontal => SimpleInput.GetAxis(inputConfig.HorizontalAxisKey);
+        public bool IsJump { get; } = false;
 
         public InputBySimpleInput(InputConfig inputConfig)
         {

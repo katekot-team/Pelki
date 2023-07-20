@@ -1,10 +1,12 @@
 using Pelki.Configs;
+using UnityEngine;
 
 namespace Pelki.Gameplay.Input
 {
     public class InputBySimpleInputAndKeyboard : IInput
     {
         public float Horizontal => GetHorizontal();
+        public bool IsJump => GetHasJump();
 
         private readonly InputBySimpleInput simpleInput;
         private readonly InputConfig inputConfig;
@@ -27,6 +29,16 @@ namespace Pelki.Gameplay.Input
             }
 
             return result;
+        }
+
+        private bool GetHasJump()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

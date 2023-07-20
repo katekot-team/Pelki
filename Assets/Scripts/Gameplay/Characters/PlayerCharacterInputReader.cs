@@ -24,6 +24,7 @@ namespace Pelki.Gameplay.Characters
         private void Update()
         {
             AxisInput = new Vector2(input.Horizontal, 0);
+            Jump = input.IsJump;
         }
     }
 }

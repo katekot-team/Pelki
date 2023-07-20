@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelsConfig: {fileID: 11400000, guid: b2bbc92dc286444e3a2a3209f22c2091, type: 2}
   inputConfig: {fileID: 11400000, guid: aa525f9fdbeae4eac8157163741a3550, type: 2}
+  charactersConfig: {fileID: 11400000, guid: d436284d90ab94b258ad350e06b23237, type: 2}

@@ -29,7 +29,8 @@ namespace Pelki
             var menuScreen = screenSwitcher.ShowScreen<MenuScreen>();
             menuScreen.Construct((IMain)this);
 
-            game = new Game(mainSettingsConfig.LevelsConfig, screenSwitcher, input);
+            game = new Game(mainSettingsConfig.LevelsConfig, mainSettingsConfig.CharactersConfig, screenSwitcher,
+                input);
         }
 
         private void Update()

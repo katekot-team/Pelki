@@ -1,8 +1,8 @@
 namespace Pelki.Interfaces
 {
-    interface IDamageable
+    public interface IDamageable
     {
-        int Health { get; }
+        public int Health { get; }
         void TakeDamage(int damage);
     }
 }

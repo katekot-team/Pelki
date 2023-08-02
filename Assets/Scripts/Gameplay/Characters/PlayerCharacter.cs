@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pelki.Gameplay.Characters
 {
-    public class PlayerCharacter : MonoBehaviour
+    public class PlayerCharacter : Entity
     {
         [SerializeField] private CharacterManager characterManager;
         [SerializeField] private PlayerCharacterInputReader inputReader;

@@ -4,14 +4,18 @@ using UnityEngine;
 
 namespace Pelki.Enemies
 {
-    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(Collider2D))]
     public class Damager : MonoBehaviour
     {
-        [SerializeField, MinValue(0)] private int damage;
-        
+        [MinValue(0)]
+        [SerializeField] private int damage;
+        [SerializeField] private LayerMask layerMask;
+
         private void OnTriggerEnter2D(Collider2D otherCollider2D)
         {
-            if (otherCollider2D.TryGetComponent(out IDamageable damageable))
+            var otherLayer = otherCollider2D.gameObject.layer;
+            
+            if ( (layerMask & (1 << otherLayer)) != 0 && otherCollider2D.TryGetComponent(out IDamageable damageable))
             {
                 DoDamage(damageable);
             }

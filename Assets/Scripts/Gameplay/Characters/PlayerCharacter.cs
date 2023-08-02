@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Pelki.Gameplay.Characters
 {
-    public class PlayerCharacter : MonoBehaviour
+    public class PlayerCharacter : Entity
     {
         private IInput input;
 

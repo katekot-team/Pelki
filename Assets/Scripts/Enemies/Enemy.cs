@@ -1,32 +1,9 @@
-using NaughtyAttributes;
-using Pelki.Interfaces;
-using UnityEngine;
+using Pelki.Gameplay.Characters;
 
 namespace Pelki.Enemies
 {
-    public class Enemy : MonoBehaviour, IDamageable
+    public class Enemy : Entity
     {
-        [SerializeField, MinValue(0)] private int maxHealth;
-        public int Health { get; private set; }
-
-        public void TakeDamage(int damage)
-        {
-            Health -= damage;
-            if (Health < 1)
-            {
-                Death();
-            }
-            Debug.Log("Current health is " + Health);
-        }
         
-        private void Start()
-        {
-            Health = maxHealth;
-        }
-        
-        private void Death()
-        {
-            
-        }
     }
 }

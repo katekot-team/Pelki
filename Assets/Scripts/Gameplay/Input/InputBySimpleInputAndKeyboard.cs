@@ -1,5 +1,4 @@
 using Pelki.Configs;
-using UnityEngine;
 
 namespace Pelki.Gameplay.Input
 {
@@ -33,12 +32,14 @@ namespace Pelki.Gameplay.Input
 
         private bool GetHasJump()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
+            bool isJump = false;
+            isJump = UnityEngine.Input.GetButton(inputConfig.JumpKey);
+            if (!isJump)
             {
-                return true;
+                isJump = simpleInput.IsJump;
             }
 
-            return false;
+            return isJump;
         }
     }
 }

@@ -14,3 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalAxisKey: Horizontal
   verticalAxisKey: Vertical
+  none: None
+  jumpId: JumpId
+  buttonInfos:
+  - id: None
+    key: None
+  - id: JumpId
+    key: Jump

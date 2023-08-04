@@ -1,17 +1,15 @@
 using Pelki.Gameplay.Input;
-using PhysicsBasedCharacterController;
 using UnityEngine;
 
 namespace Pelki.Gameplay.Characters
 {
-    public class PlayerCharacter : Entity
+    public class PlayerCharacter : MonoBehaviour
     {
-        [SerializeField] private CharacterManager characterManager;
-        [SerializeField] private PlayerCharacterInputReader inputReader;
+        private IInput input;
 
         public void Construct(IInput input)
         {
-            inputReader.Construct(input);
+            this.input = input;
         }
     }
 }

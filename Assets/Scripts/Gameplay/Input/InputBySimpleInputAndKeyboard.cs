@@ -5,6 +5,7 @@ namespace Pelki.Gameplay.Input
     public class InputBySimpleInputAndKeyboard : IInput
     {
         public float Horizontal => GetHorizontal();
+        public bool IsJump => GetHasJump();
 
         private readonly InputBySimpleInput simpleInput;
         private readonly InputConfig inputConfig;
@@ -27,6 +28,18 @@ namespace Pelki.Gameplay.Input
             }
 
             return result;
+        }
+
+        private bool GetHasJump()
+        {
+            bool isJump = false;
+            isJump = UnityEngine.Input.GetButton(inputConfig.JumpKey);
+            if (!isJump)
+            {
+                isJump = simpleInput.IsJump;
+            }
+
+            return isJump;
         }
     }
 }

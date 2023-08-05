@@ -38,8 +38,10 @@ namespace Pelki.Gameplay.Characters
 
         protected virtual void Die()
         {
-            throw new NotImplementedException();
+            DestroySelf();
         }
+
+        private void DestroySelf() => Destroy(gameObject);
 
         private void ThisDebugLog(string actionName, string message, UnityEngine.Object context = null)
         {

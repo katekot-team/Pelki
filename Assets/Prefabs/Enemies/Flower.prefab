@@ -72,8 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf36d2ed46623e4ba27e57f48889afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2147483647
-  hitLimit: 2147483647
+  damage: 99999999
+  hitsLimit: 99999999
   layerMaskDamage:
     serializedVersion: 2
     m_Bits: 1024

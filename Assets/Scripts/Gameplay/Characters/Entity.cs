@@ -7,9 +7,9 @@ namespace Pelki.Gameplay.Characters
 {
     public class Entity : MonoBehaviour, IDamageable
     {
-        [MinValue(0)] 
+        [MinValue(0)]
         [SerializeField] private int maxHealth;
-        [Header("Debug")] 
+        [Header("Debug")]
         [SerializeField] private bool isDebugLog;
 
         public int Health { get; private set; }
@@ -41,13 +41,16 @@ namespace Pelki.Gameplay.Characters
             DestroySelf();
         }
 
-        private void DestroySelf() => Destroy(gameObject);
-
+        private void DestroySelf()
+        {
+            Destroy(gameObject);
+        }
+        
         private void ThisDebugLog(string actionName, string message, UnityEngine.Object context = null)
         {
             if (isDebugLog)
             {
-                UnityEngine.Debug.Log($"[{DateTime.Now:mm:ss:ffff}]: {nameof(Entity)}:[{actionName}] > {message}",
+                Debug.Log($"[{DateTime.Now:mm:ss:ffff}]: {nameof(Entity)}:[{actionName}] > {message}",
                     context);
             }
         }
@@ -56,7 +59,7 @@ namespace Pelki.Gameplay.Characters
         {
             if (isDebugLog)
             {
-                UnityEngine.Debug.LogError($"[{DateTime.Now:mm:ss:ffff}]: {nameof(Entity)}:[{actionName}] > {message}",
+                Debug.LogError($"[{DateTime.Now:mm:ss:ffff}]: {nameof(Entity)}:[{actionName}] > {message}",
                     context);
             }
         }

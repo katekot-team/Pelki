@@ -1,3 +1,4 @@
+using System;
 using NaughtyAttributes;
 using Pelki.Interfaces;
 using UnityEngine;
@@ -7,22 +8,27 @@ namespace Pelki.Gameplay.DamageSystem
     [RequireComponent(typeof(Collider2D))]
     public class Damager : MonoBehaviour
     {
-        [MinValue(0)] 
+        [MinValue(0)]
         [SerializeField] private int damage;
-        [MinValue(0)] 
-        [SerializeField] private int hitLimit;
+        [MinValue(0)]
+        [SerializeField] private int hitsLimit;
         [SerializeField] private LayerMask layerMaskDamage;
         [SerializeField] private LayerMask layerMaskDestroy;
 
-        public event Destroyed DamagerDestroyed;
-        
-        public delegate void Destroyed();
-        
+        private int hitsUntilDestroy;
+
+        public Action DamagerDestroyed;
+
+        private void Start()
+        {
+            hitsUntilDestroy = hitsLimit;
+        }
+
         private void OnTriggerEnter2D(Collider2D otherCollider2D)
         {
             int otherLayer = otherCollider2D.gameObject.layer;
 
-            if ((layerMaskDamage & (1 << otherLayer)) != 0 && hitLimit > 0)
+            if (IsDamageLayer(otherLayer))
             {
                 if (otherCollider2D.TryGetComponent(out IDamageable damageable))
                 {
@@ -30,9 +36,20 @@ namespace Pelki.Gameplay.DamageSystem
                     DecreaseHitLimit();
                 }
             } 
-            else if ((layerMaskDestroy & (1 << otherLayer)) != 0)
+            else if (IsDestroyLayer(otherLayer))
             {
                 DestroySelf();
+            }
+
+            bool IsDamageLayer(int otherLayer)
+            {
+                return (layerMaskDamage & (1 << otherLayer)) != 0 &&
+                       hitsUntilDestroy > 0;
+            }
+
+            bool IsDestroyLayer(int otherLayer)
+            {
+                return (layerMaskDestroy & (1 << otherLayer)) != 0;
             }
         }
 
@@ -43,9 +60,9 @@ namespace Pelki.Gameplay.DamageSystem
 
         private void DecreaseHitLimit()
         {
-            hitLimit--;
+            hitsUntilDestroy--;
 
-            if (hitLimit <= 0)
+            if (hitsUntilDestroy <= 0)
             {
                 DestroySelf();
             }
@@ -53,7 +70,7 @@ namespace Pelki.Gameplay.DamageSystem
 
         private void DestroySelf()
         {
-            DamagerDestroyed();
+            DamagerDestroyed?.Invoke();
             Destroy(gameObject);
         }
     }

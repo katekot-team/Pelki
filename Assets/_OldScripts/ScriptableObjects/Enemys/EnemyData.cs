@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum EnemyType
@@ -21,5 +19,4 @@ public class EnemyData : ScriptableObject
     [field: SerializeField] public int detectionDistance { get; private set; }
     [field: SerializeField] public float speedAttack { get; private set; }
     [field: SerializeField] public int damage { get; private set; }
-
 }

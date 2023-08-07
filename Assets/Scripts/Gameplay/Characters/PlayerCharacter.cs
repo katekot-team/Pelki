@@ -1,5 +1,4 @@
 using Pelki.Gameplay.Input;
-using UnityEngine;
 
 namespace Pelki.Gameplay.Characters
 {

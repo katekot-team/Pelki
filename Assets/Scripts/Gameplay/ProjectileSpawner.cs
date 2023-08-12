@@ -1,23 +1,20 @@
-using Pelki.Gameplay.Enemies;
+using Pelki.Gameplay.DamageSystem;
 using UnityEngine;
 
 namespace Pelki.Gameplay
 {
     public class ProjectileSpawner : MonoBehaviour
     {
-        [SerializeField] private Transform projectileSpawnPoint;
         [SerializeField] private Projectile projectilePrefab;
 
-        private Vector2 direction;
-
-        private void ShootProjectile()
+        public void Shoot(Vector2 direction)
         {
             Projectile projectile = Instantiate(projectilePrefab, 
-                projectileSpawnPoint.position, 
-                projectileSpawnPoint.rotation
+                transform.position, 
+                transform.rotation
             );
 
-            projectile.Construct(direction);
+            projectile.Initialize(direction);
         }
     }
 }

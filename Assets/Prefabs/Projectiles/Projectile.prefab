@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5053752263886821760}
   - component: {fileID: 3302671683144856736}
   - component: {fileID: 46404658383535722}
-  - component: {fileID: 7738315953867564890}
   - component: {fileID: 8679609607637934739}
+  - component: {fileID: 6171906741065146579}
   m_Layer: 13
   m_Name: Projectile
   m_TagString: Untagged
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  hitLimit: 1
+  hitsLimit: 1
   layerMaskDamage:
     serializedVersion: 2
     m_Bits: 512
@@ -122,27 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damager: {fileID: 3302671683144856736}
---- !u!50 &7738315953867564890
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053752263886821763}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  speed: 50
 --- !u!58 &8679609607637934739
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -159,3 +139,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!50 &6171906741065146579
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5053752263886821763}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0

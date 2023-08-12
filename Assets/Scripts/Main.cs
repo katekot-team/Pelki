@@ -31,6 +31,9 @@ namespace Pelki
 
             game = new Game(mainSettingsConfig.LevelsConfig, mainSettingsConfig.CharactersConfig, screenSwitcher,
                 input);
+
+            //SichTM: temporal addition until game menu will be done
+            StartGame();
         }
 
         private void Update()

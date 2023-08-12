@@ -222,12 +222,27 @@ PrefabInstance:
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 60
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 60
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
@@ -252,27 +267,27 @@ PrefabInstance:
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 28.600006
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 27.99
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
@@ -386,12 +401,12 @@ PrefabInstance:
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 60
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 60
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
@@ -431,12 +446,12 @@ PrefabInstance:
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 141.5
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 27.99
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539520, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
@@ -467,17 +482,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e31aa57e68c58164aaeb8646208ef0fd,
+      objectReference: {fileID: 21300000, guid: 51a39369d386ca84aaad1d4625465c03,
         type: 3}
     - target: {fileID: 5398558954759539527, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539527, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5398558954759539527, guid: fe567668f1362468288240dfb18e6d1a,
         type: 3}
@@ -505,7 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 3986202354944040278}
-  idButton: JumpId
+  idButton: RangedAttackId
   inputConfig: {fileID: 11400000, guid: aa525f9fdbeae4eac8157163741a3550, type: 2}
 --- !u!224 &3986202354944040275 stripped
 RectTransform:

@@ -17,7 +17,7 @@ namespace Pelki.Gameplay.DamageSystem
 
         private int hitsUntilDestroy;
 
-        public Action DamagerDestroyed;
+        public event Action DamagerDestroyed;
 
         private void Start()
         {
@@ -28,7 +28,7 @@ namespace Pelki.Gameplay.DamageSystem
         {
             int otherLayer = otherCollider2D.gameObject.layer;
 
-            if (IsDamageLayer(otherLayer))
+            if (IsDamageLayer(otherLayer) && hitsUntilDestroy > 0)
             {
                 if (otherCollider2D.TryGetComponent(out IDamageable damageable))
                 {
@@ -43,8 +43,7 @@ namespace Pelki.Gameplay.DamageSystem
 
             bool IsDamageLayer(int otherLayer)
             {
-                return (layerMaskDamage & (1 << otherLayer)) != 0 &&
-                       hitsUntilDestroy > 0;
+                return (layerMaskDamage & (1 << otherLayer)) != 0;
             }
 
             bool IsDestroyLayer(int otherLayer)

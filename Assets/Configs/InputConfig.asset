@@ -16,8 +16,11 @@ MonoBehaviour:
   verticalAxisKey: Vertical
   none: None
   jumpId: JumpId
+  rangedAttackId: RangedAttackId
   buttonInfos:
   - id: None
     key: None
   - id: JumpId
     key: Jump
+  - id: RangedAttackId
+    key: Fire1

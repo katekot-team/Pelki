@@ -4,5 +4,6 @@ namespace Pelki.Gameplay.Input
     {
         float Horizontal { get; }
         bool IsJump { get; }
+        bool IsRangedAttacking { get; }
     }
 }

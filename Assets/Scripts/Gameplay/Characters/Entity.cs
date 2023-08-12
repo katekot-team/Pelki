@@ -45,7 +45,7 @@ namespace Pelki.Gameplay.Characters
         {
             Destroy(gameObject);
         }
-        
+ 
         private void ThisDebugLog(string actionName, string message, UnityEngine.Object context = null)
         {
             if (isDebugLog)

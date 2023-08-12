@@ -16,18 +16,22 @@ namespace Pelki.Configs
         [Header("Assigned id")]
         [Dropdown(nameof(GetAllButtonsIds))]
         [SerializeField] private string none;
-            
+
         [Dropdown(nameof(GetAllButtonsIds))]
         [SerializeField] private string jumpId;
+        
+        [Dropdown(nameof(GetAllButtonsIds))]
+        [SerializeField] private string rangedAttackId;
 
         [Header("Other")]
         [SerializeField] private List<ButtonInfo> buttonInfos;
-        
+
         private Dictionary<string, string> buttonKeyByIdDictionary;
 
         public string HorizontalAxisKey => horizontalAxisKey;
         public string VerticalAxisKey => verticalAxisKey;
         public string JumpKey => GetKeyButtonById(jumpId);
+        public string RangedAttackKey => GetKeyButtonById(rangedAttackId);
 
         public string GetKeyButtonById(string idButton)
         {

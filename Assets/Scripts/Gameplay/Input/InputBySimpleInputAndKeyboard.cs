@@ -6,6 +6,7 @@ namespace Pelki.Gameplay.Input
     {
         public float Horizontal => GetHorizontal();
         public bool IsJump => GetHasJump();
+        public bool IsRangedAttacking => GetHasRangedAttack();
 
         private readonly InputBySimpleInput simpleInput;
         private readonly InputConfig inputConfig;
@@ -40,6 +41,18 @@ namespace Pelki.Gameplay.Input
             }
 
             return isJump;
+        }
+
+        private bool GetHasRangedAttack()
+        {
+            bool isAttacking = false;
+            isAttacking = UnityEngine.Input.GetButton(inputConfig.RangedAttackKey);
+            if (!isAttacking)
+            {
+                isAttacking = simpleInput.IsRangedAttacking;
+            }
+
+            return isAttacking;
         }
     }
 }

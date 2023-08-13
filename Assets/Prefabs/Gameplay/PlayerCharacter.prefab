@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2997190324756777813}
   - component: {fileID: 5330133580825591984}
   - component: {fileID: 8486300192252409073}
+  - component: {fileID: 2790103788056400148}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1964c181466d4f9d86a493b4bc5a5512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mover: {fileID: 2790103788056400148}
 --- !u!70 &5330133580825591984
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -72,7 +74,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003272669180245663}
   m_BodyType: 0
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -82,8 +84,85 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!114 &2790103788056400148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003272669180245663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5231bebcfcca49ea935d152726d90e38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementThrashold: 0.1
+  movementSpeed: 4.72
+  speedAccelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.1
+      inSlope: 2.0137289
+      outSlope: 2.0137289
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.060750827
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.062368717
+      outSlope: -0.062368717
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.49731576
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  accelerationTime: 0.1
+  speedBreakingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  brakingTime: 2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 256
+  radiusGroundCheck: 0.05
+  gravityFactor: 3
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 0
+  collider: {fileID: 5330133580825591984}
+  rigidBody: {fileID: 8486300192252409073}
+  jumpVelocity: 12.23
+  isDrawDebug: 1
+  checkGroundDebugRayColor: {r: 1, g: 0, b: 0.1701541, a: 1}
 --- !u!1 &1473735367704536256
 GameObject:
   m_ObjectHideFlags: 0

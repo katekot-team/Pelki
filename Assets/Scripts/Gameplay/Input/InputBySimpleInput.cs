@@ -1,4 +1,5 @@
 using Pelki.Configs;
+using UnityEngine;
 
 namespace Pelki.Gameplay.Input
 {
@@ -7,6 +8,7 @@ namespace Pelki.Gameplay.Input
         private readonly InputConfig inputConfig;
 
         public float Horizontal => SimpleInput.GetAxis(inputConfig.HorizontalAxisKey);
+        public float RawHorizontal => SimpleInput.GetAxisRaw(inputConfig.HorizontalAxisKey);
         public bool IsJump => SimpleInput.GetButton(inputConfig.JumpKey);
 
         public InputBySimpleInput(InputConfig inputConfig)

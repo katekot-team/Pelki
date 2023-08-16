@@ -6,6 +6,7 @@ namespace Pelki.Gameplay.Input
     public class InputBySimpleInputAndKeyboard : IInput
     {
         public float Horizontal => GetHorizontal();
+        public float RawHorizontal => GetRawHorizontal();
         public bool IsJump => GetHasJump();
         public bool IsRangedAttacking => GetHasRangedAttack();
 
@@ -27,6 +28,20 @@ namespace Pelki.Gameplay.Input
             if (pcHorizontal == 0)
             {
                 result = simpleInput.Horizontal;
+            }
+
+            return result;
+        }
+
+        private float GetRawHorizontal()
+        {
+            float result = 0;
+            float pcHorizontal = UnityEngine.Input.GetAxis(inputConfig.HorizontalAxisKey);
+            result = pcHorizontal;
+
+            if (pcHorizontal == 0)
+            {
+                result = simpleInput.RawHorizontal;
             }
 
             return result;

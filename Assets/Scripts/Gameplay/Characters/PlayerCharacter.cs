@@ -1,3 +1,4 @@
+using Pelki.Gameplay.Characters.Movements;
 using Pelki.Gameplay.Input;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ namespace Pelki.Gameplay.Characters
 {
     public class PlayerCharacter : Entity
     {
+        [SerializeField] private GroundMover mover;
         [SerializeField] private ProjectileSpawner projectileSpawner;
         [SerializeField] private float attackCooldown;
 
@@ -15,6 +17,7 @@ namespace Pelki.Gameplay.Characters
         public void Construct(IInput input)
         {
             this.input = input;
+            mover.Construct(input);
         }
 
         private void Update()

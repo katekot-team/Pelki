@@ -1,0 +1,5 @@
+
+[*]
+
+# ReSharper properties
+resharper_csharp_blank_lines_around_field = 0

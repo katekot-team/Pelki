@@ -31,6 +31,21 @@ namespace Pelki.Gameplay.Characters
             {
                 RangedAttack();
             }
+
+            if (mover.IsGrounded)
+            {
+                //move,idle
+            }
+
+            if (!mover.IsGrounded && mover.IsJumping)
+            {
+                //start jump
+            }
+
+            if (!mover.IsGrounded && !mover.IsJumping)
+            {
+                //falling
+            }
         }
 
         private bool IsPerformingRangedAttack()

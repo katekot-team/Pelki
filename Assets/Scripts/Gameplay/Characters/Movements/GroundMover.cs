@@ -45,6 +45,9 @@ namespace Pelki.Gameplay.Characters.Movements
 
         private bool IsInputJump => input.IsJump;
 
+        public bool IsGrounded => isGrounded;
+        public bool IsJumping => isJumping;
+
         public void Construct(IInput input)
         {
             this.input = input;

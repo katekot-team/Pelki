@@ -1,4 +1,5 @@
 using Pelki.Configs;
+using UnityEngine;
 
 namespace Pelki.Gameplay.Input
 {
@@ -46,7 +47,9 @@ namespace Pelki.Gameplay.Input
         private bool GetHasRangedAttack()
         {
             bool isAttacking = false;
-            isAttacking = UnityEngine.Input.GetButton(inputConfig.RangedAttackKey);
+            isAttacking =
+                UnityEngine.Input.GetButton(inputConfig.RangedAttackKey)
+                || UnityEngine.Input.GetKeyDown(KeyCode.F);
             if (!isAttacking)
             {
                 isAttacking = simpleInput.IsRangedAttacking;

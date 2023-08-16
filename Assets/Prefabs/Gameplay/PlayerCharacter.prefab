@@ -33,7 +33,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4910199260697616815}
-  - {fileID: 8228372556332562070}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51,9 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   isDebugLog: 1
-  projectileSpawner: {fileID: 8459002102280175024}
-  attackCouldown: 5
-  rangedAttackPC: 102
+  projectileSpawner: {fileID: 4859900522612921984}
+  attackCooldown: 3
 --- !u!114 &4859900522612921984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 46404658383535722, guid: 304d2d30439374d4280d804ddfa56573,
     type: 3}
+  spawnPoint: {fileID: 3013351737567162148}
 --- !u!70 &5330133580825591984
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -222,49 +221,3 @@ Transform:
   m_Father: {fileID: 1003272669180245657}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6255448860302807401
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8228372556332562070}
-  - component: {fileID: 8459002102280175024}
-  m_Layer: 10
-  m_Name: ProjectileSpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8228372556332562070
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6255448860302807401}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1003272669180245657}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8459002102280175024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6255448860302807401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78538848b31a43588e888e6a87837c54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 46404658383535722, guid: 304d2d30439374d4280d804ddfa56573,
-    type: 3}

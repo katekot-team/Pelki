@@ -19,7 +19,7 @@ namespace Pelki.Configs
 
         [Dropdown(nameof(GetAllButtonsIds))]
         [SerializeField] private string jumpId;
-        
+
         [Dropdown(nameof(GetAllButtonsIds))]
         [SerializeField] private string rangedAttackId;
 

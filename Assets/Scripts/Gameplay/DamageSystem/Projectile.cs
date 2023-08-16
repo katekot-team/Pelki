@@ -5,6 +5,7 @@ namespace Pelki.Gameplay.DamageSystem
     public class Projectile : MonoBehaviour
     {
         [SerializeField] private Damager damager;
+        [SerializeField] private Rigidbody2D rigidbody2d;
         [Min(0f)]
         [SerializeField] private float speed;
 
@@ -20,10 +21,9 @@ namespace Pelki.Gameplay.DamageSystem
             damager.DamagerDestroyed += DestroySelf;
         }
 
-        private void FixedUpdate()
+        private void Start()
         {
-            Vector3 unitVector3 = new Vector3(direction.x, direction.y, 0.0f);
-            transform.Translate(unitVector3 * speed * Time.deltaTime);
+            rigidbody2d.velocity = direction * speed;
         }
 
         private void OnDisable()

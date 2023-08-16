@@ -7,7 +7,6 @@ namespace Pelki.Gameplay.Characters
     {
         [SerializeField] private ProjectileSpawner projectileSpawner;
         [SerializeField] private float attackCooldown;
-        [SerializeField] private KeyCode rangedAttackPC;
 
         private float reloadCompletionTime;
         private bool canPerformRangedAttack = true;
@@ -33,15 +32,14 @@ namespace Pelki.Gameplay.Characters
 
         private bool IsPerformingRangedAttack()
         {
-            bool isCalled = input.IsRangedAttacking ||
-                            UnityEngine.Input.GetKeyDown(rangedAttackPC);
+            bool isCalled = input.IsRangedAttacking;
 
             return isCalled && canPerformRangedAttack;
         }
 
         private void RangedAttack()
         {
-            projectileSpawner.Shoot(Vector2.right);
+            projectileSpawner.Shoot(transform.right);
             canPerformRangedAttack = false;
             reloadCompletionTime = Time.time + attackCooldown;
         }

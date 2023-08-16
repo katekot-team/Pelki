@@ -14,16 +14,12 @@ namespace Pelki.Gameplay.DamageSystem
         public void Initialize(Vector2 attackDirection)
         {
             direction = attackDirection;
+            rigidbody2d.velocity = direction * speed;
         }
 
         private void OnEnable()
         {
             damager.DamagerDestroyed += DestroySelf;
-        }
-
-        private void Start()
-        {
-            rigidbody2d.velocity = direction * speed;
         }
 
         private void OnDisable()

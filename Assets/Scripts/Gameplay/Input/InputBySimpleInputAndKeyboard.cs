@@ -47,9 +47,11 @@ namespace Pelki.Gameplay.Input
         private bool GetHasRangedAttack()
         {
             bool isAttacking = false;
-            isAttacking =
-                UnityEngine.Input.GetButton(inputConfig.RangedAttackKey)
-                || UnityEngine.Input.GetKeyDown(KeyCode.F);
+            bool rangedAttackButtonPressed =
+                UnityEngine.Input.GetButton(inputConfig.RangedAttackKey);
+            bool rangedAttackKeyPressed = UnityEngine.Input.GetKeyDown(KeyCode.F);
+            isAttacking = rangedAttackButtonPressed || rangedAttackKeyPressed;
+
             if (!isAttacking)
             {
                 isAttacking = simpleInput.IsRangedAttacking;

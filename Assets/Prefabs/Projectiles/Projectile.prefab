@@ -123,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damager: {fileID: 3302671683144856736}
   rigidbody2d: {fileID: 6171906741065146579}
-  speed: 20
+  speed: 50
 --- !u!58 &8679609607637934739
 CircleCollider2D:
   m_ObjectHideFlags: 0

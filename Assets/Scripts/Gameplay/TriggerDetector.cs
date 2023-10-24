@@ -12,7 +12,7 @@ namespace Pelki.Gameplay
         
         private void OnTriggerEnter(Collider collider)
         {
-            if (collider.gameObject.layer == layerMask.value)
+            if ((collider.gameObject.layer & layerMask.value) == layerMask.value)
             {
                 Detected?.Invoke(collider.GameObject());
             }

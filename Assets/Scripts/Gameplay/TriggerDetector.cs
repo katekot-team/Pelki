@@ -10,9 +10,15 @@ namespace Pelki.Gameplay
         
         public event Action<GameObject> Detected;
         
+        public void Start()
+        {
+            Debug.Log("trigger detector start");
+        }
+        
         private void OnTriggerEnter(Collider collider)
         {
-            if ((collider.gameObject.layer & layerMask.value) == layerMask.value)
+            Debug.Log("OnTriggerEnter");
+            if ((layerMask.value & collider.gameObject.layer) == collider.gameObject.layer)
             {
                 Detected?.Invoke(collider.GameObject());
             }

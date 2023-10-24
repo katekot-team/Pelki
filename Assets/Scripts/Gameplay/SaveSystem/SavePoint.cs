@@ -14,6 +14,7 @@ namespace Pelki.Gameplay.SaveSystem
 
         public void Start()
         {
+            Debug.Log("savepoint start");
             triggerDetector.Detected += OnDetected;
         }
 

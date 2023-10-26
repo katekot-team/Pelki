@@ -6,6 +6,8 @@ namespace Pelki.Gameplay.SaveSystem
     public class SavePoint : MonoBehaviour
     {
         [SerializeField] private TriggerDetector triggerDetector;
+        [SerializeField] private GameObject activatedState;
+        [SerializeField] private GameObject notActivatedState;
         [SerializeField] private bool isActivated;
 
         public event Action<GameObject> Saved;
@@ -21,6 +23,8 @@ namespace Pelki.Gameplay.SaveSystem
             {
                 isActivated = true;
                 Saved?.Invoke(gameObject);
+                notActivatedState.SetActive(false);
+                activatedState.SetActive(true);
             }
         }
     }

@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Pelki.Gameplay
@@ -7,20 +6,14 @@ namespace Pelki.Gameplay
     public class TriggerDetector : MonoBehaviour
     {
         [SerializeField] private LayerMask layerMask;
-        
+
         public event Action<GameObject> Detected;
-        
-        public void Start()
+
+        private void OnTriggerEnter2D(Collider2D collider)
         {
-            Debug.Log("trigger detector start");
-        }
-        
-        private void OnTriggerEnter(Collider collider)
-        {
-            Debug.Log("OnTriggerEnter");
-            if ((layerMask.value & collider.gameObject.layer) == collider.gameObject.layer)
+            if ((layerMask & (1 << collider.gameObject.layer)) != 0)
             {
-                Detected?.Invoke(collider.GameObject());
+                Detected?.Invoke(collider.gameObject);
             }
         }
     }

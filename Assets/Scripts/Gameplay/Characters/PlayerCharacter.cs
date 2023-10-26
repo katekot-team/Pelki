@@ -27,10 +27,10 @@ namespace Pelki.Gameplay.Characters
                 canPerformRangedAttack = true;
             }
 
-            // if (IsPerformingRangedAttack())
-            // {
-            //     RangedAttack();
-            // }
+            if (IsPerformingRangedAttack())
+            {
+                RangedAttack();
+            }
 
             if (mover.IsGrounded)
             {

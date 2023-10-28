@@ -15,17 +15,30 @@ namespace Pelki.Gameplay.SaveSystem
         private void Start()
         {
             triggerDetector.Detected += OnDetected;
+            NotActivateState();
         }
 
         private void OnDetected(GameObject gameObject)
         {
             if (!isActivated)
             {
-                isActivated = true;
                 Saved?.Invoke(gameObject);
-                notActivatedState.SetActive(false);
-                activatedState.SetActive(true);
+                ActivateState();
             }
+        }
+
+        private void ActivateState()
+        {
+            isActivated = true;
+            notActivatedState.SetActive(false);
+            activatedState.SetActive(true);
+        }
+
+        private void NotActivateState()
+        {
+            isActivated = false;
+            notActivatedState.SetActive(true);
+            activatedState.SetActive(false);
         }
     }
 }

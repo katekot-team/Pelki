@@ -34,9 +34,8 @@ namespace Pelki.Gameplay
         {
             Level levelPrefab = levelsConfig.DebugLevelPrefab;
             level = Object.Instantiate(levelPrefab);
-            foreach (var savePointPrefab in level.SavePoints)
+            foreach (var savePoint in level.SavePoints)
             {
-                var savePoint = Object.Instantiate(savePointPrefab);
                 savePoint.Saved += OnSaved;
             }
 

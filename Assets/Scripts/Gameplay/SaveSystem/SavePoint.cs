@@ -8,9 +8,10 @@ namespace Pelki.Gameplay.SaveSystem
         [SerializeField] private TriggerDetector triggerDetector;
         [SerializeField] private GameObject activatedState;
         [SerializeField] private GameObject notActivatedState;
-        [SerializeField] private bool isActivated;
+        
+        private bool isActivated;
 
-        public event Action<GameObject> Saved;
+        public event Action<SavePoint> Saved;
 
         private void Start()
         {
@@ -18,11 +19,11 @@ namespace Pelki.Gameplay.SaveSystem
             NotActivateState();
         }
 
-        private void OnDetected(GameObject gameObject)
+        private void OnDetected()
         {
             if (!isActivated)
             {
-                Saved?.Invoke(gameObject);
+                Saved?.Invoke(this);
                 ActivateState();
             }
         }

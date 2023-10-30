@@ -1,6 +1,7 @@
 using Pelki.Configs;
 using Pelki.Gameplay.Characters;
 using Pelki.Gameplay.Input;
+using Pelki.Gameplay.SaveSystem;
 using Pelki.UI;
 using Pelki.UI.Screens;
 using UnityEngine;
@@ -34,9 +35,9 @@ namespace Pelki.Gameplay
         {
             Level levelPrefab = levelsConfig.DebugLevelPrefab;
             level = Object.Instantiate(levelPrefab);
-            foreach (var savePoint in level.SavePoints)
+            foreach (var savePointItem in level.SavePointsRegister)
             {
-                savePoint.Saved += OnSaved;
+                savePointItem.Key.Saved += OnSaved;
             }
 
             playerCharacter = Object.Instantiate(charactersConfig.PlayerCharacterPrefab,
@@ -47,10 +48,11 @@ namespace Pelki.Gameplay
             screenSwitcher.ShowScreen<GameScreen>();
         }
 
-        private void OnSaved(GameObject player)
+        private void OnSaved(SavePoint savePoint)
         {
             // TODO сделать реализацию сохранения
-            Debug.Log("Save");
+            var savePointId = level.SavePointsRegister[savePoint];
+            Debug.Log("Save on savepoint with ID: " + savePointId);
         }
     }
 }

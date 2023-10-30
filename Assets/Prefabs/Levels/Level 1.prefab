@@ -49,7 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterSpawnPoint: {fileID: 4749613398073101284}
   savePoints:
-  - {fileID: 1702503738236973849}
+  - savePoint: {fileID: 1702503738236973849}
+    id: ad0bb746-0466-475f-ae1d-831af1a7ec99
 --- !u!1 &1233233620980521861
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +271,6 @@ MonoBehaviour:
   triggerDetector: {fileID: 5115810060379355775}
   activatedState: {fileID: 1233233620980521861}
   notActivatedState: {fileID: 2755409641165397569}
-  isActivated: 0
 --- !u!1 &4512922736094162443
 GameObject:
   m_ObjectHideFlags: 0

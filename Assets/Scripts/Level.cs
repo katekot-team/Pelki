@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Pelki.Gameplay.SaveSystem;
 using UnityEngine;
 
 namespace Pelki
 {
-    public class Level : MonoBehaviour
+    public class Level : MonoBehaviour, ISerializationCallbackReceiver
     {
         [SerializeField] private Transform characterSpawnPoint;
-        [SerializeField] private List<SavePoint> savePoints;
+        [SerializeField] private List<SavePointDto> savePoints;
         
-        public List<SavePoint> SavePoints => savePoints;
+        //public List<SavePointDto> SavePoints => savePoints;
         private Dictionary<SavePoint, string> savePointsRegister;
 
         public IReadOnlyDictionary<SavePoint, string> SavePointsRegister => savePointsRegister;
@@ -24,7 +25,7 @@ namespace Pelki
 
         public void OnAfterDeserialize()
         {
-            //savePointsRegister = savePoints.ToDictionary(dto => dto.SavePoint, dto => dto.ID);
+            savePointsRegister = savePoints.ToDictionary(dto => dto.SavePoint, dto => dto.ID);
         }
 
         [Serializable]

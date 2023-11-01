@@ -73,8 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: acbd40587a2c22d4a8ec1702bcd0c320, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -135,7 +134,6 @@ MonoBehaviour:
   triggerDetector: {fileID: 6289085148971144151}
   activatedState: {fileID: 46444245959520813}
   notActivatedState: {fileID: 4000742117667403753}
-  isActivated: 0
 --- !u!1 &4000742117667403753
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,13 +207,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee,
-    type: 3}
-  m_Color: {r: 0.032306872, g: 0.1650029, b: 0.6226415, a: 1}
+  m_Sprite: {fileID: 21300000, guid: eea40dc444daee84bb14de5573a775d9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1.7, y: 4.01}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -296,22 +293,22 @@ PrefabInstance:
     - target: {fileID: 9104438606076175673, guid: 3621e5ba9be843b42b8e1de6429e1880,
         type: 3}
       propertyPath: m_Size.x
-      value: 1.7067368
+      value: 1.9976516
       objectReference: {fileID: 0}
     - target: {fileID: 9104438606076175673, guid: 3621e5ba9be843b42b8e1de6429e1880,
         type: 3}
       propertyPath: m_Size.y
-      value: 2.3003957
+      value: 4.23207
       objectReference: {fileID: 0}
     - target: {fileID: 9104438606076175673, guid: 3621e5ba9be843b42b8e1de6429e1880,
         type: 3}
       propertyPath: m_Offset.x
-      value: 0.042404294
+      value: 0.013312817
       objectReference: {fileID: 0}
     - target: {fileID: 9104438606076175673, guid: 3621e5ba9be843b42b8e1de6429e1880,
         type: 3}
       propertyPath: m_Offset.y
-      value: 0.05653894
+      value: 0.05653906
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3621e5ba9be843b42b8e1de6429e1880, type: 3}

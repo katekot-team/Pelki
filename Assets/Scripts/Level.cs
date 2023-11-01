@@ -10,8 +10,7 @@ namespace Pelki
     {
         [SerializeField] private Transform characterSpawnPoint;
         [SerializeField] private List<SavePointDto> savePoints;
-        
-        //public List<SavePointDto> SavePoints => savePoints;
+
         private Dictionary<SavePoint, string> savePointsRegister;
 
         public IReadOnlyDictionary<SavePoint, string> SavePointsRegister => savePointsRegister;

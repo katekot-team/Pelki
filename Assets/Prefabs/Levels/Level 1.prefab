@@ -124,8 +124,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: acbd40587a2c22d4a8ec1702bcd0c320, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -209,9 +208,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee,
-    type: 3}
-  m_Color: {r: 0.032306872, g: 0.1650029, b: 0.6226415, a: 1}
+  m_Sprite: {fileID: 21300000, guid: eea40dc444daee84bb14de5573a775d9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -246,7 +244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3952757319153261708}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: 1, y: 1.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -489,22 +487,22 @@ PrefabInstance:
     - target: {fileID: 9104438606076175673, guid: 3621e5ba9be843b42b8e1de6429e1880,
         type: 3}
       propertyPath: m_Size.x
-      value: 1.7067368
+      value: 2.1841874
       objectReference: {fileID: 0}
     - target: {fileID: 9104438606076175673, guid: 3621e5ba9be843b42b8e1de6429e1880,
         type: 3}
       propertyPath: m_Size.y
-      value: 2.3003957
+      value: 4.0799847
       objectReference: {fileID: 0}
     - target: {fileID: 9104438606076175673, guid: 3621e5ba9be843b42b8e1de6429e1880,
         type: 3}
       propertyPath: m_Offset.x
-      value: 0.042404294
+      value: -0.022702634
       objectReference: {fileID: 0}
     - target: {fileID: 9104438606076175673, guid: 3621e5ba9be843b42b8e1de6429e1880,
         type: 3}
       propertyPath: m_Offset.y
-      value: 0.05653894
+      value: 0.03483677
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3621e5ba9be843b42b8e1de6429e1880, type: 3}

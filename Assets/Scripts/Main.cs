@@ -1,6 +1,7 @@
 using Pelki.Configs;
 using Pelki.Gameplay;
 using Pelki.Gameplay.Input;
+using Pelki.Gameplay.SaveSystem;
 using Pelki.UI;
 using Pelki.UI.Screens;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Pelki
     {
         [SerializeField] private MainSettingsConfig mainSettingsConfig;
         [SerializeField] private ScreenSwitcher screenSwitcher;
+        
+        private readonly SavesStorage _savesStorage = new SavesStorage();
 
         private Game game;
         private IInput input;
@@ -22,6 +25,7 @@ namespace Pelki
 #else
             input = new InputBySimpleInput(mainSettingsConfig.InputConfig);
 #endif
+            _savesStorage.LoadSaves();
         }
 
         private void Start()
@@ -30,7 +34,7 @@ namespace Pelki
             menuScreen.Construct((IMain)this);
 
             game = new Game(mainSettingsConfig.LevelsConfig, mainSettingsConfig.CharactersConfig, screenSwitcher,
-                input);
+                input, _savesStorage.LoadSaveData);
 
             //SichTM: temporal addition until game menu will be done
             StartGame();

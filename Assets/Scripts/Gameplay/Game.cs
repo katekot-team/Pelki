@@ -17,16 +17,16 @@ namespace Pelki.Gameplay
 
         private Level level;
         private PlayerCharacter playerCharacter;
-        private LevelSessionData levelSessionData;
+        private LevelProgress levelProgress;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
-            IInput input, LevelSessionData levelSessionData)
+            IInput input, LevelProgress levelProgress)
         {
             this.charactersConfig = charactersConfig;
             this.input = input;
             this.screenSwitcher = screenSwitcher;
             this.levelsConfig = levelsConfig;
-            this.levelSessionData = levelSessionData;
+            this.levelProgress = levelProgress;
         }
 
         public void ThisUpdate()
@@ -53,10 +53,9 @@ namespace Pelki.Gameplay
         private void OnSaved(SavePoint savePoint)
         {
             var savePointId = level.SavePointsRegister[savePoint];
-            levelSessionData.SavePointId = savePointId;
-            levelSessionData.Save();
-            // TODO сделать реализацию сохранения
             Debug.Log("Save on savepoint with ID: " + savePointId);
+            levelProgress.SavePointId = savePointId;
+            levelProgress.Save();
         }
     }
 }

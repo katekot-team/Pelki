@@ -19,7 +19,7 @@ namespace Pelki.Gameplay.SaveSystem
             NotActivateState();
         }
 
-        private void OnDetected()
+        private void OnDetected(GameObject player)
         {
             if (!isActivated)
             {

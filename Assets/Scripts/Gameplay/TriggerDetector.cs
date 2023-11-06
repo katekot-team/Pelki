@@ -7,13 +7,13 @@ namespace Pelki.Gameplay
     {
         [SerializeField] private LayerMask layerMask;
 
-        public event Action Detected;
+        public event Action<GameObject> Detected;
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
             if ((layerMask & (1 << collider.gameObject.layer)) != 0)
             {
-                Detected?.Invoke();
+                Detected?.Invoke(collider.gameObject);
             }
         }
     }

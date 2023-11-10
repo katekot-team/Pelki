@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8486300192252409073}
   - component: {fileID: 2790103788056400148}
   - component: {fileID: 6885941867403390102}
+  - component: {fileID: 698789605}
   m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -55,7 +56,7 @@ MonoBehaviour:
   mover: {fileID: 2790103788056400148}
   projectileSpawner: {fileID: 4859900522612921984}
   attackCooldown: 3
-  skeletonAnimator: {fileID: 6885941867403390102}
+  playerAnimator: {fileID: 698789605}
 --- !u!114 &4859900522612921984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,13 +212,20 @@ MonoBehaviour:
     animation: {fileID: 11400000, guid: 01b58817333cc994796fcdcaf66ed103, type: 2}
   - stateName: rangedAttack
     animation: {fileID: 11400000, guid: 140cbfc634b6b2748ae562f618f55f07, type: 2}
-  transitions:
-  - from: {fileID: 11400000, guid: 474feb1292799144d86b910ea8264bbe, type: 2}
-    to: {fileID: 11400000, guid: 525f7ad179a4f56408533012a5f21cc4, type: 2}
-    transition: {fileID: 11400000, guid: 766211401e282ea4db0b18b5dd5a0995, type: 2}
-  - from: {fileID: 11400000, guid: 525f7ad179a4f56408533012a5f21cc4, type: 2}
-    to: {fileID: 11400000, guid: 6fabd7b2b112a4f46af45ad2bd070605, type: 2}
-    transition: {fileID: 11400000, guid: b979794e63e92c947bef4d078bcfcc56, type: 2}
+  transitions: []
+--- !u!114 &698789605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003272669180245663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4dfee6209e411f937cf92ab08d1421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonAnimator: {fileID: 6885941867403390102}
 --- !u!1 &1473735367704536256
 GameObject:
   m_ObjectHideFlags: 0

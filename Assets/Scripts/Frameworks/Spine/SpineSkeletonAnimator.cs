@@ -90,7 +90,7 @@ namespace Pelki.Frameworks.Spine
         /// Play a non-looping animation once then continue playing the state animation.
         /// Can lock state changing.
         /// </summary>
-        public void PlayOneShot(string shortNameHash, bool lockStateChanging)
+        public void PlayOneShot(string shortNameHash, bool lockStateChanging, int trackIndex = 0)
         {
             Animation oneShotAnimation = GetAnimationForState(shortNameHash);
 
@@ -98,13 +98,14 @@ namespace Pelki.Frameworks.Spine
                 return;
 
             AnimationState state = skeletonAnimation.AnimationState;
-            state.SetAnimation(0, oneShotAnimation, false);
+            state.SetAnimation(trackIndex, oneShotAnimation, false);
+            state.AddEmptyAnimation(trackIndex, 0, oneShotAnimation.Duration);
 
-            Animation transition = TryGetTransition(oneShotAnimation, targetAnimation);
-            if (transition != null)
-                state.AddAnimation(0, transition, false, 0f);
-
-            state.AddAnimation(0, targetAnimation, true, 0f);
+            // Animation transition = TryGetTransition(oneShotAnimation, targetAnimation);
+            // if (transition != null)
+            //     state.AddAnimation(trackIndex, transition, false, 0f);
+            //
+            // state.AddAnimation(trackIndex, targetAnimation, true, 0f);
 
             if (lockStateChanging == false)
                 return;

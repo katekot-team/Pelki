@@ -1,4 +1,4 @@
-using Pelki.Frameworks.Spine;
+using Pelki.Gameplay.Characters.Animations;
 using Pelki.Gameplay.Characters.Movements;
 using Pelki.Gameplay.Input;
 using UnityEngine;
@@ -7,27 +7,11 @@ namespace Pelki.Gameplay.Characters
 {
     public class PlayerCharacter : Entity
     {
-        private enum CharacterState
-        {
-            Idle = 0,
-            Run = 1,
-            Rise = 2,
-            Fall = 3,
-            Attack = 4,
-            RangedAttack = 5,
-        }
-
         [SerializeField] private GroundMover mover;
         [SerializeField] private ProjectileSpawner projectileSpawner;
         [SerializeField] private float attackCooldown;
-        [SerializeField] private SpineSkeletonAnimator skeletonAnimator;
-
-        private const string IdleHash = "idle";
-        private const string RunHash = "run";
-        private const string RiseHash = "rise";
-        private const string FallHash = "fall";
-        private const string AttackHash = "attack";
-        private const string RangedAttackHash = "rangedAttack";
+        [SerializeField] private PlayerAnimator playerAnimator;
+        
 
         private float reloadCompletionTime;
         private bool canPerformRangedAttack;
@@ -41,7 +25,7 @@ namespace Pelki.Gameplay.Characters
             canPerformRangedAttack = true;
 
             mover.Construct(input);
-            skeletonAnimator.Initialize();
+            playerAnimator.Initialize();
         }
 
         //klavikus: Too many conditions - looks like reason for FSM
@@ -76,17 +60,16 @@ namespace Pelki.Gameplay.Characters
             if (IsPerformingRangedAttack())
             {
                 RangedAttack();
-
-                skeletonAnimator.PlayOneShot(RangedAttackHash, lockStateChanging: true);
+                playerAnimator.PlayRangedAttack();
             }
-
-            skeletonAnimator.SetFlip(input.Horizontal);
 
             bool isStateChanged = previousState != currentState;
             previousState = currentState;
 
-            if (isStateChanged)
-                HandleStateChanged();
+            if (isStateChanged) 
+                playerAnimator.UpdateState(currentState);
+
+            playerAnimator.SetFlip(input.Horizontal);
         }
 
         private bool IsPerformingRangedAttack()
@@ -100,39 +83,6 @@ namespace Pelki.Gameplay.Characters
             projectileSpawner.Shoot(transform.right);
             canPerformRangedAttack = false;
             reloadCompletionTime = Time.time + attackCooldown;
-        }
-
-        //klavikus: require change according to approved states list
-        private void HandleStateChanged()
-        {
-            string stateName;
-
-            //klavikus: Idea -> change to dictionary<State, Hash>
-            switch (currentState)
-            {
-                case CharacterState.Idle:
-                    stateName = IdleHash;
-                    break;
-                case CharacterState.Run:
-                    stateName = RunHash;
-                    break;
-                case CharacterState.Rise:
-                    stateName = RiseHash;
-                    break;
-                case CharacterState.Fall:
-                    stateName = FallHash;
-                    break;
-                case CharacterState.Attack:
-                    stateName = AttackHash;
-                    break;
-                case CharacterState.RangedAttack:
-                    stateName = RangedAttackHash;
-                    break;
-                default:
-                    return;
-            }
-
-            skeletonAnimator.PlayAnimationForState(stateName, 0);
         }
     }
 }

@@ -47,6 +47,7 @@ namespace Pelki.Gameplay.Characters.Movements
 
         public bool IsGrounded => isGrounded;
         public bool IsJumping => isJumping;
+        public bool IsIdle => rigidBody.velocity == Vector2.zero;
 
         public void Construct(IInput input)
         {

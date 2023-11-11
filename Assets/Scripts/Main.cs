@@ -32,9 +32,18 @@ namespace Pelki
         {
             var menuScreen = screenSwitcher.ShowScreen<MenuScreen>();
             menuScreen.Construct((IMain)this);
+            Progress levelProgress;
+            if (gameProgressStorage.TryLoadGameProgress())
+            {
+                levelProgress = gameProgressStorage.LevelProgress;
+            }
+            else
+            {
+                levelProgress = new LevelProgress("Initial savepoint");
+            }
 
             game = new Game(mainSettingsConfig.LevelsConfig, mainSettingsConfig.CharactersConfig, screenSwitcher,
-                input, gameProgressStorage.LevelProgress);
+                input, levelProgress);
 
             //SichTM: temporal addition until game menu will be done
             StartGame();

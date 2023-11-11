@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -11,44 +12,48 @@ namespace Pelki.Gameplay.SaveSystem
 
         private static readonly Dictionary<Type, string> levelProgressKeys = new Dictionary<Type, string>()
         {
-            { typeof(LevelProgress), LEVEL_SESSION }
+            { typeof(Progress), LEVEL_SESSION }
         };
 
-        private LevelProgress _levelProgress;
+        private Progress _levelProgress;
 
-        public LevelProgress LevelProgress => _levelProgress;
+        public Progress LevelProgress => _levelProgress;
+
+        public bool TryLoadGameProgress()
+        {
+            if (PlayerPrefs.HasKey(LEVEL_SESSION))
+            {
+                LoadGameProgress();
+                
+                return true;
+            }
+
+            return false;
+        }
 
         public void LoadGameProgress()
         {
-            LevelProgress defaultLevelProgress = new LevelProgress("Initial savepoint");
-            _levelProgress = DoLoadingGameProgress<LevelProgress>(LEVEL_SESSION, defaultLevelProgress);
+            _levelProgress = DoLoadingGameProgress(LEVEL_SESSION);
 
             _levelProgress.Initialize(this);
         }
 
-        public void SaveGameProgress<TObj>(TObj t)
+        public void SaveGameProgress(Progress progress)
         {
-            var key = levelProgressKeys[typeof(TObj)];
-            DoSavingGameProgress(t, key);
+            var key = levelProgressKeys[typeof(Progress)];
+            DoSavingGameProgress(progress, key);
         }
 
-        private TProgress DoLoadingGameProgress<TProgress>(string levelProressKey, 
-            LevelProgress defaultLevelProgress)
+        private Progress DoLoadingGameProgress(string levelProressKey)
         {
             string levelProressInJson = PlayerPrefs.GetString(levelProressKey, "Not saved");
-            if (levelProressInJson == "Not saved")
-            {
 
-                return (TProgress)(object)defaultLevelProgress;
-            }
-
-            return JsonConvert.DeserializeObject<TProgress>(levelProressInJson);
+            return JsonConvert.DeserializeObject<LevelProgress>(levelProressInJson);
         }
 
-        private void DoSavingGameProgress<TProgress>(TProgress levelProgess, string key)
+        private void DoSavingGameProgress(Progress levelProgess, string key)
         {
-            LevelProgress progress = (LevelProgress)Convert.ChangeType(levelProgess, typeof(LevelProgress));
-            string levelProgessInJson = JsonConvert.SerializeObject(progress);
+            string levelProgessInJson = JsonConvert.SerializeObject(levelProgess);
             PlayerPrefs.SetString(key, levelProgessInJson);
         }
 

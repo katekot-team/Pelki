@@ -1,9 +1,7 @@
 namespace Pelki.Gameplay.SaveSystem
 {
-    public class LevelProgress
+    public class LevelProgress : Progress
     {
-        private IGameProgressSaver gameProgressSaver;
-
         public string SavePointId { get; set; }
 
         public LevelProgress(string savePointId)
@@ -14,11 +12,6 @@ namespace Pelki.Gameplay.SaveSystem
         public void Save()
         {
             gameProgressSaver.SaveGameProgress(this);
-        }
-
-        public void Initialize(IGameProgressSaver gameProgressStorage)
-        {
-            gameProgressSaver = gameProgressStorage;
         }
     }
 }

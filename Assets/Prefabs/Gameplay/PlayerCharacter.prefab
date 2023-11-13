@@ -212,7 +212,13 @@ MonoBehaviour:
     animation: {fileID: 11400000, guid: 01b58817333cc994796fcdcaf66ed103, type: 2}
   - stateName: rangedAttack
     animation: {fileID: 11400000, guid: 140cbfc634b6b2748ae562f618f55f07, type: 2}
-  transitions: []
+  transitions:
+  - from: {fileID: 11400000, guid: 474feb1292799144d86b910ea8264bbe, type: 2}
+    to: {fileID: 11400000, guid: 525f7ad179a4f56408533012a5f21cc4, type: 2}
+    transition: {fileID: 11400000, guid: 766211401e282ea4db0b18b5dd5a0995, type: 2}
+  - from: {fileID: 11400000, guid: 525f7ad179a4f56408533012a5f21cc4, type: 2}
+    to: {fileID: 11400000, guid: 6fabd7b2b112a4f46af45ad2bd070605, type: 2}
+    transition: {fileID: 11400000, guid: b979794e63e92c947bef4d078bcfcc56, type: 2}
 --- !u!114 &698789605
 MonoBehaviour:
   m_ObjectHideFlags: 0

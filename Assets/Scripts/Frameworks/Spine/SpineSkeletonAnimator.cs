@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Spine;
 using Spine.Unity;
 using UnityEngine;
 using Animation = Spine.Animation;
 using AnimationState = Spine.AnimationState;
-
 
 namespace Pelki.Frameworks.Spine
 {
@@ -17,9 +15,6 @@ namespace Pelki.Frameworks.Spine
         [SerializeField] private List<AnimationTransition> transitions;
 
         private Animation targetAnimation;
-        private bool isStateChangingLocked;
-        private Coroutine sateLockRoutine;
-        private string lastInvokedAnimationName;
 
         public void Initialize()
         {
@@ -37,102 +32,104 @@ namespace Pelki.Frameworks.Spine
         public void SetFlip(float horizontal)
         {
             if (horizontal == 0)
+            {
                 return;
+            }
 
             skeletonAnimation.Skeleton.ScaleX = horizontal > 0 ? 1f : -1f;
         }
 
-        /// <summary>Plays an animation based on the state name and cash invocation for after-lock state</summary>
-        public void PlayAnimationForState(string stateShortName, int layerIndex)
+        /// <summary>Plays an animation based on the state name. </summary>
+        public void PlayAnimationForState(string stateShortName, int trackIndex = 0)
         {
-            lastInvokedAnimationName = stateShortName;
-            PlayAnimationForState(StringToHash(stateShortName), layerIndex);
+            PlayAnimationForState(StringToHash(stateShortName), trackIndex);
         }
 
-        /// <summary>Gets a Spine Animation based on the state name.</summary>
-        public Animation GetAnimationForState(string stateShortName) =>
-            GetAnimationForState(StringToHash(stateShortName));
+        /// <summary>Gets a Spine Animation based on the state name. </summary>
+        public Animation GetAnimationForState(string stateShortName)
+        {
+            return GetAnimationForState(StringToHash(stateShortName));
+        }
 
-        /// <summary>Gets a Spine Animation based on the hash of the state name.</summary>
+        /// <summary>Gets a Spine Animation based on the hash of the state name. </summary>
         public Animation GetAnimationForState(int shortNameHash)
         {
-            StateNameToAnimationReference foundState =
-                statesAndAnimations.Find(entry => StringToHash(entry.stateName) == shortNameHash);
-            return foundState?.animation;
+            StateNameToAnimationReference foundState = statesAndAnimations
+                .Find(entry => StringToHash(entry.StateName) == shortNameHash);
+            return foundState?.Animation;
         }
 
         /// <summary>
         /// Play an animation. If a transition animation is defined and transition allowed,
         /// the transition is played before the target animation being passed.
         /// </summary>
-        public void PlayNewAnimation(Animation target, int layerIndex, bool withoutTransition = false)
+        public void PlayNewAnimation(Animation target, int trackIndex)
         {
             Animation transition = null;
-            Animation current = GetCurrentAnimation(layerIndex);
+            Animation current = GetCurrentAnimation(trackIndex);
 
-            if (current != null && withoutTransition == false)
+            if (current != null)
+            {
                 transition = TryGetTransition(current, target);
+            }
 
             if (transition != null)
             {
-                skeletonAnimation.AnimationState.SetAnimation(layerIndex, transition, false);
-                skeletonAnimation.AnimationState.AddAnimation(layerIndex, target, true, 0f);
+                skeletonAnimation.AnimationState.SetAnimation(trackIndex, transition, false);
+                skeletonAnimation.AnimationState.AddAnimation(trackIndex, target, true, 0f);
             }
             else
             {
-                skeletonAnimation.AnimationState.SetAnimation(layerIndex, target, true);
+                skeletonAnimation.AnimationState.SetAnimation(trackIndex, target, true);
             }
 
             targetAnimation = target;
         }
 
-        /// <summary>
-        /// Play a non-looping animation once then continue playing the state animation.
-        /// Can lock state changing.
-        /// </summary>
-        public void PlayOneShot(string shortNameHash, bool lockStateChanging, int trackIndex = 0)
+        /// <summary> Play a non-looping animation once then continue playing the state animation. </summary>
+        public void PlayOneShot(string shortNameHash, int trackIndex = 0)
         {
             Animation oneShotAnimation = GetAnimationForState(shortNameHash);
 
             if (oneShotAnimation == null)
+            {
                 return;
+            }
 
             AnimationState state = skeletonAnimation.AnimationState;
+            Animation transition = TryGetTransition(oneShotAnimation, targetAnimation);
+
             state.SetAnimation(trackIndex, oneShotAnimation, false);
+
+            if (transition != null)
+            {
+                state.AddAnimation(trackIndex, transition, false, 0f);
+            }
+
             state.AddEmptyAnimation(trackIndex, 0, oneShotAnimation.Duration);
-
-            // Animation transition = TryGetTransition(oneShotAnimation, targetAnimation);
-            // if (transition != null)
-            //     state.AddAnimation(trackIndex, transition, false, 0f);
-            //
-            // state.AddAnimation(trackIndex, targetAnimation, true, 0f);
-
-            if (lockStateChanging == false)
-                return;
-
-            if (sateLockRoutine != null)
-                StopCoroutine(sateLockRoutine);
-
-            sateLockRoutine = StartCoroutine(AnimationStateChangingCooldown(oneShotAnimation.Duration));
         }
 
-        private void PlayAnimationForState(int shortNameHash, int layerIndex)
+        private void PlayAnimationForState(int shortNameHash, int trackIndex)
         {
-            if (isStateChangingLocked)
-                return;
-
             Animation foundAnimation = GetAnimationForState(shortNameHash);
-            if (foundAnimation == null)
-                return;
 
-            PlayNewAnimation(foundAnimation, layerIndex);
+            if (foundAnimation == null)
+            {
+                return;
+            }
+
+            PlayNewAnimation(foundAnimation, trackIndex);
         }
 
         private Animation TryGetTransition(Animation from, Animation to)
         {
             foreach (AnimationTransition transition in transitions)
-                if (transition.from.Animation == from && transition.to.Animation == to)
-                    return transition.transition.Animation;
+            {
+                if (transition.From.Animation == from && transition.To.Animation == to)
+                {
+                    return transition.Transition.Animation;
+                }
+            }
 
             return null;
         }
@@ -146,48 +143,37 @@ namespace Pelki.Frameworks.Spine
         private int StringToHash(string s) =>
             Animator.StringToHash(s);
 
-        private IEnumerator AnimationStateChangingCooldown(float duration)
-        {
-            isStateChangingLocked = true;
-
-            float currentTime = 0;
-
-            while (currentTime < duration)
-            {
-                currentTime += Time.deltaTime;
-                yield return null;
-            }
-
-            isStateChangingLocked = false;
-            PlayAnimationForState(StringToHash(lastInvokedAnimationName), 0);
-        }
-
-        //TODO: klavikus: public->private
         [Serializable]
         private class StateNameToAnimationReference
         {
-            public string stateName;
-            public AnimationReferenceAsset animation;
+            [SerializeField] private string stateName;
+            [SerializeField] private AnimationReferenceAsset animation;
+
+            public string StateName => stateName;
+            public AnimationReferenceAsset Animation => animation;
 
             public void Initialize()
             {
-                animation.Initialize();
+                Animation.Initialize();
             }
         }
 
-        //TODO: klavikus: public->private
         [Serializable]
         private class AnimationTransition
         {
-            public AnimationReferenceAsset from;
-            public AnimationReferenceAsset to;
-            public AnimationReferenceAsset transition;
+            [SerializeField] private AnimationReferenceAsset from;
+            [SerializeField] private AnimationReferenceAsset to;
+            [SerializeField] private AnimationReferenceAsset transition;
+
+            public AnimationReferenceAsset From => from;
+            public AnimationReferenceAsset To => to;
+            public AnimationReferenceAsset Transition => transition;
 
             public void Initialize()
             {
-                from.Initialize();
-                to.Initialize();
-                transition.Initialize();
+                From.Initialize();
+                To.Initialize();
+                Transition.Initialize();
             }
         }
     }

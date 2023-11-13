@@ -14,30 +14,50 @@ namespace Pelki.Gameplay.Characters.Animations
         private const string AttackHash = "attack";
         private const string RangedAttackHash = "rangedAttack";
 
+        private const int AttackTrackIndex = 2;
+
+        private CharacterState previousState;
+        private CharacterState currentState;
+
         public void Initialize()
         {
             skeletonAnimator.Initialize();
         }
 
-        public void SetFlip(float inputHorizontal) =>
-            skeletonAnimator.SetFlip(inputHorizontal);
-
-        public void UpdateState(CharacterState characterState)
+        public void SetFlip(float inputHorizontal)
         {
-            HandleStateChanged(characterState);
+            skeletonAnimator.SetFlip(inputHorizontal);
+        }
+
+        public void SetState(CharacterState characterState)
+        {
+            currentState = characterState;
+
+            if (previousState == currentState)
+            {
+                return;
+            }
+
+            previousState = currentState;
+
+            PlayStateAnimation(characterState);
+        }
+
+        public void PlayMeleeAttack()
+        {
+            skeletonAnimator.PlayOneShot(AttackHash, AttackTrackIndex);
         }
 
         public void PlayRangedAttack()
         {
-            skeletonAnimator.PlayOneShot(RangedAttackHash, lockStateChanging: false, trackIndex: 1);
+            skeletonAnimator.PlayOneShot(RangedAttackHash, AttackTrackIndex);
         }
 
         //klavikus: require change according to approved states list
-        private void HandleStateChanged(CharacterState characterState)
+        private void PlayStateAnimation(CharacterState characterState)
         {
             string stateName;
 
-            //klavikus: Idea -> change to dictionary<State, Hash>
             switch (characterState)
             {
                 case CharacterState.Idle:
@@ -62,8 +82,7 @@ namespace Pelki.Gameplay.Characters.Animations
                     return;
             }
 
-            Debug.Log(stateName);
-            skeletonAnimator.PlayAnimationForState(stateName, 0);
+            skeletonAnimator.PlayAnimationForState(stateName);
         }
     }
 }

@@ -11,13 +11,11 @@ namespace Pelki.Gameplay.Characters
         [SerializeField] private ProjectileSpawner projectileSpawner;
         [SerializeField] private float attackCooldown;
         [SerializeField] private PlayerAnimator playerAnimator;
-        
 
         private float reloadCompletionTime;
         private bool canPerformRangedAttack;
         private IInput input;
         private CharacterState currentState;
-        private CharacterState previousState;
 
         public void Construct(IInput input)
         {
@@ -63,12 +61,7 @@ namespace Pelki.Gameplay.Characters
                 playerAnimator.PlayRangedAttack();
             }
 
-            bool isStateChanged = previousState != currentState;
-            previousState = currentState;
-
-            if (isStateChanged) 
-                playerAnimator.UpdateState(currentState);
-
+            playerAnimator.SetState(currentState);
             playerAnimator.SetFlip(input.Horizontal);
         }
 

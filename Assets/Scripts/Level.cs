@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using Pelki.Gameplay.SaveSystem;
 using UnityEngine;
 
@@ -10,12 +11,23 @@ namespace Pelki
     {
         [SerializeField] private Transform characterSpawnPoint;
         [SerializeField] private List<SavePointDto> savePoints;
+        
+        [Dropdown(nameof(GetAllSavepointIds))]
+        [SerializeField] private string characterSpawnSavePointId;
 
         private Dictionary<SavePoint, string> savePointsRegister;
 
         public IReadOnlyDictionary<SavePoint, string> SavePointsRegister => savePointsRegister;
 
         public Vector3 CharacterSpawnPosition => characterSpawnPoint.position;
+
+        public string CharacterSpawnSavePointId => characterSpawnSavePointId;
+        
+        public IEnumerable<string> GetAllSavepointIds()
+        {
+            IEnumerable<string> result = SavePointsRegister.Values.ToList();
+            return result;
+        }
 
         public void OnBeforeSerialize()
         {

@@ -17,6 +17,7 @@ namespace Pelki
 
         private Game game;
         private IInput input;
+        private Progress levelProgress;
 
         private void Awake()
         {
@@ -25,22 +26,22 @@ namespace Pelki
 #else
             input = new InputBySimpleInput(mainSettingsConfig.InputConfig);
 #endif
-            gameProgressStorage.LoadGameProgress();
-        }
-
-        private void Start()
-        {
-            var menuScreen = screenSwitcher.ShowScreen<MenuScreen>();
-            menuScreen.Construct((IMain)this);
-            Progress levelProgress;
+            //gameProgressStorage.LoadGameProgress();
             if (gameProgressStorage.TryLoadGameProgress())
             {
                 levelProgress = gameProgressStorage.LevelProgress;
             }
             else
             {
-                levelProgress = new LevelProgress("Initial savepoint");
+                Level level = mainSettingsConfig.LevelsConfig.DebugLevelPrefab;
+                levelProgress = new LevelProgress(level.CharacterSpawnSavePointId);
             }
+        }
+
+        private void Start()
+        {
+            var menuScreen = screenSwitcher.ShowScreen<MenuScreen>();
+            menuScreen.Construct((IMain)this);
 
             game = new Game(mainSettingsConfig.LevelsConfig, mainSettingsConfig.CharactersConfig, screenSwitcher,
                 input, levelProgress);

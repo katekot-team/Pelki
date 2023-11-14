@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Pelki.Gameplay.SaveSystem
 {
     public class LevelProgress : Progress

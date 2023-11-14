@@ -1,3 +1,4 @@
+using System.Linq;
 using Pelki.Configs;
 using Pelki.Gameplay.Characters;
 using Pelki.Gameplay.Input;
@@ -42,8 +43,19 @@ namespace Pelki.Gameplay
                 savePointItem.Key.Saved += OnSaved;
             }
 
+            Vector3 spawnPosition = level.CharacterSpawnPosition;
+            if (levelProgress is LevelProgress progress)
+            {
+                foreach (var (point, id) in level.SavePointsRegister)
+                {
+                    if (progress.SavePointId == id)
+                    {
+                        spawnPosition = point.transform.position;
+                    }
+                }
+            }
             playerCharacter = Object.Instantiate(charactersConfig.PlayerCharacterPrefab,
-                level.CharacterSpawnPosition,
+                spawnPosition,
                 Quaternion.identity, level.transform);
             playerCharacter.Construct(input);
 

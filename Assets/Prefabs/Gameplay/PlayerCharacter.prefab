@@ -9,13 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1003272669180245657}
-  - component: {fileID: 2997190324756777813}
-  - component: {fileID: 4859900522612921984}
   - component: {fileID: 5330133580825591984}
   - component: {fileID: 8486300192252409073}
+  - component: {fileID: 4044747816779666456}
   - component: {fileID: 2790103788056400148}
-  - component: {fileID: 6885941867403390102}
   - component: {fileID: 698789605}
+  - component: {fileID: 6885941867403390102}
+  - component: {fileID: 4128867147461868099}
+  - component: {fileID: 4859900522612921984}
   m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -39,39 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2997190324756777813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003272669180245663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1964c181466d4f9d86a493b4bc5a5512, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  isDebugLog: 1
-  mover: {fileID: 2790103788056400148}
-  projectileSpawner: {fileID: 4859900522612921984}
-  attackCooldown: 3
-  playerAnimator: {fileID: 698789605}
---- !u!114 &4859900522612921984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003272669180245663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78538848b31a43588e888e6a87837c54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 46404658383535722, guid: 304d2d30439374d4280d804ddfa56573,
-    type: 3}
-  spawnPoint: {fileID: 3013351737567162148}
 --- !u!70 &5330133580825591984
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -109,6 +77,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &4044747816779666456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003272669180245663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1804a50a912d477283a9c5a15f395419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  isDebugLog: 0
+  _mover: {fileID: 2790103788056400148}
+  _playerAnimator: {fileID: 698789605}
+  _attacker: {fileID: 4128867147461868099}
 --- !u!114 &2790103788056400148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,9 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5231bebcfcca49ea935d152726d90e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementThrashold: 0.1
-  movementSpeed: 4.72
-  speedAccelerationCurve:
+  _movementThreshold: 0.1
+  _movementSpeed: 4.72
+  _speedAccelerationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -147,8 +132,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  accelerationTime: 0.1
-  speedBreakingCurve:
+  _accelerationTime: 0.1
+  _speedBreakingCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -172,16 +157,29 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  brakingTime: 2
-  jumpVelocity: 12.23
-  gravityFactor: 3
-  groundMask:
+  _brakingTime: 2
+  _jumpVelocity: 12.23
+  _gravityFactor: 3
+  _groundMask:
     serializedVersion: 2
     m_Bits: 256
-  radiusGroundCheck: 0.05
-  rigidBody: {fileID: 8486300192252409073}
-  isDrawDebug: 1
-  checkGroundDebugRayColor: {r: 1, g: 0, b: 0.1701541, a: 1}
+  _radiusGroundCheck: 0.05
+  _rigidBody: {fileID: 8486300192252409073}
+  _isDrawDebug: 1
+  _checkGroundDebugRayColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &698789605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003272669180245663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4dfee6209e411f937cf92ab08d1421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skeletonAnimator: {fileID: 6885941867403390102}
 --- !u!114 &6885941867403390102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,29 +195,27 @@ MonoBehaviour:
   skeletonAnimation: {fileID: 415413704417157538}
   statesAndAnimations:
   - stateName: idle
-    animation: {fileID: 11400000, guid: 2ec846b7178b3144b95507e4f68cff3f, type: 2}
+    animation: {fileID: 11400000, guid: dab0845175050054ea5ab36bc15bff88, type: 2}
   - stateName: run
-    animation: {fileID: 11400000, guid: 474feb1292799144d86b910ea8264bbe, type: 2}
+    animation: {fileID: 11400000, guid: d1ea031392647ae488a0279ffeb29ce6, type: 2}
   - stateName: walk
-    animation: {fileID: 11400000, guid: 096b05b71bb32cb409c1c8fd233b7ac3, type: 2}
-  - stateName: crouch
-    animation: {fileID: 11400000, guid: 25961ff211f6f3947be85f8aab3f2630, type: 2}
+    animation: {fileID: 11400000, guid: b7a08a39d48acd2458a664daddc16c0e, type: 2}
   - stateName: rise
-    animation: {fileID: 11400000, guid: 525f7ad179a4f56408533012a5f21cc4, type: 2}
+    animation: {fileID: 11400000, guid: 448e4b3fab66c884cb6e1c66aae95418, type: 2}
   - stateName: fall
-    animation: {fileID: 11400000, guid: 6fabd7b2b112a4f46af45ad2bd070605, type: 2}
+    animation: {fileID: 11400000, guid: d95af207a18b4d94da5a7066a279c8be, type: 2}
   - stateName: attack
-    animation: {fileID: 11400000, guid: 01b58817333cc994796fcdcaf66ed103, type: 2}
+    animation: {fileID: 11400000, guid: 516a06cd3278761469bc9ec91b182a43, type: 2}
   - stateName: rangedAttack
-    animation: {fileID: 11400000, guid: 140cbfc634b6b2748ae562f618f55f07, type: 2}
+    animation: {fileID: 11400000, guid: 7cb38829112493549bd2f541ce23d5d8, type: 2}
   transitions:
-  - from: {fileID: 11400000, guid: 474feb1292799144d86b910ea8264bbe, type: 2}
-    to: {fileID: 11400000, guid: 525f7ad179a4f56408533012a5f21cc4, type: 2}
-    transition: {fileID: 11400000, guid: 766211401e282ea4db0b18b5dd5a0995, type: 2}
-  - from: {fileID: 11400000, guid: 525f7ad179a4f56408533012a5f21cc4, type: 2}
-    to: {fileID: 11400000, guid: 6fabd7b2b112a4f46af45ad2bd070605, type: 2}
-    transition: {fileID: 11400000, guid: b979794e63e92c947bef4d078bcfcc56, type: 2}
---- !u!114 &698789605
+  - from: {fileID: 11400000, guid: d1ea031392647ae488a0279ffeb29ce6, type: 2}
+    to: {fileID: 11400000, guid: 448e4b3fab66c884cb6e1c66aae95418, type: 2}
+    transition: {fileID: 11400000, guid: 730f11d4599316245a4070b9cb2b6f70, type: 2}
+  - from: {fileID: 11400000, guid: 448e4b3fab66c884cb6e1c66aae95418, type: 2}
+    to: {fileID: 11400000, guid: deb5a9873a90ecc4abf6811f4bb39d1c, type: 2}
+    transition: {fileID: 11400000, guid: adfb8fc24ca94d44eb064ddd63be2c46, type: 2}
+--- !u!114 &4128867147461868099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,10 +224,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1003272669180245663}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d4dfee6209e411f937cf92ab08d1421, type: 3}
+  m_Script: {fileID: 11500000, guid: c10d9b8ab10a4b8e91dad27e109b978d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonAnimator: {fileID: 6885941867403390102}
+  _projectileSpawner: {fileID: 4859900522612921984}
+  _attackCooldown: 1
+--- !u!114 &4859900522612921984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003272669180245663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78538848b31a43588e888e6a87837c54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 46404658383535722, guid: 304d2d30439374d4280d804ddfa56573,
+    type: 3}
+  spawnPoint: {fileID: 3013351737567162148}
 --- !u!1 &1473735367704536256
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +384,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7a261f40670058342913e416ab3c4b53, type: 2}
+  - {fileID: 2100000, guid: e8c6257d2d32d414f9a6407f06518e7a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -406,7 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 69ceeb39cebcb834984195b0b11956a9, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 038596f528f2c1d48ad857086209b96b, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0

@@ -5,7 +5,7 @@ namespace Pelki.Gameplay.Characters.Animations
 {
     public class PlayerAnimator : MonoBehaviour
     {
-        [SerializeField] private SpineSkeletonAnimator skeletonAnimator;
+        [SerializeField] private SpineSkeletonAnimator _skeletonAnimator;
 
         private const string IdleHash = "idle";
         private const string RunHash = "run";
@@ -16,73 +16,66 @@ namespace Pelki.Gameplay.Characters.Animations
 
         private const int AttackTrackIndex = 2;
 
-        private CharacterState previousState;
-        private CharacterState currentState;
+        private MoverState _previousState;
+        private MoverState _currentState;
 
         public void Initialize()
         {
-            skeletonAnimator.Initialize();
+            _skeletonAnimator.Initialize();
         }
 
         public void SetFlip(float inputHorizontal)
         {
-            skeletonAnimator.SetFlip(inputHorizontal);
+            _skeletonAnimator.SetFlip(inputHorizontal);
         }
 
-        public void SetState(CharacterState characterState)
+        public void SetState(MoverState moverState)
         {
-            currentState = characterState;
+            _currentState = moverState;
 
-            if (previousState == currentState)
+            if (_previousState == _currentState)
             {
                 return;
             }
 
-            previousState = currentState;
+            _previousState = _currentState;
 
-            PlayStateAnimation(characterState);
+            PlayStateAnimation(moverState);
         }
 
         public void PlayMeleeAttack()
         {
-            skeletonAnimator.PlayOneShot(AttackHash, AttackTrackIndex);
+            _skeletonAnimator.PlayOneShot(AttackHash, AttackTrackIndex);
         }
 
         public void PlayRangedAttack()
         {
-            skeletonAnimator.PlayOneShot(RangedAttackHash, AttackTrackIndex);
+            _skeletonAnimator.PlayOneShot(RangedAttackHash, AttackTrackIndex);
         }
 
-        //klavikus: require change according to approved states list
-        private void PlayStateAnimation(CharacterState characterState)
+        private void PlayStateAnimation(MoverState moverState)
         {
             string stateName;
 
-            switch (characterState)
+            switch (moverState)
             {
-                case CharacterState.Idle:
+                case MoverState.Idle:
                     stateName = IdleHash;
                     break;
-                case CharacterState.Run:
+                case MoverState.Run:
                     stateName = RunHash;
                     break;
-                case CharacterState.Rise:
+                case MoverState.Rise:
                     stateName = RiseHash;
                     break;
-                case CharacterState.Fall:
+                case MoverState.Fall:
                     stateName = FallHash;
-                    break;
-                case CharacterState.Attack:
-                    stateName = AttackHash;
-                    break;
-                case CharacterState.RangedAttack:
-                    stateName = RangedAttackHash;
                     break;
                 default:
                     return;
             }
 
-            skeletonAnimator.PlayAnimationForState(stateName);
+            _skeletonAnimator.PlayAnimationForState(stateName);
         }
     }
 }

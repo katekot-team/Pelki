@@ -1,12 +1,17 @@
 namespace Pelki.Gameplay.SaveSystem
 {
-    public abstract class Progress
+    public abstract class BaseProgress
     {
         protected IGameProgressSaver gameProgressSaver;
         
         public void Initialize(IGameProgressSaver gameProgressStorage)
         {
             gameProgressSaver = gameProgressStorage;
+        }
+        
+        public void Save()
+        {
+            gameProgressSaver.SaveGameProgress(this);
         }
     }
 }

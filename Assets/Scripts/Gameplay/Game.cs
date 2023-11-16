@@ -18,16 +18,16 @@ namespace Pelki.Gameplay
 
         private Level level;
         private PlayerCharacter playerCharacter;
-        private Progress levelProgress;
+        private LevelProgress levelProgress;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
-            IInput input, Progress levelProgress)
+            IInput input, LevelProgress progress)
         {
             this.charactersConfig = charactersConfig;
             this.input = input;
             this.screenSwitcher = screenSwitcher;
             this.levelsConfig = levelsConfig;
-            this.levelProgress = levelProgress;
+            this.levelProgress = progress;
         }
 
         public void ThisUpdate()
@@ -38,22 +38,14 @@ namespace Pelki.Gameplay
         {
             Level levelPrefab = levelsConfig.DebugLevelPrefab;
             level = Object.Instantiate(levelPrefab);
-            foreach (var savePointItem in level.SavePointsRegister)
+            foreach (var savePointItem in level.SavePointIdsRegister)
             {
                 savePointItem.Key.Saved += OnSaved;
             }
 
             Vector3 spawnPosition = level.CharacterSpawnPosition;
-            if (levelProgress is LevelProgress progress)
-            {
-                foreach (var (point, id) in level.SavePointsRegister)
-                {
-                    if (progress.SavePointId == id)
-                    {
-                        spawnPosition = point.transform.position;
-                    }
-                }
-            }
+            spawnPosition = level.SavePointsRegister[levelProgress.SavePointId].transform.position;
+            
             playerCharacter = Object.Instantiate(charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
                 Quaternion.identity, level.transform);
@@ -64,13 +56,10 @@ namespace Pelki.Gameplay
 
         private void OnSaved(SavePoint savePoint)
         {
-            var savePointId = level.SavePointsRegister[savePoint];
-            if (levelProgress is LevelProgress progress)
-            {
-                progress.SavePointId = savePointId;
-                progress.Save();
-                Debug.Log("Save on savepoint with ID: " + savePointId);
-            }
+            var savePointId = level.SavePointIdsRegister[savePoint];
+            levelProgress.SavePointId = savePointId;
+            levelProgress.Save();
+            Debug.Log("Save on savepoint with ID: " + savePointId);
         }
     }
 }

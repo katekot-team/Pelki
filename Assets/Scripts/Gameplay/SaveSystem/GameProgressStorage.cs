@@ -12,50 +12,49 @@ namespace Pelki.Gameplay.SaveSystem
 
         private static readonly Dictionary<Type, string> levelProgressKeys = new Dictionary<Type, string>()
         {
-            { typeof(Progress), LEVEL_SESSION }
+            { typeof(BaseProgress), LEVEL_SESSION }
         };
 
-        private Progress _levelProgress;
+        /*private BaseProgress levelBaseProgress;
 
-        public Progress LevelProgress => _levelProgress;
+        public BaseProgress LevelBaseProgress => levelBaseProgress;*/
 
-        public bool TryLoadGameProgress()
+        public bool TryLoadGameProgress<TProgress>(out TProgress progress) where TProgress : BaseProgress
         {
             if (PlayerPrefs.HasKey(LEVEL_SESSION))
             {
-                LoadGameProgress();
+                string levelProressInJson = PlayerPrefs.GetString(LEVEL_SESSION, "Not saved");
+                progress = JsonConvert.DeserializeObject<TProgress>(levelProressInJson);
+                progress.Initialize(this);
                 
                 return true;
             }
 
+            progress = null;
+
             return false;
         }
 
-        public void LoadGameProgress()
+        /*public void LoadGameProgress()
         {
-            _levelProgress = DoLoadingGameProgress(LEVEL_SESSION);
+            levelBaseProgress = DoLoadingGameProgress(LEVEL_SESSION);
 
-            _levelProgress.Initialize(this);
+            levelBaseProgress.Initialize(this);
+        }*/
+
+        public void SaveGameProgress<TProgress>(TProgress progress) where TProgress : BaseProgress
+        {
+            var key = levelProgressKeys[typeof(BaseProgress)];
+            string levelProgessInJson = JsonConvert.SerializeObject(progress);
+            PlayerPrefs.SetString(key, levelProgessInJson);
         }
 
-        public void SaveGameProgress(Progress progress)
-        {
-            var key = levelProgressKeys[typeof(Progress)];
-            DoSavingGameProgress(progress, key);
-        }
-
-        private Progress DoLoadingGameProgress(string levelProressKey)
+        /*private BaseProgress DoLoadingGameProgress(string levelProressKey)
         {
             string levelProressInJson = PlayerPrefs.GetString(levelProressKey, "Not saved");
 
-            return JsonConvert.DeserializeObject<LevelProgress>(levelProressInJson);
-        }
-
-        private void DoSavingGameProgress(Progress levelProgess, string key)
-        {
-            string levelProgessInJson = JsonConvert.SerializeObject(levelProgess);
-            PlayerPrefs.SetString(key, levelProgessInJson);
-        }
+            return JsonConvert.DeserializeObject<LevelBaseProgress>(levelProressInJson);
+        }*/
 
         public void Dispose()
         {

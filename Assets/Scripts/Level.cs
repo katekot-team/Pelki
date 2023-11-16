@@ -15,9 +15,11 @@ namespace Pelki
         [Dropdown(nameof(GetAllSavepointIds))]
         [SerializeField] private string characterSpawnSavePointId;
 
-        private Dictionary<SavePoint, string> savePointsRegister;
+        private Dictionary<SavePoint, string> savePointIdsRegister;
+        private Dictionary<string, SavePoint> savePointsRegister;
 
-        public IReadOnlyDictionary<SavePoint, string> SavePointsRegister => savePointsRegister;
+        public IReadOnlyDictionary<SavePoint, string> SavePointIdsRegister => savePointIdsRegister;
+        public IReadOnlyDictionary<string, SavePoint> SavePointsRegister => savePointsRegister;
 
         public Vector3 CharacterSpawnPosition => characterSpawnPoint.position;
 
@@ -25,18 +27,19 @@ namespace Pelki
         
         public IEnumerable<string> GetAllSavepointIds()
         {
-            IEnumerable<string> result = SavePointsRegister.Values.ToList();
+            IEnumerable<string> result = SavePointIdsRegister.Values.ToList();
             return result;
         }
 
-        public void OnBeforeSerialize()
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
             //do nothing
         }
 
-        public void OnAfterDeserialize()
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
-            savePointsRegister = savePoints.ToDictionary(dto => dto.SavePoint, dto => dto.ID);
+            savePointIdsRegister = savePoints.ToDictionary(dto => dto.SavePoint, dto => dto.ID);
+            savePointsRegister = savePoints.ToDictionary(dto => dto.ID, dto => dto.SavePoint);
         }
 
         [Serializable]

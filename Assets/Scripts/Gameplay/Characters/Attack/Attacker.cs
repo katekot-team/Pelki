@@ -11,9 +11,10 @@ namespace Pelki.Gameplay.Characters.Attack
 
         private IInput _input;
         private float _reloadCompletionTime;
-        private bool _canPerformRangedAttack;
 
         public event Action InvokedRangeAttack;
+
+        private bool CanPerformRangedAttack => Time.time > _reloadCompletionTime;
 
         public void Construct(IInput input)
         {
@@ -22,11 +23,6 @@ namespace Pelki.Gameplay.Characters.Attack
 
         private void Update()
         {
-            if (!_canPerformRangedAttack && Time.time > _reloadCompletionTime)
-            {
-                _canPerformRangedAttack = true;
-            }
-
             if (IsPerformingRangedAttack())
             {
                 RangedAttack();
@@ -37,13 +33,12 @@ namespace Pelki.Gameplay.Characters.Attack
         {
             bool isCalled = _input.IsRangedAttacking;
 
-            return isCalled && _canPerformRangedAttack;
+            return isCalled && CanPerformRangedAttack;
         }
 
         private void RangedAttack()
         {
             _projectileSpawner.Shoot(transform.right);
-            _canPerformRangedAttack = false;
             _reloadCompletionTime = Time.time + _attackCooldown;
             InvokedRangeAttack?.Invoke();
         }

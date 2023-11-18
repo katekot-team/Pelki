@@ -5,26 +5,26 @@ using Pelki.Gameplay.SaveSystem;
 using Pelki.UI;
 using Pelki.UI.Screens;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Pelki.Gameplay
 {
     public class Game
     {
-        private readonly LevelsConfig levelsConfig;
-        private readonly ScreenSwitcher screenSwitcher;
-        private readonly IInput input;
-        private readonly CharactersConfig charactersConfig;
+        private readonly LevelsConfig _levelsConfig;
+        private readonly ScreenSwitcher _screenSwitcher;
+        private readonly IInput _input;
+        private readonly CharactersConfig _charactersConfig;
 
-        private Level level;
-        private PlayerCharacter playerCharacter;
+        private Level _level;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
             IInput input)
         {
-            this.charactersConfig = charactersConfig;
-            this.input = input;
-            this.screenSwitcher = screenSwitcher;
-            this.levelsConfig = levelsConfig;
+            _charactersConfig = charactersConfig;
+            _input = input;
+            _screenSwitcher = screenSwitcher;
+            _levelsConfig = levelsConfig;
         }
 
         public void ThisUpdate()
@@ -33,25 +33,26 @@ namespace Pelki.Gameplay
 
         public void StartGame()
         {
-            Level levelPrefab = levelsConfig.DebugLevelPrefab;
-            level = Object.Instantiate(levelPrefab);
-            foreach (var savePointItem in level.SavePointsRegister)
+            Level levelPrefab = _levelsConfig.DebugLevelPrefab;
+            _level = Object.Instantiate(levelPrefab);
+
+            foreach (var savePointItem in _level.SavePointsRegister)
             {
                 savePointItem.Key.Saved += OnSaved;
             }
 
-            playerCharacter = Object.Instantiate(charactersConfig.PlayerCharacterPrefab,
-                level.CharacterSpawnPosition,
-                Quaternion.identity, level.transform);
-            playerCharacter.Construct(input);
+            PlayerCharacter playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
+                _level.CharacterSpawnPosition,
+                Quaternion.identity, _level.transform);
+            playerCharacter.Construct(_input);
 
-            screenSwitcher.ShowScreen<GameScreen>();
+            _screenSwitcher.ShowScreen<GameScreen>();
         }
 
         private void OnSaved(SavePoint savePoint)
         {
             // TODO сделать реализацию сохранения
-            var savePointId = level.SavePointsRegister[savePoint];
+            var savePointId = _level.SavePointsRegister[savePoint];
             Debug.Log("Save on savepoint with ID: " + savePointId);
         }
     }

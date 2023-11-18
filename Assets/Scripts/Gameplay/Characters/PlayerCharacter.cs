@@ -1,3 +1,5 @@
+using Pelki.Gameplay.Characters.Animations;
+using Pelki.Gameplay.Characters.Attack;
 using Pelki.Gameplay.Characters.Movements;
 using Pelki.Gameplay.Input;
 using UnityEngine;
@@ -6,60 +8,36 @@ namespace Pelki.Gameplay.Characters
 {
     public class PlayerCharacter : Entity
     {
-        [SerializeField] private GroundMover mover;
-        [SerializeField] private ProjectileSpawner projectileSpawner;
-        [SerializeField] private float attackCooldown;
+        [SerializeField] private GroundMover _mover;
+        [SerializeField] private PlayerAnimator _playerAnimator;
+        [SerializeField] private Attacker _attacker;
 
-        private float reloadCompletionTime;
-        private bool canPerformRangedAttack = true;
-        private IInput input;
+        private IInput _input;
 
         public void Construct(IInput input)
         {
-            this.input = input;
-            mover.Construct(input);
+            _input = input;
+
+            _mover.Construct(input);
+            _attacker.Construct(input);
+
+            _playerAnimator.Initialize();
+        }
+
+        private void OnEnable()
+        {
+            _attacker.InvokedRangeAttack += _playerAnimator.PlayRangedAttack;
+        }
+
+        private void OnDisable()
+        {
+            _attacker.InvokedRangeAttack -= _playerAnimator.PlayRangedAttack;
         }
 
         private void Update()
         {
-            if (!canPerformRangedAttack && Time.time > reloadCompletionTime)
-            {
-                canPerformRangedAttack = true;
-            }
-
-            if (IsPerformingRangedAttack())
-            {
-                RangedAttack();
-            }
-
-            if (mover.IsGrounded)
-            {
-                //move,idle
-            }
-
-            if (!mover.IsGrounded && mover.IsJumping)
-            {
-                //start jump
-            }
-
-            if (!mover.IsGrounded && !mover.IsJumping)
-            {
-                //falling
-            }
-        }
-
-        private bool IsPerformingRangedAttack()
-        {
-            bool isCalled = input.IsRangedAttacking;
-
-            return isCalled && canPerformRangedAttack;
-        }
-
-        private void RangedAttack()
-        {
-            projectileSpawner.Shoot(transform.right);
-            canPerformRangedAttack = false;
-            reloadCompletionTime = Time.time + attackCooldown;
+            _playerAnimator.SetFlip(_input.Horizontal);
+            _playerAnimator.SetState(_mover.CurrentState);
         }
     }
 }

@@ -87,9 +87,9 @@ namespace Pelki.Frameworks.Spine
         }
 
         /// <summary> Play a non-looping animation once then continue playing the state animation. </summary>
-        public void PlayOneShot(string shortNameHash, int trackIndex = 0)
+        public void PlayOneShot(string shortName, int trackIndex = 0)
         {
-            Animation oneShotAnimation = GetAnimationForState(shortNameHash);
+            Animation oneShotAnimation = GetAnimationForState(shortName);
 
             if (oneShotAnimation == null)
             {

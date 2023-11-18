@@ -7,12 +7,12 @@ namespace Pelki.Gameplay.Characters.Animations
     {
         [SerializeField] private SpineSkeletonAnimator _skeletonAnimator;
 
-        private const string IdleHash = "idle";
-        private const string RunHash = "run";
-        private const string RiseHash = "rise";
-        private const string FallHash = "fall";
-        private const string AttackHash = "attack";
-        private const string RangedAttackHash = "rangedAttack";
+        private const string IdleName = "idle";
+        private const string RunName = "run";
+        private const string RiseName = "rise";
+        private const string FallName = "fall";
+        private const string AttackName = "attack";
+        private const string RangedAttackName = "rangedAttack";
 
         private const int AttackTrackIndex = 2;
 
@@ -45,12 +45,12 @@ namespace Pelki.Gameplay.Characters.Animations
 
         public void PlayMeleeAttack()
         {
-            _skeletonAnimator.PlayOneShot(AttackHash, AttackTrackIndex);
+            _skeletonAnimator.PlayOneShot(AttackName, AttackTrackIndex);
         }
 
         public void PlayRangedAttack()
         {
-            _skeletonAnimator.PlayOneShot(RangedAttackHash, AttackTrackIndex);
+            _skeletonAnimator.PlayOneShot(RangedAttackName, AttackTrackIndex);
         }
 
         private void PlayStateAnimation(MoverState moverState)
@@ -60,16 +60,16 @@ namespace Pelki.Gameplay.Characters.Animations
             switch (moverState)
             {
                 case MoverState.Idle:
-                    stateName = IdleHash;
+                    stateName = IdleName;
                     break;
                 case MoverState.Run:
-                    stateName = RunHash;
+                    stateName = RunName;
                     break;
                 case MoverState.Rise:
-                    stateName = RiseHash;
+                    stateName = RiseName;
                     break;
                 case MoverState.Fall:
-                    stateName = FallHash;
+                    stateName = FallName;
                     break;
                 default:
                     return;

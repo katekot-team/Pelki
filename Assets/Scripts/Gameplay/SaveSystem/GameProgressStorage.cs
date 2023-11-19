@@ -15,15 +15,11 @@ namespace Pelki.Gameplay.SaveSystem
             { typeof(BaseProgress), LEVEL_SESSION }
         };
 
-        /*private BaseProgress levelBaseProgress;
-
-        public BaseProgress LevelBaseProgress => levelBaseProgress;*/
-
         public bool TryLoadGameProgress<TProgress>(out TProgress progress) where TProgress : BaseProgress
         {
-            if (PlayerPrefs.HasKey(LEVEL_SESSION))
+            if (PlayerPrefs.HasKey(levelProgressKeys[typeof(BaseProgress)]))
             {
-                string levelProressInJson = PlayerPrefs.GetString(LEVEL_SESSION, "Not saved");
+                string levelProressInJson = PlayerPrefs.GetString(LEVEL_SESSION);
                 progress = JsonConvert.DeserializeObject<TProgress>(levelProressInJson);
                 progress.Initialize(this);
                 
@@ -35,26 +31,12 @@ namespace Pelki.Gameplay.SaveSystem
             return false;
         }
 
-        /*public void LoadGameProgress()
-        {
-            levelBaseProgress = DoLoadingGameProgress(LEVEL_SESSION);
-
-            levelBaseProgress.Initialize(this);
-        }*/
-
         public void SaveGameProgress<TProgress>(TProgress progress) where TProgress : BaseProgress
         {
-            var key = levelProgressKeys[typeof(BaseProgress)];
+            var key = levelProgressKeys[typeof(TProgress)];
             string levelProgessInJson = JsonConvert.SerializeObject(progress);
             PlayerPrefs.SetString(key, levelProgessInJson);
         }
-
-        /*private BaseProgress DoLoadingGameProgress(string levelProressKey)
-        {
-            string levelProressInJson = PlayerPrefs.GetString(levelProressKey, "Not saved");
-
-            return JsonConvert.DeserializeObject<LevelBaseProgress>(levelProressInJson);
-        }*/
 
         public void Dispose()
         {

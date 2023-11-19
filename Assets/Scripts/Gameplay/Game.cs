@@ -44,7 +44,10 @@ namespace Pelki.Gameplay
             }
 
             Vector3 spawnPosition = level.CharacterSpawnPosition;
-            spawnPosition = level.SavePointsRegister[levelProgress.SavePointId].transform.position;
+            SavePoint savePoint = level.SavePointsRegister[levelProgress.SavePointId];
+            spawnPosition = savePoint.transform.position;
+            savePoint.ActivateState();
+            savePoint.Saved -= OnSaved;
             
             playerCharacter = Object.Instantiate(charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,

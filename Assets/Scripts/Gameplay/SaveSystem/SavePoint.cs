@@ -28,14 +28,14 @@ namespace Pelki.Gameplay.SaveSystem
             }
         }
 
-        private void ActivateState()
+        public void ActivateState()
         {
             isActivated = true;
             notActivatedState.SetActive(false);
             activatedState.SetActive(true);
         }
 
-        private void NotActivateState()
+        public void NotActivateState()
         {
             isActivated = false;
             notActivatedState.SetActive(true);

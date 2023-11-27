@@ -39,24 +39,23 @@ namespace Pelki.Gameplay
             Level levelPrefab = levelsConfig.DebugLevelPrefab;
             level = Object.Instantiate(levelPrefab);
             Vector3 spawnPosition = level.CharacterSpawnPosition;
-            SavePoint savePoint = level.SavePointsRegister[levelProgress.SavePointId];
-            spawnPosition = savePoint.transform.position;
-            /*savePoint.ActivateState();
-            savePoint.Saved -= OnSaved;*/
+            SavePoint spawnSavePoint = level.SavePointsRegister[levelProgress.LastSavePointId];
+            spawnPosition = spawnSavePoint.transform.position;
             foreach (var savePointItem in level.SavePointIdsRegister)
             {
-                if (savePointItem.Key.Equals(savePoint))
+                if (savePointItem.Key.Equals(spawnSavePoint)
+                    //sttrox: ActivatedSavePoints является list, что не супер оптимизированно, но она вроде как тут и не нужна
+                    && levelProgress.ActivatedSavePoints.Contains(savePointItem.Value))
                 {
-                    savePoint.ActivateState();
-                    savePoint.Saved -= OnSaved;
+                    spawnSavePoint.ActivateState();
                 }
                 else
                 {
-                    savePointItem.Key.Construct();
+                    savePointItem.Key.NotActivateState();
                     savePointItem.Key.Saved += OnSaved;
                 }
             }
-            
+
             playerCharacter = Object.Instantiate(charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
                 Quaternion.identity, level.transform);
@@ -68,7 +67,7 @@ namespace Pelki.Gameplay
         private void OnSaved(SavePoint savePoint)
         {
             var savePointId = level.SavePointIdsRegister[savePoint];
-            levelProgress.SavePointId = savePointId;
+            levelProgress.AddActivatedSavePoint(savePointId);
             levelProgress.Save();
             Debug.Log("Save on savepoint with ID: " + savePointId);
         }

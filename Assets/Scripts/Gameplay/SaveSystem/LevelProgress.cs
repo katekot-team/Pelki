@@ -1,19 +1,21 @@
-using UnityEngine;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Pelki.Gameplay.SaveSystem
 {
-    public class LevelProgress : BaseProgress
+    public class LevelProgress : BaseProgress<LevelProgress>
     {
-        public string SavePointId { get; set; }
+        private readonly List<string> _activatedSavePoints = new List<string>();
 
-        public LevelProgress(string savePointId)
+        [JsonProperty]
+        public string LastSavePointId { get; private set; }
+
+        public IReadOnlyList<string> ActivatedSavePoints => _activatedSavePoints;
+
+        public void AddActivatedSavePoint(string savePointId)
         {
-            SavePointId = savePointId;
-        }
-        
-        public void Save()
-        {
-            gameProgressSaver.SaveGameProgress(this);
+            _activatedSavePoints.Add(savePointId);
+            LastSavePointId = savePointId;
         }
     }
 }

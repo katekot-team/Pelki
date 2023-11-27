@@ -12,14 +12,17 @@ namespace Pelki.Gameplay.SaveSystem
 
         private static readonly Dictionary<Type, string> levelProgressKeys = new Dictionary<Type, string>()
         {
-            { typeof(BaseProgress), LEVEL_SESSION }
+            { typeof(LevelProgress), LEVEL_SESSION }
         };
 
         public bool TryLoadGameProgress<TProgress>(out TProgress progress) where TProgress : BaseProgress
         {
-            if (PlayerPrefs.HasKey(levelProgressKeys[typeof(BaseProgress)]))
+            if (
+                levelProgressKeys.ContainsKey(typeof(TProgress)) 
+                && PlayerPrefs.HasKey(levelProgressKeys[typeof(TProgress)])
+            )
             {
-                string levelProressInJson = PlayerPrefs.GetString(LEVEL_SESSION);
+                string levelProressInJson = PlayerPrefs.GetString(levelProgressKeys[typeof(TProgress)]);
                 progress = JsonConvert.DeserializeObject<TProgress>(levelProressInJson);
                 progress.Initialize(this);
                 

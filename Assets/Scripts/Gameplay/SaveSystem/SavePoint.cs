@@ -13,19 +13,10 @@ namespace Pelki.Gameplay.SaveSystem
 
         public event Action<SavePoint> Saved;
 
-        private void Start()
+        public void Construct()
         {
             triggerDetector.Detected += OnDetected;
             NotActivateState();
-        }
-
-        private void OnDetected(GameObject player)
-        {
-            if (!isActivated)
-            {
-                Saved?.Invoke(this);
-                ActivateState();
-            }
         }
 
         public void ActivateState()
@@ -40,6 +31,15 @@ namespace Pelki.Gameplay.SaveSystem
             isActivated = false;
             notActivatedState.SetActive(true);
             activatedState.SetActive(false);
+        }
+        
+        private void OnDetected(GameObject player)
+        {
+            if (!isActivated)
+            {
+                Saved?.Invoke(this);
+                ActivateState();
+            }
         }
     }
 }

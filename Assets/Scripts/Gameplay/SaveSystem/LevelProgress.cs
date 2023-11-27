@@ -10,5 +10,10 @@ namespace Pelki.Gameplay.SaveSystem
         {
             SavePointId = savePointId;
         }
+        
+        public void Save()
+        {
+            gameProgressSaver.SaveGameProgress(this);
+        }
     }
 }

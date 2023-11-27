@@ -38,16 +38,24 @@ namespace Pelki.Gameplay
         {
             Level levelPrefab = levelsConfig.DebugLevelPrefab;
             level = Object.Instantiate(levelPrefab);
-            foreach (var savePointItem in level.SavePointIdsRegister)
-            {
-                savePointItem.Key.Saved += OnSaved;
-            }
-
             Vector3 spawnPosition = level.CharacterSpawnPosition;
             SavePoint savePoint = level.SavePointsRegister[levelProgress.SavePointId];
             spawnPosition = savePoint.transform.position;
-            savePoint.ActivateState();
-            savePoint.Saved -= OnSaved;
+            /*savePoint.ActivateState();
+            savePoint.Saved -= OnSaved;*/
+            foreach (var savePointItem in level.SavePointIdsRegister)
+            {
+                if (savePointItem.Key.Equals(savePoint))
+                {
+                    savePoint.ActivateState();
+                    savePoint.Saved -= OnSaved;
+                }
+                else
+                {
+                    savePointItem.Key.Construct();
+                    savePointItem.Key.Saved += OnSaved;
+                }
+            }
             
             playerCharacter = Object.Instantiate(charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,

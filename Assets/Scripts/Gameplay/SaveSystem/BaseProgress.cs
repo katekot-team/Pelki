@@ -8,10 +8,5 @@ namespace Pelki.Gameplay.SaveSystem
         {
             gameProgressSaver = gameProgressStorage;
         }
-        
-        public void Save()
-        {
-            gameProgressSaver.SaveGameProgress(this);
-        }
     }
 }

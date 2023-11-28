@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f214fd92484bbba3efeb5a19f6118f, type: 3}
   m_Name: CharactersConfig
   m_EditorClassIdentifier: 
-  playerCharacterPrefab: {fileID: 2997190324756777813, guid: b1ee467fee2fc42628b73a82a5bbafc1,
+  playerCharacterPrefab: {fileID: 4044747816779666456, guid: b1ee467fee2fc42628b73a82a5bbafc1,
     type: 3}

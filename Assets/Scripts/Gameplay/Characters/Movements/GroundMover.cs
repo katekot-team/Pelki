@@ -7,61 +7,63 @@ namespace Pelki.Gameplay.Characters.Movements
     public class GroundMover : MonoBehaviour
     {
         [Header("Move")]
-        [SerializeField] private float movementThrashold;
-        [SerializeField] private float movementSpeed;
-        [SerializeField] private AnimationCurve speedAccelerationCurve;
-        [SerializeField] private float accelerationTime;
-        [SerializeField] private AnimationCurve speedBreakingCurve;
-        [SerializeField] private float brakingTime;
+        [SerializeField] private float _movementThreshold;
+        [SerializeField] private float _movementSpeed;
+        [SerializeField] private AnimationCurve _speedAccelerationCurve;
+        [SerializeField] private float _accelerationTime;
+        [SerializeField] private AnimationCurve _speedBreakingCurve;
+        [SerializeField] private float _brakingTime;
 
         [Header("Jump and gravity specifics")]
-        [SerializeField] private float jumpVelocity = 12f;
+        [SerializeField] private float _jumpVelocity = 12f;
 
-        [SerializeField] private float gravityFactor;
+        [SerializeField] private float _gravityFactor;
 
         [Header("Other")]
-        [SerializeField] private LayerMask groundMask;
+        [SerializeField] private LayerMask _groundMask;
 
-        [SerializeField] private float radiusGroundCheck;
-        [SerializeField] private Rigidbody2D rigidBody;
-
+        [SerializeField] private float _radiusGroundCheck;
+        [SerializeField] private Rigidbody2D _rigidBody;
 
         [Header("Debug")]
-        [SerializeField] private bool isDrawDebug;
+        [SerializeField] private bool _isDrawDebug;
 
-        [SerializeField] private Color checkGroundDebugRayColor;
+        [SerializeField] private Color _checkGroundDebugRayColor;
 
         //for Andrey: обрати внимание что сделал буффер для оптимизации памяти, что бы не выделять постоянно при рейкасте
-        private readonly Collider2D[] raycastBufferGroundCheckColliders = new Collider2D[1];
-        private readonly RaycastHit2D[] raycastBufferRaycastHit2D = new RaycastHit2D[1];
+        private readonly Collider2D[] _raycastBufferGroundCheckColliders = new Collider2D[1];
+        private readonly RaycastHit2D[] _raycastBufferRaycastHit2D = new RaycastHit2D[1];
 
-        private IInput input;
+        private IInput _input;
 
-        private bool isGrounded;
-        private bool isJumping;
+        private bool _isGrounded;
+        private bool _isJumping;
 
-        private float elapsedTime;
-        private float brakingElapsedTime;
+        private float _elapsedTime;
+        private float _brakingElapsedTime;
+        private MoverState _currentState;
 
-        private bool IsInputJump => input.IsJump;
-
-        public bool IsGrounded => isGrounded;
-        public bool IsJumping => isJumping;
+        public MoverState CurrentState => _currentState;
+        
+        private bool IsInputJump => _input.IsJump;
+        private bool IsIdle => _rigidBody.velocity == Vector2.zero;
 
         public void Construct(IInput input)
         {
-            this.input = input;
+            _input = input;
         }
 
         //sttrox: точно ли Fixed Update?
         private void FixedUpdate()
         {
-            isGrounded = CheckGrounded();
+            _isGrounded = CheckGrounded();
 
             DoMove();
             TryDoJump();
 
             ApplyGravity();
+
+            CalculateCurrentState();
         }
 
         private bool CheckGrounded()
@@ -69,15 +71,16 @@ namespace Pelki.Gameplay.Characters.Movements
             //todo sttrox: вынести кэш (Vector2)transform.position в начало кадра
             Vector2 colliderGroundPoint = transform.position;
 
-            int countGroundCollisions = Physics2D.OverlapCircleNonAlloc(colliderGroundPoint, radiusGroundCheck,
-                raycastBufferGroundCheckColliders, groundMask);
+            int countGroundCollisions = Physics2D.OverlapCircleNonAlloc(colliderGroundPoint, _radiusGroundCheck,
+                _raycastBufferGroundCheckColliders, _groundMask);
 
-            if (isDrawDebug)
+            if (_isDrawDebug)
             {
-                Debug.DrawRay(colliderGroundPoint, Vector2.down * radiusGroundCheck, checkGroundDebugRayColor);
+                Debug.DrawRay(colliderGroundPoint, Vector2.down * _radiusGroundCheck, _checkGroundDebugRayColor);
             }
 
             bool result = countGroundCollisions > 0;
+
             return result;
         }
 
@@ -85,62 +88,80 @@ namespace Pelki.Gameplay.Characters.Movements
         {
             Vector3 gravity = Vector3.zero;
 
-            gravity = Vector3.down * gravityFactor * -Physics.gravity.y;
+            gravity = Vector3.down * _gravityFactor * -Physics.gravity.y;
 
-            rigidBody.AddForce(gravity);
+            _rigidBody.AddForce(gravity);
         }
 
         private void DoMove()
         {
-            float rawHorizontalInput = input.RawHorizontal;
+            float rawHorizontalInput = _input.RawHorizontal;
             float absRawHorizontalInput = Mathf.Abs(rawHorizontalInput);
-            Vector2 currentVelocity = rigidBody.velocity;
+            Vector2 currentVelocity = _rigidBody.velocity;
 
-            if (absRawHorizontalInput < movementThrashold)
+            if (absRawHorizontalInput < _movementThreshold)
             {
-                brakingElapsedTime += Time.deltaTime;
-                var percentBrakingTime = 1 - (brakingElapsedTime / brakingTime);
+                _brakingElapsedTime += Time.deltaTime;
+                var percentBrakingTime = 1 - (_brakingElapsedTime / _brakingTime);
 
-                float brakingClamping = speedBreakingCurve.Evaluate(percentBrakingTime);
+                float brakingClamping = _speedBreakingCurve.Evaluate(percentBrakingTime);
                 Vector2 newVelocity = new Vector2(currentVelocity.x * brakingClamping, currentVelocity.y);
-                rigidBody.velocity = newVelocity;
+                _rigidBody.velocity = newVelocity;
 
-                elapsedTime = 0f;
+                _elapsedTime = 0f;
             }
             else
             {
-                elapsedTime += Time.deltaTime;
-                var percentTime = elapsedTime / accelerationTime;
+                _elapsedTime += Time.deltaTime;
+                var percentTime = _elapsedTime / _accelerationTime;
 
-                float speedClamping = speedAccelerationCurve.Evaluate(percentTime);
+                float speedClamping = _speedAccelerationCurve.Evaluate(percentTime);
                 var speedFactor = Mathf.Min(speedClamping, absRawHorizontalInput);
                 speedFactor *= Math.Sign(rawHorizontalInput);
 
-                Vector2 newVelocity = new Vector2(speedFactor * movementSpeed, currentVelocity.y);
-                rigidBody.velocity = newVelocity;
+                Vector2 newVelocity = new Vector2(speedFactor * _movementSpeed, currentVelocity.y);
+                _rigidBody.velocity = newVelocity;
 
-                brakingElapsedTime = 0f;
+                _brakingElapsedTime = 0f;
             }
         }
 
         private bool TryDoJump()
         {
-            if (IsInputJump && isGrounded)
+            if (IsInputJump && _isGrounded)
             {
-                rigidBody.velocity += Vector2.up * jumpVelocity;
-                isJumping = true;
+                _rigidBody.velocity += Vector2.up * _jumpVelocity;
+                _isJumping = true;
             }
 
             if (IsFalling())
             {
-                isJumping = false;
+                _isJumping = false;
             }
 
-            return isJumping;
+            return _isJumping;
 
             bool IsFalling()
             {
-                return rigidBody.velocity.y < 0;
+                return _rigidBody.velocity.y < 0;
+            }
+        }
+
+        private void CalculateCurrentState()
+        {
+            if (_isGrounded)
+            {
+                _currentState = IsIdle ? MoverState.Idle : MoverState.Run;
+            }
+
+            if (!_isGrounded && _isJumping)
+            {
+                _currentState = MoverState.Rise;
+            }
+
+            if (!_isGrounded && !_isJumping)
+            {
+                _currentState = MoverState.Fall;
             }
         }
     }

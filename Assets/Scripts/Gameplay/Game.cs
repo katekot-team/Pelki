@@ -1,4 +1,3 @@
-using System.Linq;
 using Pelki.Configs;
 using Pelki.Gameplay.Characters;
 using Pelki.Gameplay.Input;
@@ -11,23 +10,23 @@ namespace Pelki.Gameplay
 {
     public class Game
     {
-        private readonly LevelsConfig levelsConfig;
-        private readonly ScreenSwitcher screenSwitcher;
-        private readonly IInput input;
-        private readonly CharactersConfig charactersConfig;
+        private readonly LevelsConfig _levelsConfig;
+        private readonly ScreenSwitcher _screenSwitcher;
+        private readonly IInput _input;
+        private readonly CharactersConfig _charactersConfig;
 
-        private Level level;
+        private Level _level;
         private PlayerCharacter playerCharacter;
-        private LevelProgress levelProgress;
+        private LevelProgress _levelProgress;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
             IInput input, LevelProgress progress)
         {
-            this.charactersConfig = charactersConfig;
-            this.input = input;
-            this.screenSwitcher = screenSwitcher;
-            this.levelsConfig = levelsConfig;
-            this.levelProgress = progress;
+            _charactersConfig = charactersConfig;
+            _input = input;
+            _screenSwitcher = screenSwitcher;
+            _levelsConfig = levelsConfig;
+            _levelProgress = progress;
         }
 
         public void ThisUpdate()
@@ -36,14 +35,13 @@ namespace Pelki.Gameplay
 
         public void StartGame()
         {
-            Level levelPrefab = levelsConfig.DebugLevelPrefab;
-            level = Object.Instantiate(levelPrefab);
-            Vector3 spawnPosition = level.CharacterSpawnPosition;
-            SavePoint savePoint = level.SavePointsRegister[levelProgress.SavePointId];
+            Level levelPrefab = _levelsConfig.DebugLevelPrefab;
+            _level = Object.Instantiate(levelPrefab);
+            Vector3 spawnPosition = _level.CharacterSpawnPosition;
+            SavePoint savePoint = _level.SavePointsRegister[levelProgress.SavePointId];
             spawnPosition = savePoint.transform.position;
-            /*savePoint.ActivateState();
-            savePoint.Saved -= OnSaved;*/
-            foreach (var savePointItem in level.SavePointIdsRegister)
+
+            foreach (var savePointItem in _level.SavePointIdsRegister)
             {
                 if (savePointItem.Key.Equals(savePoint))
                 {
@@ -57,19 +55,19 @@ namespace Pelki.Gameplay
                 }
             }
             
-            playerCharacter = Object.Instantiate(charactersConfig.PlayerCharacterPrefab,
+            playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
-                Quaternion.identity, level.transform);
-            playerCharacter.Construct(input);
+                Quaternion.identity, _level.transform);
+            playerCharacter.Construct(_input);
 
-            screenSwitcher.ShowScreen<GameScreen>();
+            _screenSwitcher.ShowScreen<GameScreen>();
         }
 
         private void OnSaved(SavePoint savePoint)
         {
-            var savePointId = level.SavePointIdsRegister[savePoint];
-            levelProgress.SavePointId = savePointId;
-            levelProgress.Save();
+            var savePointId = _level.SavePointIdsRegister[savePoint];
+            _levelProgress.SavePointId = savePointId;
+            _levelProgress.Save();
             Debug.Log("Save on savepoint with ID: " + savePointId);
         }
     }

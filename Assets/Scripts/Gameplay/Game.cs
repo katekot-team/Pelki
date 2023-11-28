@@ -38,19 +38,19 @@ namespace Pelki.Gameplay
             Level levelPrefab = _levelsConfig.DebugLevelPrefab;
             _level = Object.Instantiate(levelPrefab);
             Vector3 spawnPosition = _level.CharacterSpawnPosition;
-            SavePoint savePoint = _level.SavePointsRegister[_levelProgress.SavePointId];
-            spawnPosition = savePoint.transform.position;
-
+            SavePoint spawnSavePoint = _level.SavePointsRegister[_levelProgress.LastSavePointId];
+            spawnPosition = spawnSavePoint.transform.position;
             foreach (var savePointItem in _level.SavePointIdsRegister)
             {
-                if (savePointItem.Key.Equals(savePoint))
+                if (savePointItem.Key.Equals(spawnSavePoint)
+                    //sttrox: ActivatedSavePoints является list, что не супер оптимизированно, но она вроде как тут и не нужна
+                    && levelProgress.ActivatedSavePoints.Contains(savePointItem.Value))
                 {
-                    savePoint.ActivateState();
-                    savePoint.Saved -= OnSaved;
+                    spawnSavePoint.ActivateState();
                 }
                 else
                 {
-                    savePointItem.Key.Construct();
+                    savePointItem.Key.NotActivateState();
                     savePointItem.Key.Saved += OnSaved;
                 }
             }
@@ -66,7 +66,7 @@ namespace Pelki.Gameplay
         private void OnSaved(SavePoint savePoint)
         {
             var savePointId = _level.SavePointIdsRegister[savePoint];
-            _levelProgress.SavePointId = savePointId;
+            _levelProgress.AddActivatedSavePoint(savePointId);
             _levelProgress.Save();
             Debug.Log("Save on savepoint with ID: " + savePointId);
         }

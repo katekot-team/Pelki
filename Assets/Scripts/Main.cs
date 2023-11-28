@@ -30,8 +30,9 @@ namespace Pelki
             if (!gameProgressStorage.TryLoadGameProgress(out levelProgress))
             {
                 Level level = mainSettingsConfig.LevelsConfig.DebugLevelPrefab;
-                levelProgress = new LevelProgress(level.CharacterSpawnSavePointId);
+                levelProgress = new LevelProgress();
                 levelProgress.Initialize(gameProgressStorage);
+                levelProgress.AddActivatedSavePoint(level.CharacterSpawnSavePointId);
                 levelProgress.Save();
             }
         }

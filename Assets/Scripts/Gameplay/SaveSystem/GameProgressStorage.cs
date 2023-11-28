@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -15,18 +14,24 @@ namespace Pelki.Gameplay.SaveSystem
             { typeof(LevelProgress), LEVEL_SESSION }
         };
 
-        public bool TryLoadGameProgress<TProgress>(out TProgress progress) where TProgress : BaseProgress
+        public bool TryLoadGameProgress<TProgress>(out TProgress progress) where TProgress : BaseProgress<TProgress>
         {
-            if (
-                levelProgressKeys.ContainsKey(typeof(TProgress)) 
-                && PlayerPrefs.HasKey(levelProgressKeys[typeof(TProgress)])
-            )
+            if (levelProgressKeys.TryGetValue(typeof(TProgress), out string levelProgressKey))
             {
-                string levelProressInJson = PlayerPrefs.GetString(levelProgressKeys[typeof(TProgress)]);
-                progress = JsonConvert.DeserializeObject<TProgress>(levelProressInJson);
-                progress.Initialize(this);
-                
-                return true;
+                if (PlayerPrefs.HasKey(levelProgressKey))
+                {
+                    string levelProgressInJson = PlayerPrefs.GetString(levelProgressKey);
+                    progress = JsonConvert.DeserializeObject<TProgress>(levelProgressInJson);
+                    progress.Initialize(this);
+
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.LogError(
+                    $"[{nameof(GameProgressStorage)}]:[{nameof(TryLoadGameProgress)}()] Type" +
+                    $"'{typeof(TProgress).FullName}' not founded in {levelProgressKeys}");
             }
 
             progress = null;
@@ -34,11 +39,11 @@ namespace Pelki.Gameplay.SaveSystem
             return false;
         }
 
-        public void SaveGameProgress<TProgress>(TProgress progress) where TProgress : BaseProgress
+        public void SaveGameProgress<TProgress>(TProgress progress) where TProgress : BaseProgress<TProgress>
         {
             var key = levelProgressKeys[typeof(TProgress)];
-            string levelProgessInJson = JsonConvert.SerializeObject(progress);
-            PlayerPrefs.SetString(key, levelProgessInJson);
+            string levelProgressInJson = JsonConvert.SerializeObject(progress);
+            PlayerPrefs.SetString(key, levelProgressInJson);
         }
 
         public void Dispose()

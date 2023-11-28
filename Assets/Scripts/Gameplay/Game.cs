@@ -16,7 +16,7 @@ namespace Pelki.Gameplay
         private readonly CharactersConfig _charactersConfig;
 
         private Level _level;
-        private PlayerCharacter playerCharacter;
+        private PlayerCharacter _playerCharacter;
         private LevelProgress _levelProgress;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
@@ -38,7 +38,7 @@ namespace Pelki.Gameplay
             Level levelPrefab = _levelsConfig.DebugLevelPrefab;
             _level = Object.Instantiate(levelPrefab);
             Vector3 spawnPosition = _level.CharacterSpawnPosition;
-            SavePoint savePoint = _level.SavePointsRegister[levelProgress.SavePointId];
+            SavePoint savePoint = _level.SavePointsRegister[_levelProgress.SavePointId];
             spawnPosition = savePoint.transform.position;
 
             foreach (var savePointItem in _level.SavePointIdsRegister)
@@ -55,10 +55,10 @@ namespace Pelki.Gameplay
                 }
             }
             
-            playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
+            _playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
                 Quaternion.identity, _level.transform);
-            playerCharacter.Construct(_input);
+            _playerCharacter.Construct(_input);
 
             _screenSwitcher.ShowScreen<GameScreen>();
         }

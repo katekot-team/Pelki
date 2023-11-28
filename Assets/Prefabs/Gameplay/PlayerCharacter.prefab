@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementThreshold: 0.1
-  _movementSpeed: 4.72
+  _movementSpeed: 3.5
   _speedAccelerationCurve:
     serializedVersion: 2
     m_Curve:

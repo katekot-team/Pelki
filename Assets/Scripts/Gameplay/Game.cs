@@ -1,3 +1,4 @@
+using System.Linq;
 using Pelki.Configs;
 using Pelki.Gameplay.Characters;
 using Pelki.Gameplay.Input;
@@ -16,7 +17,6 @@ namespace Pelki.Gameplay
         private readonly CharactersConfig _charactersConfig;
 
         private Level _level;
-        private PlayerCharacter _playerCharacter;
         private LevelProgress _levelProgress;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
@@ -44,7 +44,7 @@ namespace Pelki.Gameplay
             {
                 if (savePointItem.Key.Equals(spawnSavePoint)
                     //sttrox: ActivatedSavePoints является list, что не супер оптимизированно, но она вроде как тут и не нужна
-                    && levelProgress.ActivatedSavePoints.Contains(savePointItem.Value))
+                    && _levelProgress.ActivatedSavePoints.Contains(savePointItem.Value))
                 {
                     spawnSavePoint.ActivateState();
                 }
@@ -55,10 +55,10 @@ namespace Pelki.Gameplay
                 }
             }
             
-            _playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
+            PlayerCharacter playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
                 Quaternion.identity, _level.transform);
-            _playerCharacter.Construct(_input);
+            playerCharacter.Construct(_input);
 
             _screenSwitcher.ShowScreen<GameScreen>();
         }

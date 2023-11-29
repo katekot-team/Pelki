@@ -158,8 +158,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _brakingTime: 2
-  _jumpVelocity: 12.23
-  _gravityFactor: 3
+  _jumpVelocity: 9
+  _gravityFactor: 0.6
   _groundMask:
     serializedVersion: 2
     m_Bits: 256

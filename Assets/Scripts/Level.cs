@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using Pelki.Gameplay.SaveSystem;
 using UnityEngine;
 
@@ -10,21 +11,35 @@ namespace Pelki
     {
         [SerializeField] private Transform characterSpawnPoint;
         [SerializeField] private List<SavePointDto> savePoints;
+        
+        [Dropdown(nameof(GetAllSavepointIds))]
+        [SerializeField] private string characterSpawnSavePointId;
 
-        private Dictionary<SavePoint, string> savePointsRegister;
+        private Dictionary<SavePoint, string> savePointIdsRegister;
+        private Dictionary<string, SavePoint> savePointsRegister;
 
-        public IReadOnlyDictionary<SavePoint, string> SavePointsRegister => savePointsRegister;
+        public IReadOnlyDictionary<SavePoint, string> SavePointIdsRegister => savePointIdsRegister;
+        public IReadOnlyDictionary<string, SavePoint> SavePointsRegister => savePointsRegister;
 
         public Vector3 CharacterSpawnPosition => characterSpawnPoint.position;
 
-        public void OnBeforeSerialize()
+        public string CharacterSpawnSavePointId => characterSpawnSavePointId;
+        
+        public IEnumerable<string> GetAllSavepointIds()
+        {
+            IEnumerable<string> result = SavePointIdsRegister.Values.ToList();
+            return result;
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
             //do nothing
         }
 
-        public void OnAfterDeserialize()
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
-            savePointsRegister = savePoints.ToDictionary(dto => dto.SavePoint, dto => dto.ID);
+            savePointIdsRegister = savePoints.ToDictionary(dto => dto.SavePoint, dto => dto.ID);
+            savePointsRegister = savePoints.ToDictionary(dto => dto.ID, dto => dto.SavePoint);
         }
 
         [Serializable]

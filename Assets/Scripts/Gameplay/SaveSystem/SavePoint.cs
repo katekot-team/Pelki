@@ -8,15 +8,29 @@ namespace Pelki.Gameplay.SaveSystem
         [SerializeField] private TriggerDetector triggerDetector;
         [SerializeField] private GameObject activatedState;
         [SerializeField] private GameObject notActivatedState;
-        
+
         private bool isActivated;
 
         public event Action<SavePoint> Saved;
 
-        private void Start()
+        private void Awake()
         {
             triggerDetector.Detected += OnDetected;
-            NotActivateState();
+        }
+
+        public void ActivateState()
+        {
+            triggerDetector.Detected -= OnDetected;
+            isActivated = true;
+            notActivatedState.SetActive(false);
+            activatedState.SetActive(true);
+        }
+
+        public void NotActivateState()
+        {
+            isActivated = false;
+            notActivatedState.SetActive(true);
+            activatedState.SetActive(false);
         }
 
         private void OnDetected(GameObject player)
@@ -26,20 +40,6 @@ namespace Pelki.Gameplay.SaveSystem
                 Saved?.Invoke(this);
                 ActivateState();
             }
-        }
-
-        private void ActivateState()
-        {
-            isActivated = true;
-            notActivatedState.SetActive(false);
-            activatedState.SetActive(true);
-        }
-
-        private void NotActivateState()
-        {
-            isActivated = false;
-            notActivatedState.SetActive(true);
-            activatedState.SetActive(false);
         }
     }
 }

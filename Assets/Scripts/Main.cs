@@ -1,6 +1,7 @@
 using Pelki.Configs;
 using Pelki.Gameplay;
 using Pelki.Gameplay.Input;
+using Pelki.Gameplay.SaveSystem;
 using Pelki.UI;
 using Pelki.UI.Screens;
 using UnityEngine;
@@ -11,9 +12,12 @@ namespace Pelki
     {
         [SerializeField] private MainSettingsConfig mainSettingsConfig;
         [SerializeField] private ScreenSwitcher screenSwitcher;
+        
+        private readonly GameProgressStorage gameProgressStorage = new GameProgressStorage();
 
         private Game game;
         private IInput input;
+        private LevelProgress levelProgress;
 
         private void Awake()
         {
@@ -22,6 +26,15 @@ namespace Pelki
 #else
             input = new InputBySimpleInput(mainSettingsConfig.InputConfig);
 #endif
+
+            if (!gameProgressStorage.TryLoadGameProgress(out levelProgress))
+            {
+                Level level = mainSettingsConfig.LevelsConfig.DebugLevelPrefab;
+                levelProgress = new LevelProgress();
+                levelProgress.Initialize(gameProgressStorage);
+                levelProgress.AddActivatedSavePoint(level.CharacterSpawnSavePointId);
+                levelProgress.Save();
+            }
         }
 
         private void Start()
@@ -30,7 +43,7 @@ namespace Pelki
             menuScreen.Construct((IMain)this);
 
             game = new Game(mainSettingsConfig.LevelsConfig, mainSettingsConfig.CharactersConfig, screenSwitcher,
-                input);
+                input, levelProgress);
 
             //SichTM: temporal addition until game menu will be done
             StartGame();

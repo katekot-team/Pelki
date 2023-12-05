@@ -1,4 +1,5 @@
 using System.Linq;
+using Cinemachine;
 using Pelki.Configs;
 using Pelki.Gameplay.Characters;
 using Pelki.Gameplay.Input;
@@ -18,15 +19,17 @@ namespace Pelki.Gameplay
 
         private Level _level;
         private LevelProgress _levelProgress;
+        private CinemachineVirtualCamera _virtualCamera;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
-            IInput input, LevelProgress progress)
+            IInput input, LevelProgress progress, CinemachineVirtualCamera virtualCamera)
         {
             _charactersConfig = charactersConfig;
             _input = input;
             _screenSwitcher = screenSwitcher;
             _levelsConfig = levelsConfig;
             _levelProgress = progress;
+            _virtualCamera = virtualCamera;
         }
 
         public void ThisUpdate()
@@ -59,6 +62,8 @@ namespace Pelki.Gameplay
                 spawnPosition,
                 Quaternion.identity, _level.transform);
             playerCharacter.Construct(_input);
+
+            _virtualCamera.Follow = playerCharacter.transform;
 
             _screenSwitcher.ShowScreen<GameScreen>();
         }

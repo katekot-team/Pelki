@@ -14,6 +14,7 @@ namespace Pelki
         [SerializeField] private MainSettingsConfig mainSettingsConfig;
         [SerializeField] private ScreenSwitcher screenSwitcher;
         [SerializeField] private CinemachineVirtualCamera virtualCamera;
+        [SerializeField] private GameObject cameraFollowerGameObject;
         
         private readonly GameProgressStorage gameProgressStorage = new GameProgressStorage();
 
@@ -45,7 +46,7 @@ namespace Pelki
             menuScreen.Construct((IMain)this);
 
             game = new Game(mainSettingsConfig.LevelsConfig, mainSettingsConfig.CharactersConfig, screenSwitcher,
-                input, levelProgress, virtualCamera);
+                input, levelProgress, virtualCamera, cameraFollowerGameObject);
 
             //SichTM: temporal addition until game menu will be done
             StartGame();

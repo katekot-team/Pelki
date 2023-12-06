@@ -1,6 +1,7 @@
 using System.Linq;
 using Cinemachine;
 using Pelki.Configs;
+using Pelki.Gameplay.Camera;
 using Pelki.Gameplay.Characters;
 using Pelki.Gameplay.Input;
 using Pelki.Gameplay.SaveSystem;
@@ -20,9 +21,11 @@ namespace Pelki.Gameplay
         private Level _level;
         private LevelProgress _levelProgress;
         private CinemachineVirtualCamera _virtualCamera;
+        private GameObject _cameraFollowerGameObject;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
-            IInput input, LevelProgress progress, CinemachineVirtualCamera virtualCamera)
+            IInput input, LevelProgress progress, CinemachineVirtualCamera virtualCamera, 
+            GameObject cameraFollowerGameObject)
         {
             _charactersConfig = charactersConfig;
             _input = input;
@@ -30,6 +33,7 @@ namespace Pelki.Gameplay
             _levelsConfig = levelsConfig;
             _levelProgress = progress;
             _virtualCamera = virtualCamera;
+            _cameraFollowerGameObject = cameraFollowerGameObject;
         }
 
         public void ThisUpdate()
@@ -57,13 +61,15 @@ namespace Pelki.Gameplay
                     savePointItem.Key.Saved += OnSaved;
                 }
             }
+            var cameraFollower = _cameraFollowerGameObject.GetComponent<CameraFollower>();
             
             PlayerCharacter playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
                 Quaternion.identity, _level.transform);
-            playerCharacter.Construct(_input);
+            playerCharacter.Construct(_input, cameraFollower);
 
-            _virtualCamera.Follow = playerCharacter.transform;
+            cameraFollower.Init(playerCharacter);
+            _virtualCamera.Follow = _cameraFollowerGameObject.transform;
 
             _screenSwitcher.ShowScreen<GameScreen>();
         }

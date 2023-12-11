@@ -16,13 +16,10 @@ namespace Pelki.Gameplay.Characters
 
         private IInput _input;
         private bool _isFacingRight = true;
-        private CameraFollower _cameraFollower;
-        private CinemachineVirtualCamera _virtualCamera;
-        private CinemachineFramingTransposer _framingTransposer;
 
         public bool isFacingRight => _isFacingRight;
 
-        public void Construct(IInput input, CameraFollower cameraFollower)
+        public void Construct(IInput input)
         {
             _input = input;
 
@@ -30,8 +27,6 @@ namespace Pelki.Gameplay.Characters
             _attacker.Construct(input);
 
             _playerAnimator.Initialize();
-
-            _cameraFollower = cameraFollower;
         }
 
         private void OnEnable()
@@ -49,12 +44,10 @@ namespace Pelki.Gameplay.Characters
             if (_input.Horizontal > 0f && !_isFacingRight)
             {
                 _isFacingRight = true;
-                _cameraFollower.CallTurn();
             }
             else if (_input.Horizontal < 0f && _isFacingRight)
             {
                 _isFacingRight = false;
-                _cameraFollower.CallTurn();
             }
             _playerAnimator.SetFlip(_input.Horizontal);
             _playerAnimator.SetState(_mover.CurrentState);

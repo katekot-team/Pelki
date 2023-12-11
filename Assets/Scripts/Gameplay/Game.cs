@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using Cinemachine;
 using Pelki.Configs;
@@ -20,24 +21,42 @@ namespace Pelki.Gameplay
 
         private Level _level;
         private LevelProgress _levelProgress;
+        private CameraDistributor _cameraDistributor;
         private CinemachineVirtualCamera _virtualCamera;
-        private GameObject _cameraFollowerGameObject;
+        private PlayerCharacter _playerCharacter;
+        private CinemachineFramingTransposer _framingTransposer;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
-            IInput input, LevelProgress progress, CinemachineVirtualCamera virtualCamera, 
-            GameObject cameraFollowerGameObject)
+            IInput input, LevelProgress progress, CameraDistributor cameraDistributor)
         {
             _charactersConfig = charactersConfig;
             _input = input;
             _screenSwitcher = screenSwitcher;
             _levelsConfig = levelsConfig;
             _levelProgress = progress;
-            _virtualCamera = virtualCamera;
-            _cameraFollowerGameObject = cameraFollowerGameObject;
+            _cameraDistributor = cameraDistributor;
+            _virtualCamera = _cameraDistributor.VirtualCamera;
+            _framingTransposer = _virtualCamera.GetComponentInChildren<CinemachineFramingTransposer>();
         }
 
         public void ThisUpdate()
         {
+            if (_playerCharacter.isFacingRight)
+            {
+                _framingTransposer.m_TrackedObjectOffset.x = Mathf.Lerp(
+                    _framingTransposer.m_TrackedObjectOffset.x, 
+                    _cameraDistributor.CameraCenterOffsetX, 
+                    _cameraDistributor.FlipRotationTime
+                );
+            }
+            else
+            {
+                _framingTransposer.m_TrackedObjectOffset.x = Mathf.Lerp(
+                    _framingTransposer.m_TrackedObjectOffset.x, 
+                    -1 * _cameraDistributor.CameraCenterOffsetX,  
+                    _cameraDistributor.FlipRotationTime
+                );
+            }
         }
 
         public void StartGame()
@@ -61,15 +80,13 @@ namespace Pelki.Gameplay
                     savePointItem.Key.Saved += OnSaved;
                 }
             }
-            var cameraFollower = _cameraFollowerGameObject.GetComponent<CameraFollower>();
             
-            PlayerCharacter playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
+            _playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
                 Quaternion.identity, _level.transform);
-            playerCharacter.Construct(_input, cameraFollower);
-
-            cameraFollower.Init(playerCharacter);
-            _virtualCamera.Follow = _cameraFollowerGameObject.transform;
+            _playerCharacter.Construct(_input);
+            
+            _virtualCamera.Follow = _playerCharacter.transform;
 
             _screenSwitcher.ShowScreen<GameScreen>();
         }

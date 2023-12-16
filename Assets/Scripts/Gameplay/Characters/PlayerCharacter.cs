@@ -17,7 +17,7 @@ namespace Pelki.Gameplay.Characters
         private IInput _input;
         private bool _isFacingRight = true;
 
-        public bool isFacingRight => _isFacingRight;
+        public bool IsFacingRight => _isFacingRight;
 
         public void Construct(IInput input)
         {

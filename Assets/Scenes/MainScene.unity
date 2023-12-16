@@ -269,6 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 656342503}
   - component: {fileID: 656342502}
+  - component: {fileID: 656342504}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -330,6 +331,22 @@ Transform:
   m_Father: {fileID: 2069460082}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &656342504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656342501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42404c2316a34f3bbd0fe48c38525b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vcam: {fileID: 656342502}
+  _transposer: {fileID: 671555810}
+  _flipRotationTime: 0.5
+  _cameraCenterOffsetX: 0.8
 --- !u!1 &671555808
 GameObject:
   m_ObjectHideFlags: 3
@@ -375,7 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0.8, y: 1.7, z: 0}
+  m_TrackedObjectOffset: {x: -0.8, y: 1.7, z: 0}
   m_LookaheadTime: 0.05
   m_LookaheadSmoothing: 2
   m_LookaheadIgnoreY: 1
@@ -678,8 +695,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _virtualCamera: {fileID: 656342502}
-  _flipRotationTime: 1
-  _cameraCenterOffsetX: 0.8
 --- !u!1001 &6807190055396886170
 PrefabInstance:
   m_ObjectHideFlags: 0

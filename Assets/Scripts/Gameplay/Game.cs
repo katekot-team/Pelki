@@ -21,10 +21,8 @@ namespace Pelki.Gameplay
 
         private Level _level;
         private LevelProgress _levelProgress;
-        private CameraDistributor _cameraDistributor;
         private CinemachineVirtualCamera _virtualCamera;
         private PlayerCharacter _playerCharacter;
-        private CinemachineFramingTransposer _framingTransposer;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
             IInput input, LevelProgress progress, CameraDistributor cameraDistributor)
@@ -34,29 +32,11 @@ namespace Pelki.Gameplay
             _screenSwitcher = screenSwitcher;
             _levelsConfig = levelsConfig;
             _levelProgress = progress;
-            _cameraDistributor = cameraDistributor;
-            _virtualCamera = _cameraDistributor.VirtualCamera;
-            _framingTransposer = _virtualCamera.GetComponentInChildren<CinemachineFramingTransposer>();
+            _virtualCamera = cameraDistributor.VirtualCamera;
         }
 
         public void ThisUpdate()
         {
-            if (_playerCharacter.isFacingRight)
-            {
-                _framingTransposer.m_TrackedObjectOffset.x = Mathf.Lerp(
-                    _framingTransposer.m_TrackedObjectOffset.x, 
-                    _cameraDistributor.CameraCenterOffsetX, 
-                    _cameraDistributor.FlipRotationTime
-                );
-            }
-            else
-            {
-                _framingTransposer.m_TrackedObjectOffset.x = Mathf.Lerp(
-                    _framingTransposer.m_TrackedObjectOffset.x, 
-                    -1 * _cameraDistributor.CameraCenterOffsetX,  
-                    _cameraDistributor.FlipRotationTime
-                );
-            }
         }
 
         public void StartGame()

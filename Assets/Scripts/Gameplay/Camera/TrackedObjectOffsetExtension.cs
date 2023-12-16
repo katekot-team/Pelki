@@ -1,5 +1,4 @@
 using Cinemachine;
-using Pelki.Gameplay.Characters;
 using UnityEngine;
 
 namespace Pelki.Gameplay.Camera
@@ -11,28 +10,22 @@ namespace Pelki.Gameplay.Camera
         [SerializeField] private float _flipRotationTime = 0.5f;
         [SerializeField] private float _cameraCenterOffsetX = 0.8f;
 
-        private PlayerCharacter _playerCharacter;
+        private ICameraFollowByLookingAt _target;
         
         private void Reset()
         {
             _transposer = this.GetComponentInChildren<CinemachineFramingTransposer>();
         }
 
-        private void Start()
-        {
-            var playerTransform = _vcam.Follow;
-            _playerCharacter = playerTransform.GetComponent<PlayerCharacter>();
-        }
-
         protected override void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, 
             CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
         {
-            if (!_playerCharacter)
+            if (_target == null)
             {
                 return;
             }
             
-            if (_playerCharacter.IsFacingRight)
+            if (_target.IsLookingRight)
             {
                 _transposer.m_TrackedObjectOffset.x = Mathf.Lerp(
                     _transposer.m_TrackedObjectOffset.x, 
@@ -48,6 +41,11 @@ namespace Pelki.Gameplay.Camera
                     _flipRotationTime
                 );
             }
+        }
+
+        public void SetTarget(ICameraFollowByLookingAt target)
+        {
+            _target = target;
         }
     }
 }

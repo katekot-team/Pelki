@@ -21,6 +21,7 @@ namespace Pelki.Gameplay
 
         private Level _level;
         private LevelProgress _levelProgress;
+        private CameraDistributor _cameraDistributor;
         private CinemachineVirtualCamera _virtualCamera;
         private PlayerCharacter _playerCharacter;
 
@@ -32,6 +33,7 @@ namespace Pelki.Gameplay
             _screenSwitcher = screenSwitcher;
             _levelsConfig = levelsConfig;
             _levelProgress = progress;
+            _cameraDistributor = cameraDistributor;
             _virtualCamera = cameraDistributor.VirtualCamera;
         }
 
@@ -67,6 +69,7 @@ namespace Pelki.Gameplay
             _playerCharacter.Construct(_input);
             
             _virtualCamera.Follow = _playerCharacter.transform;
+            _cameraDistributor.Init(_playerCharacter);
 
             _screenSwitcher.ShowScreen<GameScreen>();
         }

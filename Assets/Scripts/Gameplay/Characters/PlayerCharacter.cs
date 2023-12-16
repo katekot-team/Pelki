@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Pelki.Gameplay.Characters
 {
-    public class PlayerCharacter : Entity
+    public class PlayerCharacter : Entity, ICameraFollowByLookingAt
     {
         [SerializeField] private GroundMover _mover;
         [SerializeField] private PlayerAnimator _playerAnimator;
@@ -17,7 +17,7 @@ namespace Pelki.Gameplay.Characters
         private IInput _input;
         private bool _isFacingRight = true;
 
-        public bool IsFacingRight => _isFacingRight;
+        public bool IsLookingRight => _isFacingRight;
 
         public void Construct(IInput input)
         {

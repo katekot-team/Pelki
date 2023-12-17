@@ -94,7 +94,6 @@ MonoBehaviour:
   _mover: {fileID: 2790103788056400148}
   _playerAnimator: {fileID: 698789605}
   _attacker: {fileID: 4128867147461868099}
-  _cameraFollowerGameObject: {fileID: 0}
 --- !u!114 &2790103788056400148
 MonoBehaviour:
   m_ObjectHideFlags: 0

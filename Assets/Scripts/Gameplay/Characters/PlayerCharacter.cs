@@ -1,4 +1,3 @@
-using Cinemachine;
 using Pelki.Gameplay.Camera;
 using Pelki.Gameplay.Characters.Animations;
 using Pelki.Gameplay.Characters.Attack;
@@ -15,12 +14,16 @@ namespace Pelki.Gameplay.Characters
         [SerializeField] private Attacker _attacker;
 
         private IInput _input;
+        private Transform _thisTransform;
         private bool _isFacingRight = true;
 
+        public Transform FollowRoot => _thisTransform;
         public bool IsLookingRight => _isFacingRight;
 
         public void Construct(IInput input)
         {
+            //sttrox: кэширование transform, что бы избежать нативных вызовов Unity this.transform
+            _thisTransform = transform;
             _input = input;
 
             _mover.Construct(input);
@@ -49,6 +52,7 @@ namespace Pelki.Gameplay.Characters
             {
                 _isFacingRight = false;
             }
+
             _playerAnimator.SetFlip(_input.Horizontal);
             _playerAnimator.SetState(_mover.CurrentState);
         }

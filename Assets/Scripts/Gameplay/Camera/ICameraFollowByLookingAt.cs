@@ -1,10 +1,10 @@
+using UnityEngine;
+
 namespace Pelki.Gameplay.Camera
 {
     public interface ICameraFollowByLookingAt
     {
-        bool IsLookingRight
-        {
-            get;
-        }
+        Transform FollowRoot { get; }
+        bool IsLookingRight { get; }
     }
 }

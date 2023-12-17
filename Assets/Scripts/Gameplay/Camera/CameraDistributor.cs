@@ -6,13 +6,12 @@ namespace Pelki.Gameplay.Camera
     public class CameraDistributor : MonoBehaviour
     {
         [SerializeField] private CinemachineVirtualCamera _virtualCamera;
+        [SerializeField] private TrackedObjectOffsetExtension _trackedObjectOffsetExtension;
 
-        public CinemachineVirtualCamera VirtualCamera => _virtualCamera;
-
-        public void Init(ICameraFollowByLookingAt target)
+        public void SetTargetFollow(ICameraFollowByLookingAt target)
         {
-            var trackedObjectOffsetExtension = _virtualCamera.GetComponentInChildren<TrackedObjectOffsetExtension>();
-            trackedObjectOffsetExtension.SetTarget(target);
+            _virtualCamera.Follow = target.FollowRoot;
+            _trackedObjectOffsetExtension.SetTarget(target);
         }
     }
 }

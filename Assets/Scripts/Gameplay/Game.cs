@@ -1,5 +1,6 @@
 using System.Linq;
 using Pelki.Configs;
+using Pelki.Gameplay.Camera;
 using Pelki.Gameplay.Characters;
 using Pelki.Gameplay.Input;
 using Pelki.Gameplay.SaveSystem;
@@ -18,15 +19,18 @@ namespace Pelki.Gameplay
 
         private Level _level;
         private LevelProgress _levelProgress;
+        private CameraDistributor _cameraDistributor;
+        private PlayerCharacter _playerCharacter;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
-            IInput input, LevelProgress progress)
+            IInput input, LevelProgress progress, CameraDistributor cameraDistributor)
         {
             _charactersConfig = charactersConfig;
             _input = input;
             _screenSwitcher = screenSwitcher;
             _levelsConfig = levelsConfig;
             _levelProgress = progress;
+            _cameraDistributor = cameraDistributor;
         }
 
         public void ThisUpdate()
@@ -54,11 +58,13 @@ namespace Pelki.Gameplay
                     savePointItem.Key.Saved += OnSaved;
                 }
             }
-            
-            PlayerCharacter playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
+
+            _playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
                 Quaternion.identity, _level.transform);
-            playerCharacter.Construct(_input);
+            _playerCharacter.Construct(_input);
+
+            _cameraDistributor.SetTargetFollow(_playerCharacter);
 
             _screenSwitcher.ShowScreen<GameScreen>();
         }

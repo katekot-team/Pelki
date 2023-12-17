@@ -1,5 +1,6 @@
 using Pelki.Configs;
 using Pelki.Gameplay;
+using Pelki.Gameplay.Camera;
 using Pelki.Gameplay.Input;
 using Pelki.Gameplay.SaveSystem;
 using Pelki.UI;
@@ -12,6 +13,7 @@ namespace Pelki
     {
         [SerializeField] private MainSettingsConfig mainSettingsConfig;
         [SerializeField] private ScreenSwitcher screenSwitcher;
+        [SerializeField] private CameraDistributor cameraDistributor;
         
         private readonly GameProgressStorage gameProgressStorage = new GameProgressStorage();
 
@@ -43,7 +45,7 @@ namespace Pelki
             menuScreen.Construct((IMain)this);
 
             game = new Game(mainSettingsConfig.LevelsConfig, mainSettingsConfig.CharactersConfig, screenSwitcher,
-                input, levelProgress);
+                input, levelProgress, cameraDistributor);
 
             //SichTM: temporal addition until game menu will be done
             StartGame();

@@ -399,6 +399,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4334452861520741878, guid: 91c9d38d50484403ca7fe07df40c1770,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5324374915949439277, guid: 91c9d38d50484403ca7fe07df40c1770,
         type: 3}
       propertyPath: m_Name
@@ -463,6 +468,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TrackedObjectOffset.x
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5980946433011272751, guid: 91c9d38d50484403ca7fe07df40c1770,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5980946433011272751, guid: 91c9d38d50484403ca7fe07df40c1770,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5980946433011272751, guid: 91c9d38d50484403ca7fe07df40c1770,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91c9d38d50484403ca7fe07df40c1770, type: 3}

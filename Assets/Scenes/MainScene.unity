@@ -237,6 +237,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1141039670267091878, guid: 6a7aa1c404677486abbf52bcbb51e34a,
         type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 5324374916138786141}
+    - target: {fileID: 1141039670267091878, guid: 6a7aa1c404677486abbf52bcbb51e34a,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141039670267091878, guid: 6a7aa1c404677486abbf52bcbb51e34a,
+        type: 3}
+      propertyPath: m_PlaneDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141039670267091878, guid: 6a7aa1c404677486abbf52bcbb51e34a,
+        type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
@@ -444,8 +459,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5324374916809948606, guid: 91c9d38d50484403ca7fe07df40c1770,
+        type: 3}
+      propertyPath: m_TrackedObjectOffset.x
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91c9d38d50484403ca7fe07df40c1770, type: 3}
+--- !u!20 &5324374916138786141 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2701534476081077176, guid: 91c9d38d50484403ca7fe07df40c1770,
+    type: 3}
+  m_PrefabInstance: {fileID: 5324374916138786140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6807190055396886170
 PrefabInstance:
   m_ObjectHideFlags: 0

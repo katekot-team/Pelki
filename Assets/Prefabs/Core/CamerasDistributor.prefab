@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5980946433011272751}
   - component: {fileID: 2701534476081077176}
-  - component: {fileID: 4334452861520741878}
   m_Layer: 0
   m_Name: UICamera
   m_TagString: Untagged
@@ -26,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698199529805337598}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.59007835, y: 0.8542862, z: -5.0181293}
+  m_LocalPosition: {x: 0, y: 50, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,14 +75,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &4334452861520741878
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698199529805337598}
-  m_Enabled: 1
 --- !u!1 &5324374915616984017
 GameObject:
   m_ObjectHideFlags: 0

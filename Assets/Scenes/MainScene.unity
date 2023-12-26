@@ -404,6 +404,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5324374915616984019, guid: 91c9d38d50484403ca7fe07df40c1770,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 16151
+      objectReference: {fileID: 0}
     - target: {fileID: 5324374915949439277, guid: 91c9d38d50484403ca7fe07df40c1770,
         type: 3}
       propertyPath: m_Name
@@ -467,7 +472,7 @@ PrefabInstance:
     - target: {fileID: 5324374916809948606, guid: 91c9d38d50484403ca7fe07df40c1770,
         type: 3}
       propertyPath: m_TrackedObjectOffset.x
-      value: 0.8
+      value: 0.7999949
       objectReference: {fileID: 0}
     - target: {fileID: 5980946433011272751, guid: 91c9d38d50484403ca7fe07df40c1770,
         type: 3}

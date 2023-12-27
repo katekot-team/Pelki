@@ -459,21 +459,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5324374916557775028, guid: 91c9d38d50484403ca7fe07df40c1770,
-        type: 3}
-      propertyPath: _cameraCenterOffsetX
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 5324374916557775028, guid: 91c9d38d50484403ca7fe07df40c1770,
-        type: 3}
-      propertyPath: _flipRotationDuration
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5324374916557775028, guid: 91c9d38d50484403ca7fe07df40c1770,
-        type: 3}
-      propertyPath: _flipRotationMaxSpeed
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91c9d38d50484403ca7fe07df40c1770, type: 3}
 --- !u!1001 &6807190055396886170

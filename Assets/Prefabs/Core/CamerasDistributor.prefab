@@ -252,9 +252,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transposer: {fileID: 5324374916809948606}
-  _flipRotationDuration: 1.5
-  _flipRotationMaxSpeed: 1
-  _cameraCenterOffsetX: 0.8
+  _flipRotationDuration: 3
+  _flipRotationMaxSpeed: 10
+  _cameraCenterOffsetX: 0.65
 --- !u!1 &5324374916809948604
 GameObject:
   m_ObjectHideFlags: 0

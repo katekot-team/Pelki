@@ -14,7 +14,7 @@ namespace Pelki
         [SerializeField] private MainSettingsConfig mainSettingsConfig;
         [SerializeField] private ScreenSwitcher screenSwitcher;
         [SerializeField] private CameraDistributor cameraDistributor;
-        
+
         private readonly GameProgressStorage gameProgressStorage = new GameProgressStorage();
 
         private Game game;
@@ -29,14 +29,24 @@ namespace Pelki
             input = new InputBySimpleInput(mainSettingsConfig.InputConfig);
 #endif
 
-            if (!gameProgressStorage.TryLoadGameProgress(out levelProgress))
+            Level level = mainSettingsConfig.LevelsConfig.DebugLevelPrefab;
+            if (gameProgressStorage.TryLoadGameProgress(out levelProgress) == false)
             {
-                Level level = mainSettingsConfig.LevelsConfig.DebugLevelPrefab;
                 levelProgress = new LevelProgress();
-                levelProgress.Initialize(gameProgressStorage);
                 levelProgress.AddActivatedSavePoint(level.CharacterSpawnSavePointId);
                 levelProgress.Save();
             }
+            else
+            {
+                if (!level.SavePointsRegister.ContainsKey(levelProgress.LastSavePointId))
+                {
+                    Debug.LogError("Last save point not found, we be teleport on spawn point. The game continues");
+                    levelProgress.AddActivatedSavePoint(level.CharacterSpawnSavePointId);
+                    levelProgress.Save();
+                }
+            }
+
+            levelProgress.Initialize(gameProgressStorage);
         }
 
         private void Start()

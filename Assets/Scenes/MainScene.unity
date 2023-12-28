@@ -240,21 +240,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 5324374916138786141}
-    - target: {fileID: 1141039670267091878, guid: 6a7aa1c404677486abbf52bcbb51e34a,
-        type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1141039670267091878, guid: 6a7aa1c404677486abbf52bcbb51e34a,
-        type: 3}
-      propertyPath: m_PlaneDistance
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1141039670267091878, guid: 6a7aa1c404677486abbf52bcbb51e34a,
-        type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 1141039670267091881, guid: 6a7aa1c404677486abbf52bcbb51e34a,
         type: 3}
       propertyPath: m_Name
@@ -399,11 +384,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5324374915616984019, guid: 91c9d38d50484403ca7fe07df40c1770,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 16151
-      objectReference: {fileID: 0}
     - target: {fileID: 5324374915949439277, guid: 91c9d38d50484403ca7fe07df40c1770,
         type: 3}
       propertyPath: m_Name
@@ -463,26 +443,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5324374916809948606, guid: 91c9d38d50484403ca7fe07df40c1770,
-        type: 3}
-      propertyPath: m_TrackedObjectOffset.x
-      value: 0.7999949
-      objectReference: {fileID: 0}
-    - target: {fileID: 5980946433011272751, guid: 91c9d38d50484403ca7fe07df40c1770,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5980946433011272751, guid: 91c9d38d50484403ca7fe07df40c1770,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5980946433011272751, guid: 91c9d38d50484403ca7fe07df40c1770,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91c9d38d50484403ca7fe07df40c1770, type: 3}

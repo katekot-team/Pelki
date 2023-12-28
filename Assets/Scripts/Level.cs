@@ -9,9 +9,8 @@ namespace Pelki
 {
     public class Level : MonoBehaviour, ISerializationCallbackReceiver
     {
-        [SerializeField] private Transform characterSpawnPoint;
         [SerializeField] private List<SavePointDto> savePoints;
-        
+
         [Dropdown(nameof(GetAllSavepointIds))]
         [SerializeField] private string characterSpawnSavePointId;
 
@@ -21,10 +20,8 @@ namespace Pelki
         public IReadOnlyDictionary<SavePoint, string> SavePointIdsRegister => savePointIdsRegister;
         public IReadOnlyDictionary<string, SavePoint> SavePointsRegister => savePointsRegister;
 
-        public Vector3 CharacterSpawnPosition => characterSpawnPoint.position;
-
         public string CharacterSpawnSavePointId => characterSpawnSavePointId;
-        
+
         public IEnumerable<string> GetAllSavepointIds()
         {
             IEnumerable<string> result = SavePointIdsRegister.Values.ToList();

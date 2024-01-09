@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using Pelki.Gameplay.Camera;
 using Pelki.Gameplay.Characters.Animations;
 using Pelki.Gameplay.Characters.Attack;
 using Pelki.Gameplay.Characters.Movements;
 using Pelki.Gameplay.Input;
+using Pelki.Gameplay.InventorySystem;
+using Pelki.Gameplay.InventorySystem.Items;
 using UnityEngine;
 
 namespace Pelki.Gameplay.Characters
@@ -15,12 +18,15 @@ namespace Pelki.Gameplay.Characters
 
         private IInput _input;
         private Transform _thisTransform;
+        private Inventory _inventory;
+        private readonly InventoryStorage _inventoryStorage = new InventoryStorage();
         private bool _isFacingRight = true;
 
         public Transform FollowRoot => _thisTransform;
+        public Inventory Inventory => _inventory;
         public bool IsLookingRight => _isFacingRight;
 
-        public void Construct(IInput input)
+        public void Construct(IInput input, IReadOnlyDictionary<string, PickUpItem> puzzleKeysRegister)
         {
             //sttrox: кэширование transform, что бы избежать нативных вызовов Unity this.transform
             _thisTransform = transform;
@@ -30,6 +36,13 @@ namespace Pelki.Gameplay.Characters
             _attacker.Construct(input);
 
             _playerAnimator.Initialize();
+
+
+            if (_inventoryStorage.TryLoadGameProgress(out _inventory) == false)
+            {
+                _inventory = new Inventory();
+            }
+            _inventory.Init(puzzleKeysRegister);
         }
 
         private void OnEnable()

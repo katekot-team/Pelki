@@ -61,7 +61,7 @@ namespace Pelki.Gameplay
             _playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
                 Quaternion.identity, _level.transform);
-            _playerCharacter.Construct(_input);
+            _playerCharacter.Construct(_input, _level.PuzzleKeysRegister);
 
             _cameraDistributor.SetTargetFollow(_playerCharacter);
 

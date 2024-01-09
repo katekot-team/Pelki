@@ -33,6 +33,7 @@ namespace Pelki
             if (gameProgressStorage.TryLoadGameProgress(out levelProgress) == false)
             {
                 levelProgress = new LevelProgress();
+                levelProgress.Initialize(gameProgressStorage);
                 levelProgress.AddActivatedSavePoint(level.CharacterSpawnSavePointId);
                 levelProgress.Save();
             }
@@ -41,12 +42,11 @@ namespace Pelki
                 if (!level.SavePointsRegister.ContainsKey(levelProgress.LastSavePointId))
                 {
                     Debug.LogError("Last save point not found, we be teleport on spawn point. The game continues");
+                    levelProgress.Initialize(gameProgressStorage);
                     levelProgress.AddActivatedSavePoint(level.CharacterSpawnSavePointId);
                     levelProgress.Save();
                 }
             }
-
-            levelProgress.Initialize(gameProgressStorage);
         }
 
         private void Start()

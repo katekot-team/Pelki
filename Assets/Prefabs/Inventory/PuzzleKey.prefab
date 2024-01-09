@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8668540215134537301}
   - component: {fileID: 6491890840879301125}
+  - component: {fileID: 885109216157728445}
   m_Layer: 0
   m_Name: PuzzleKey
   m_TagString: Untagged
@@ -86,6 +87,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &885109216157728445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132611139636709934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bf7040d7e45ed9d65513f1c18b14b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDetector: {fileID: 6218257527878864144}
 --- !u!1001 &6547539513448514512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -155,6 +169,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3621e5ba9be843b42b8e1de6429e1880, type: 3}
+--- !u!114 &6218257527878864144 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 906974196132777664, guid: 3621e5ba9be843b42b8e1de6429e1880,
+    type: 3}
+  m_PrefabInstance: {fileID: 6547539513448514512}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3125f0cf6241e68a0c7bb5e1e83cd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7583272504619975430 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3738192565006139606, guid: 3621e5ba9be843b42b8e1de6429e1880,

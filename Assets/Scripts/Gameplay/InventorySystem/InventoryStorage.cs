@@ -6,6 +6,8 @@ using UnityEngine;
 
 namespace Pelki.Gameplay.InventorySystem
 {
+    //нам не нужно делать клон GameProgressStorage, нам нужно его расширять. в этом то и фокус того класса)
+    //т.е. этот класс уходит и мы используем GameProgressStorage
     public class InventoryStorage : IDisposable, IGameProgressSaver
     {
         private const string LEVEL_INVENTORY = nameof(LEVEL_INVENTORY);

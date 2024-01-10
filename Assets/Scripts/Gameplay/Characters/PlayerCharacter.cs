@@ -16,10 +16,11 @@ namespace Pelki.Gameplay.Characters
         [SerializeField] private PlayerAnimator _playerAnimator;
         [SerializeField] private Attacker _attacker;
 
+        private readonly InventoryStorage _inventoryStorage = new InventoryStorage();
+        
         private IInput _input;
         private Transform _thisTransform;
         private Inventory _inventory;
-        private readonly InventoryStorage _inventoryStorage = new InventoryStorage();
         private bool _isFacingRight = true;
 
         public Transform FollowRoot => _thisTransform;
@@ -37,7 +38,8 @@ namespace Pelki.Gameplay.Characters
 
             _playerAnimator.Initialize();
 
-
+            //здесь _inventoryStorage прокидывается только для инициализации инвентаря. задача выглядит более высокоуровневой
+            //давай пусть game будет заниматься такими сложными штуками
             if (_inventoryStorage.TryLoadGameProgress(out _inventory) == false)
             {
                 _inventory = new Inventory();

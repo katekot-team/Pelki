@@ -11,6 +11,7 @@ namespace Pelki
     public class Level : MonoBehaviour, ISerializationCallbackReceiver
     {
         [SerializeField] private List<SavePointDto> savePoints;
+        //а вот если мы подобрали, вышли из игры и заново зашли, ключ будет на карте?(я не проверял, но мне кажется что он заново будет) 
         [SerializeField] private List<PuzzleKeyDto> puzzleKeys;
 
         [Dropdown(nameof(GetAllSavepointIds))]

@@ -29,23 +29,8 @@ namespace Pelki
             input = new InputBySimpleInput(mainSettingsConfig.InputConfig);
 #endif
 
-            Level level = mainSettingsConfig.LevelsConfig.DebugLevelPrefab;
-            if (gameProgressStorage.TryLoadGameProgress(out levelProgress) == false)
-            {
-                levelProgress = new LevelProgress();
-                levelProgress.Initialize(gameProgressStorage);
-                levelProgress.AddActivatedSavePoint(level.CharacterSpawnSavePointId);
-                levelProgress.Save();
-            }
-            else
-            {
-                if (!level.SavePointsRegister.ContainsKey(levelProgress.LastSavePointId))
-                {
-                    Debug.LogError("Last save point not found, we be teleport on spawn point. The game continues");
-                    levelProgress.AddActivatedSavePoint(level.CharacterSpawnSavePointId);
-                    levelProgress.Save();
-                }
-            }
+            LevelProgress.Factory levelProgressFactory = new LevelProgress.Factory(gameProgressStorage);
+            levelProgress = levelProgressFactory.Create(mainSettingsConfig.LevelsConfig.DebugLevelPrefab);
         }
 
         private void Start()

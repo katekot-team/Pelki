@@ -17,6 +17,7 @@ namespace Pelki.Gameplay
         private readonly ScreenSwitcher _screenSwitcher;
         private readonly IInput _input;
         private readonly CharactersConfig _charactersConfig;
+        //у нас в Main уже есть собственный _gameProgressStorage
         private readonly GameProgressStorage _gameProgressStorage = new GameProgressStorage();
 
         private Level _level;
@@ -60,7 +61,10 @@ namespace Pelki.Gameplay
                     savePointItem.Key.Saved += OnSaved;
                 }
             }
-            
+            //у нас так уж получилось что вот этой задаче по загрущке сохранений занимается main,
+            //давай, пусть он и продолжит этим заниматься. 
+            //+я сдел пример на фабрике, для levelProgress, сделай по аналогии фабрику для _inventoryProgress
+            //фабрики, по тому что иначе у нас в main будет слишком много логики, не думаю что это хорошо, пусть специчные классы этим займутся
             if (_gameProgressStorage.TryLoadGameProgress(out _inventoryProgress) == false)
             {
                 Debug.Log("Inventory is empty");

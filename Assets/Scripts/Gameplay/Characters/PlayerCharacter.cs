@@ -6,6 +6,7 @@ using Pelki.Gameplay.Characters.Movements;
 using Pelki.Gameplay.Input;
 using Pelki.Gameplay.InventorySystem;
 using Pelki.Gameplay.InventorySystem.Items;
+using Pelki.Gameplay.SaveSystem;
 using UnityEngine;
 
 namespace Pelki.Gameplay.Characters
@@ -18,31 +19,24 @@ namespace Pelki.Gameplay.Characters
 
         private IInput _input;
         private Transform _thisTransform;
-        private Inventory _inventory;
-        private readonly InventoryStorage _inventoryStorage = new InventoryStorage();
+        private InventoryProgress _inventoryProgress;
         private bool _isFacingRight = true;
 
         public Transform FollowRoot => _thisTransform;
-        public Inventory Inventory => _inventory;
+        public InventoryProgress InventoryProgress => _inventoryProgress;
         public bool IsLookingRight => _isFacingRight;
 
-        public void Construct(IInput input, IReadOnlyDictionary<string, PickUpItem> puzzleKeysRegister)
+        public void Construct(IInput input, InventoryProgress inventoryProgress)
         {
             //sttrox: кэширование transform, что бы избежать нативных вызовов Unity this.transform
             _thisTransform = transform;
             _input = input;
+            _inventoryProgress = inventoryProgress;
 
             _mover.Construct(input);
             _attacker.Construct(input);
 
             _playerAnimator.Initialize();
-
-
-            if (_inventoryStorage.TryLoadGameProgress(out _inventory) == false)
-            {
-                _inventory = new Inventory();
-            }
-            _inventory.Init(puzzleKeysRegister);
         }
 
         private void OnEnable()

@@ -33,6 +33,7 @@ namespace Pelki
             if (gameProgressStorage.TryLoadGameProgress(out levelProgress) == false)
             {
                 levelProgress = new LevelProgress();
+                levelProgress.Initialize(gameProgressStorage);
                 levelProgress.AddActivatedSavePoint(level.CharacterSpawnSavePointId);
                 levelProgress.Save();
             }
@@ -45,8 +46,6 @@ namespace Pelki
                     levelProgress.Save();
                 }
             }
-
-            levelProgress.Initialize(gameProgressStorage);
         }
 
         private void Start()

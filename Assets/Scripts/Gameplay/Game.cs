@@ -3,6 +3,7 @@ using Pelki.Configs;
 using Pelki.Gameplay.Camera;
 using Pelki.Gameplay.Characters;
 using Pelki.Gameplay.Input;
+using Pelki.Gameplay.InventorySystem;
 using Pelki.Gameplay.SaveSystem;
 using Pelki.UI;
 using Pelki.UI.Screens;
@@ -16,11 +17,13 @@ namespace Pelki.Gameplay
         private readonly ScreenSwitcher _screenSwitcher;
         private readonly IInput _input;
         private readonly CharactersConfig _charactersConfig;
+        private readonly GameProgressStorage _gameProgressStorage = new GameProgressStorage();
 
         private Level _level;
         private LevelProgress _levelProgress;
         private CameraDistributor _cameraDistributor;
         private PlayerCharacter _playerCharacter;
+        private InventoryProgress _inventoryProgress;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
             IInput input, LevelProgress progress, CameraDistributor cameraDistributor)
@@ -57,11 +60,26 @@ namespace Pelki.Gameplay
                     savePointItem.Key.Saved += OnSaved;
                 }
             }
+            
+            if (_gameProgressStorage.TryLoadGameProgress(out _inventoryProgress) == false)
+            {
+                Debug.Log("Inventory is empty");
+                _inventoryProgress = new InventoryProgress();
+                _inventoryProgress.Initialize(_gameProgressStorage);
+            }
+            _inventoryProgress.Init(_level.PuzzleKeysRegister);
+            foreach (var pickUpPuzzleKey in _inventoryProgress.PickedUpPuzzleKeys)
+            {
+                if (_level.PuzzleKeysRegister.ContainsKey(pickUpPuzzleKey))
+                {
+                    _level.PuzzleKeysRegister[pickUpPuzzleKey].Destroy();
+                }
+            }
 
             _playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
                 Quaternion.identity, _level.transform);
-            _playerCharacter.Construct(_input, _level.PuzzleKeysRegister);
+            _playerCharacter.Construct(_input, _inventoryProgress);
 
             _cameraDistributor.SetTargetFollow(_playerCharacter);
 

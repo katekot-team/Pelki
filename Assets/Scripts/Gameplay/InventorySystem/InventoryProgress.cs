@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Pelki.Gameplay.InventorySystem.Items;
 using Pelki.Gameplay.SaveSystem;
+using UnityEngine;
 
 namespace Pelki.Gameplay.InventorySystem
 {
-    public class Inventory : BaseProgress<Inventory>
+    public class InventoryProgress : BaseProgress<InventoryProgress>
     {
         private readonly List<string> _pickedUpPuzzleKeys = new List<string>();
 
@@ -17,11 +18,11 @@ namespace Pelki.Gameplay.InventorySystem
             this.puzzleKeysRegister = puzzleKeysRegister;
             foreach (var puzzleKeyItem in this.puzzleKeysRegister)
             {
-                puzzleKeyItem.Value.Saved += OnSaved;
+                puzzleKeyItem.Value.PickedUp += OnPickedUp;
             }
         }
         
-        private void OnSaved(PickUpItem pickUpItem)
+        private void OnPickedUp(PickUpItem pickUpItem)
         {
             if (puzzleKeysRegister == null)
             {
@@ -34,6 +35,9 @@ namespace Pelki.Gameplay.InventorySystem
                 {
                     _pickedUpPuzzleKeys.Add(key);
                     Save();
+                    item.PickedUp -= OnPickedUp;
+                    Debug.Log("Save picked up item with ID: " + key);
+                    item.Destroy();
                     return;
                 }
             }

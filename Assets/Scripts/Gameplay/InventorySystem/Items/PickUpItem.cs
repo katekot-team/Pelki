@@ -7,7 +7,7 @@ namespace Pelki.Gameplay.InventorySystem.Items
     {
         [SerializeField] private TriggerDetector triggerDetector;
         
-        public event Action<PickUpItem> Saved;
+        public event Action<PickUpItem> PickedUp;
         
         private void Awake()
         {
@@ -16,8 +16,12 @@ namespace Pelki.Gameplay.InventorySystem.Items
         
         private void OnDetected(GameObject player)
         {
-            Saved?.Invoke(this);
-            Destroy(this);
+            PickedUp?.Invoke(this);
+        }
+
+        public void Destroy()
+        {
+            Destroy(gameObject);
         }
     }
 }

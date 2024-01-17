@@ -17,7 +17,6 @@ namespace Pelki.Gameplay
         private readonly ScreenSwitcher _screenSwitcher;
         private readonly IInput _input;
         private readonly CharactersConfig _charactersConfig;
-        private readonly GameProgressStorage _gameProgressStorage = new GameProgressStorage();
 
         private Level _level;
         private LevelProgress _levelProgress;
@@ -26,7 +25,7 @@ namespace Pelki.Gameplay
         private InventoryProgress _inventoryProgress;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
-            IInput input, LevelProgress progress, CameraDistributor cameraDistributor)
+            IInput input, LevelProgress progress, CameraDistributor cameraDistributor, InventoryProgress inventoryProgress)
         {
             _charactersConfig = charactersConfig;
             _input = input;
@@ -34,6 +33,7 @@ namespace Pelki.Gameplay
             _levelsConfig = levelsConfig;
             _levelProgress = progress;
             _cameraDistributor = cameraDistributor;
+            _inventoryProgress = inventoryProgress;
         }
 
         public void ThisUpdate()
@@ -60,13 +60,7 @@ namespace Pelki.Gameplay
                     savePointItem.Key.Saved += OnSaved;
                 }
             }
-            
-            if (_gameProgressStorage.TryLoadGameProgress(out _inventoryProgress) == false)
-            {
-                Debug.Log("Inventory is empty");
-                _inventoryProgress = new InventoryProgress();
-                _inventoryProgress.Initialize(_gameProgressStorage);
-            }
+
             _inventoryProgress.Init(_level.PuzzleKeysRegister);
             foreach (var pickUpPuzzleKey in _inventoryProgress.PickedUpPuzzleKeys)
             {

@@ -5,8 +5,6 @@ using Pelki.Gameplay.Characters.Attack;
 using Pelki.Gameplay.Characters.Movements;
 using Pelki.Gameplay.Input;
 using Pelki.Gameplay.InventorySystem;
-using Pelki.Gameplay.InventorySystem.Items;
-using Pelki.Gameplay.SaveSystem;
 using UnityEngine;
 
 namespace Pelki.Gameplay.Characters
@@ -19,19 +17,18 @@ namespace Pelki.Gameplay.Characters
 
         private IInput _input;
         private Transform _thisTransform;
-        private InventoryProgress _inventoryProgress;
+        private Inventory _inventory;
         private bool _isFacingRight = true;
 
         public Transform FollowRoot => _thisTransform;
-        public InventoryProgress InventoryProgress => _inventoryProgress;
         public bool IsLookingRight => _isFacingRight;
 
-        public void Construct(IInput input, InventoryProgress inventoryProgress)
+        public void Construct(IInput input, Inventory inventory)
         {
             //sttrox: кэширование transform, что бы избежать нативных вызовов Unity this.transform
             _thisTransform = transform;
             _input = input;
-            _inventoryProgress = inventoryProgress;
+            _inventory = inventory;
 
             _mover.Construct(input);
             _attacker.Construct(input);

@@ -61,7 +61,6 @@ namespace Pelki.Gameplay
                 }
             }
 
-            _inventoryProgress.Init(_level.PuzzleKeysRegister);
             foreach (var pickUpPuzzleKey in _inventoryProgress.PickedUpPuzzleKeys)
             {
                 if (_level.PuzzleKeysRegister.ContainsKey(pickUpPuzzleKey))
@@ -69,11 +68,12 @@ namespace Pelki.Gameplay
                     _level.PuzzleKeysRegister[pickUpPuzzleKey].Destroy();
                 }
             }
+            Inventory inventory = new Inventory(_inventoryProgress, _level.PuzzleKeysRegister);
 
             _playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
                 Quaternion.identity, _level.transform);
-            _playerCharacter.Construct(_input, _inventoryProgress);
+            _playerCharacter.Construct(_input, inventory);
 
             _cameraDistributor.SetTargetFollow(_playerCharacter);
 

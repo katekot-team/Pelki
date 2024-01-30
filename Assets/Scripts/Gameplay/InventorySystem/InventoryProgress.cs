@@ -9,40 +9,13 @@ namespace Pelki.Gameplay.InventorySystem
     {
         private readonly List<string> _pickedUpPuzzleKeys = new List<string>();
 
-        private IReadOnlyDictionary<string, PickUpItem> puzzleKeysRegister;
-        
         private InventoryProgress() {}
         
         public IReadOnlyList<string> PickedUpPuzzleKeys => _pickedUpPuzzleKeys;
 
-        public void Init(IReadOnlyDictionary<string, PickUpItem> puzzleKeysRegister)
+        public void AddPuzzleKey(string key)
         {
-            this.puzzleKeysRegister = puzzleKeysRegister;
-            foreach (var puzzleKeyItem in this.puzzleKeysRegister)
-            {
-                puzzleKeyItem.Value.PickedUp += OnPickedUp;
-            }
-        }
-        
-        private void OnPickedUp(PickUpItem pickUpItem)
-        {
-            if (puzzleKeysRegister == null)
-            {
-                return;
-            }
-
-            foreach (var (key, item) in puzzleKeysRegister)
-            {
-                if (pickUpItem.Equals(item))
-                {
-                    _pickedUpPuzzleKeys.Add(key);
-                    Save();
-                    item.PickedUp -= OnPickedUp;
-                    Debug.Log("Save picked up item with ID: " + key);
-                    item.Destroy();
-                    return;
-                }
-            }
+            _pickedUpPuzzleKeys.Add(key);
         }
         
         public class Factory
@@ -61,8 +34,8 @@ namespace Pelki.Gameplay.InventorySystem
                 {
                     Debug.Log("Inventory is empty");
                     inventoryProgress = new InventoryProgress();
-                    inventoryProgress.Initialize(_gameProgressStorage);
                 }
+                inventoryProgress.Initialize(_gameProgressStorage);
 
                 return inventoryProgress;
             }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
-using Pelki.Gameplay.InventorySystem.Items;
+using Pelki.Gameplay.Inventories.Items;
 using Pelki.Gameplay.SaveSystem;
 using UnityEngine;
 
@@ -26,6 +26,14 @@ namespace Pelki
 
         public string CharacterSpawnSavePointId => characterSpawnSavePointId;
 
+        private void Awake()
+        {
+            foreach (var (id, item) in puzzleKeysRegister)
+            {
+                item.Initialize(id);
+            }
+        }
+
         public IEnumerable<string> GetAllSavepointIds()
         {
             IEnumerable<string> result = SavePointIdsRegister.Values.ToList();
@@ -42,8 +50,7 @@ namespace Pelki
             savePointIdsRegister = savePoints.ToDictionary(dto => dto.SavePoint, dto => dto.ID);
             savePointsRegister = savePoints.ToDictionary(dto => dto.ID, dto => dto.SavePoint);
 
-            //todo remove? подумать; скорее awake/start на инициализацию id'шников для ключей/item'ов
-            //     puzzleKeysRegister = puzzleKeys.ToDictionary(dto => dto.ID, dto => dto.PuzzleKey);
+            puzzleKeysRegister = puzzleKeys.ToDictionary(dto => dto.ID, dto => dto.PuzzleKey);
         }
 
         [Serializable]

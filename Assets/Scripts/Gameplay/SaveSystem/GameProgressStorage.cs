@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Pelki.Gameplay.InventorySystem;
+using Pelki.Gameplay.Inventories;
 using UnityEngine;
 
 namespace Pelki.Gameplay.SaveSystem

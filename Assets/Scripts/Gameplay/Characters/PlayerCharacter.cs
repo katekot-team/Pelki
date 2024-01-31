@@ -4,8 +4,8 @@ using Pelki.Gameplay.Characters.Animations;
 using Pelki.Gameplay.Characters.Attack;
 using Pelki.Gameplay.Characters.Movements;
 using Pelki.Gameplay.Input;
-using Pelki.Gameplay.InventorySystem;
-using Pelki.Gameplay.InventorySystem.Items;
+using Pelki.Gameplay.Inventories;
+using Pelki.Gameplay.Inventories.Items;
 using UnityEngine;
 
 namespace Pelki.Gameplay.Characters
@@ -43,10 +43,11 @@ namespace Pelki.Gameplay.Characters
 
         private void OnDetectedItem(GameObject item)
         {
-            //todo if
-            item.TryGetComponent<IItem>(out var detectedItem);
-            _inventory.AddItem(detectedItem);
-            detectedItem.Destroy();
+            if (item.TryGetComponent<IItem>(out var detectedItem))
+            {
+                _inventory.AddItem(detectedItem);
+                detectedItem.Destroy();
+            }
         }
 
         private void OnEnable()

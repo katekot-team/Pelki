@@ -1,6 +1,6 @@
-using Pelki.Gameplay.InventorySystem.Items;
+using Pelki.Gameplay.Inventories.Items;
 
-namespace Pelki.Gameplay.InventorySystem
+namespace Pelki.Gameplay.Inventories
 {
     public class Inventory
     {

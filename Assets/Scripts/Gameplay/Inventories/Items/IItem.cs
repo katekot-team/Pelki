@@ -1,4 +1,4 @@
-namespace Pelki.Gameplay.InventorySystem.Items
+namespace Pelki.Gameplay.Inventories.Items
 {
     public interface IItem
     {

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Pelki.Gameplay.InventorySystem.Items;
 using Pelki.Gameplay.SaveSystem;
 using UnityEngine;
 
-namespace Pelki.Gameplay.InventorySystem
+namespace Pelki.Gameplay.Inventories
 {
     public class InventoryProgress : BaseProgress<InventoryProgress>
     {

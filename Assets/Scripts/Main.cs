@@ -2,6 +2,7 @@ using Pelki.Configs;
 using Pelki.Gameplay;
 using Pelki.Gameplay.Camera;
 using Pelki.Gameplay.Input;
+using Pelki.Gameplay.Inventories;
 using Pelki.Gameplay.SaveSystem;
 using Pelki.UI;
 using Pelki.UI.Screens;
@@ -20,6 +21,7 @@ namespace Pelki
         private Game game;
         private IInput input;
         private LevelProgress levelProgress;
+        private InventoryProgress inventoryProgress;
 
         private void Awake()
         {
@@ -29,24 +31,11 @@ namespace Pelki
             input = new InputBySimpleInput(mainSettingsConfig.InputConfig);
 #endif
 
-            Level level = mainSettingsConfig.LevelsConfig.DebugLevelPrefab;
-            if (gameProgressStorage.TryLoadGameProgress(out levelProgress) == false)
-            {
-                levelProgress = new LevelProgress();
-                levelProgress.Initialize(gameProgressStorage);
-                levelProgress.AddActivatedSavePoint(level.CharacterSpawnSavePointId);
-                levelProgress.Save();
-            }
-            else
-            {
-                if (!level.SavePointsRegister.ContainsKey(levelProgress.LastSavePointId))
-                {
-                    Debug.LogError("Last save point not found, we be teleport on spawn point. The game continues");
-                    levelProgress.Initialize(gameProgressStorage);
-                    levelProgress.AddActivatedSavePoint(level.CharacterSpawnSavePointId);
-                    levelProgress.Save();
-                }
-            }
+            LevelProgress.Factory levelProgressFactory = new LevelProgress.Factory(gameProgressStorage);
+            levelProgress = levelProgressFactory.Create(mainSettingsConfig.LevelsConfig.DebugLevelPrefab);
+
+            InventoryProgress.Factory inventoryProgressFactory = new InventoryProgress.Factory(gameProgressStorage);
+            inventoryProgress = inventoryProgressFactory.Create(mainSettingsConfig.LevelsConfig.DebugLevelPrefab);
         }
 
         private void Start()
@@ -55,7 +44,7 @@ namespace Pelki
             menuScreen.Construct((IMain)this);
 
             game = new Game(mainSettingsConfig.LevelsConfig, mainSettingsConfig.CharactersConfig, screenSwitcher,
-                input, levelProgress, cameraDistributor);
+                input, levelProgress, cameraDistributor, inventoryProgress);
 
             //SichTM: temporal addition until game menu will be done
             StartGame();

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
+using Pelki.Gameplay.Inventories.Items;
 using Pelki.Gameplay.SaveSystem;
 using UnityEngine;
 
@@ -10,17 +11,28 @@ namespace Pelki
     public class Level : MonoBehaviour, ISerializationCallbackReceiver
     {
         [SerializeField] private List<SavePointDto> savePoints;
+        [SerializeField] private List<PuzzleKeyDto> puzzleKeys;
 
         [Dropdown(nameof(GetAllSavepointIds))]
         [SerializeField] private string characterSpawnSavePointId;
 
         private Dictionary<SavePoint, string> savePointIdsRegister;
         private Dictionary<string, SavePoint> savePointsRegister;
+        private Dictionary<string, PickUpItem> puzzleKeysRegister;
 
         public IReadOnlyDictionary<SavePoint, string> SavePointIdsRegister => savePointIdsRegister;
         public IReadOnlyDictionary<string, SavePoint> SavePointsRegister => savePointsRegister;
+        public IReadOnlyDictionary<string, PickUpItem> PuzzleKeysRegister => puzzleKeysRegister;
 
         public string CharacterSpawnSavePointId => characterSpawnSavePointId;
+
+        private void Awake()
+        {
+            foreach (var (id, item) in puzzleKeysRegister)
+            {
+                item.Initialize(id);
+            }
+        }
 
         public IEnumerable<string> GetAllSavepointIds()
         {
@@ -37,6 +49,8 @@ namespace Pelki
         {
             savePointIdsRegister = savePoints.ToDictionary(dto => dto.SavePoint, dto => dto.ID);
             savePointsRegister = savePoints.ToDictionary(dto => dto.ID, dto => dto.SavePoint);
+
+            puzzleKeysRegister = puzzleKeys.ToDictionary(dto => dto.ID, dto => dto.PuzzleKey);
         }
 
         [Serializable]
@@ -46,6 +60,16 @@ namespace Pelki
             [SerializeField] private string id;
 
             public SavePoint SavePoint => savePoint;
+            public string ID => id;
+        }
+
+        [Serializable]
+        private class PuzzleKeyDto
+        {
+            [SerializeField] private PickUpItem puzzleKey;
+            [SerializeField] private string id;
+
+            public PickUpItem PuzzleKey => puzzleKey;
             public string ID => id;
         }
     }

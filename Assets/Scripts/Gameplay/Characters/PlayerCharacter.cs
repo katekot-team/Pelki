@@ -1,8 +1,11 @@
+using NaughtyAttributes;
 using Pelki.Gameplay.Camera;
 using Pelki.Gameplay.Characters.Animations;
 using Pelki.Gameplay.Characters.Attack;
 using Pelki.Gameplay.Characters.Movements;
 using Pelki.Gameplay.Input;
+using Pelki.Gameplay.Inventories;
+using Pelki.Gameplay.Inventories.Items;
 using UnityEngine;
 
 namespace Pelki.Gameplay.Characters
@@ -12,24 +15,39 @@ namespace Pelki.Gameplay.Characters
         [SerializeField] private GroundMover _mover;
         [SerializeField] private PlayerAnimator _playerAnimator;
         [SerializeField] private Attacker _attacker;
+        [SerializeField] private TriggerDetector _itemTriggerDetector;
 
         private IInput _input;
         private Transform _thisTransform;
+        private Inventory _inventory;
         private bool _isFacingRight = true;
 
         public Transform FollowRoot => _thisTransform;
         public bool IsLookingRight => _isFacingRight;
 
-        public void Construct(IInput input)
+        [ShowNativeProperty] private string Editor_Inventory => _inventory.ToString();
+
+        public void Construct(IInput input, Inventory inventory)
         {
             //sttrox: кэширование transform, что бы избежать нативных вызовов Unity this.transform
             _thisTransform = transform;
             _input = input;
+            _inventory = inventory;
 
             _mover.Construct(input);
             _attacker.Construct(input);
 
             _playerAnimator.Initialize();
+            _itemTriggerDetector.Detected += OnDetectedItem;
+        }
+
+        private void OnDetectedItem(GameObject item)
+        {
+            if (item.TryGetComponent<IItem>(out var detectedItem))
+            {
+                _inventory.AddItem(detectedItem);
+                detectedItem.Destroy();
+            }
         }
 
         private void OnEnable()

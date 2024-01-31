@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Pelki.Gameplay.Inventories;
 using UnityEngine;
 
 namespace Pelki.Gameplay.SaveSystem
@@ -8,10 +9,12 @@ namespace Pelki.Gameplay.SaveSystem
     public class GameProgressStorage : IDisposable, IGameProgressSaver
     {
         private const string LEVEL_SESSION = nameof(LEVEL_SESSION);
+        private const string LEVEL_INVENTORY = nameof(LEVEL_INVENTORY);
 
         private static readonly Dictionary<Type, string> levelProgressKeys = new Dictionary<Type, string>()
         {
-            { typeof(LevelProgress), LEVEL_SESSION }
+            { typeof(LevelProgress), LEVEL_SESSION },
+            { typeof(InventoryProgress), LEVEL_INVENTORY }
         };
 
         public bool TryLoadGameProgress<TProgress>(out TProgress progress) where TProgress : BaseProgress<TProgress>

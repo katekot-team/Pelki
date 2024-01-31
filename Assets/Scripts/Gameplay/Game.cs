@@ -3,6 +3,7 @@ using Pelki.Configs;
 using Pelki.Gameplay.Camera;
 using Pelki.Gameplay.Characters;
 using Pelki.Gameplay.Input;
+using Pelki.Gameplay.Inventories;
 using Pelki.Gameplay.SaveSystem;
 using Pelki.UI;
 using Pelki.UI.Screens;
@@ -21,9 +22,10 @@ namespace Pelki.Gameplay
         private LevelProgress _levelProgress;
         private CameraDistributor _cameraDistributor;
         private PlayerCharacter _playerCharacter;
+        private InventoryProgress _inventoryProgress;
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
-            IInput input, LevelProgress progress, CameraDistributor cameraDistributor)
+            IInput input, LevelProgress progress, CameraDistributor cameraDistributor, InventoryProgress inventoryProgress)
         {
             _charactersConfig = charactersConfig;
             _input = input;
@@ -31,6 +33,7 @@ namespace Pelki.Gameplay
             _levelsConfig = levelsConfig;
             _levelProgress = progress;
             _cameraDistributor = cameraDistributor;
+            _inventoryProgress = inventoryProgress;
         }
 
         public void ThisUpdate()
@@ -58,10 +61,19 @@ namespace Pelki.Gameplay
                 }
             }
 
+            foreach (var pickUpPuzzleKey in _inventoryProgress.PickedUpPuzzleKeys)
+            {
+                if (_level.PuzzleKeysRegister.ContainsKey(pickUpPuzzleKey))
+                {
+                    _level.PuzzleKeysRegister[pickUpPuzzleKey].Destroy();
+                }
+            }
+            Inventory inventory = new Inventory(_inventoryProgress);
+
             _playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,
                 Quaternion.identity, _level.transform);
-            _playerCharacter.Construct(_input);
+            _playerCharacter.Construct(_input, inventory);
 
             _cameraDistributor.SetTargetFollow(_playerCharacter);
 

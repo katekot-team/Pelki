@@ -53,6 +53,7 @@ MonoBehaviour:
     id: Level 1 - Initial Save point
   - savePoint: {fileID: 1081996624501872762}
     id: Level 1 - First Save point
+  puzzleKeys: []
   characterSpawnSavePointId: Level 1 - Initial Save point
 --- !u!1 &7319964392795912386
 GameObject:

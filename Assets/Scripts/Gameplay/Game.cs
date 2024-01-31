@@ -68,7 +68,7 @@ namespace Pelki.Gameplay
                     _level.PuzzleKeysRegister[pickUpPuzzleKey].Destroy();
                 }
             }
-            Inventory inventory = new Inventory(_inventoryProgress, _level.PuzzleKeysRegister);
+            Inventory inventory = new Inventory(_inventoryProgress);
 
             _playerCharacter = Object.Instantiate(_charactersConfig.PlayerCharacterPrefab,
                 spawnPosition,

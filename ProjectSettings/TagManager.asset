@@ -23,8 +23,8 @@ TagManager:
   - InspectObject
   - PostProcessing
   - Projectile
-  - 
-  - 
+  - Item
+  - TriggerDetector
   - 
   - 
   - 

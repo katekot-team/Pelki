@@ -41,8 +41,9 @@ namespace Pelki
         {
             savePointIdsRegister = savePoints.ToDictionary(dto => dto.SavePoint, dto => dto.ID);
             savePointsRegister = savePoints.ToDictionary(dto => dto.ID, dto => dto.SavePoint);
-            
-            puzzleKeysRegister = puzzleKeys.ToDictionary(dto => dto.ID, dto => dto.PuzzleKey);
+
+            //todo remove? подумать; скорее awake/start на инициализацию id'шников для ключей/item'ов
+            //     puzzleKeysRegister = puzzleKeys.ToDictionary(dto => dto.ID, dto => dto.PuzzleKey);
         }
 
         [Serializable]
@@ -54,7 +55,7 @@ namespace Pelki
             public SavePoint SavePoint => savePoint;
             public string ID => id;
         }
-        
+
         [Serializable]
         private class PuzzleKeyDto
         {

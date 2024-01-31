@@ -1,22 +1,18 @@
-using System;
 using UnityEngine;
 
+//todo rename to InventorySystem -> Invintories? 
 namespace Pelki.Gameplay.InventorySystem.Items
 {
-    public class PickUpItem : MonoBehaviour
+    public class PickUpItem : MonoBehaviour, IItem
     {
-        [SerializeField] private TriggerDetector triggerDetector;
-        
-        public event Action<PickUpItem> PickedUp;
-        
-        private void Awake()
+        private string _id;
+
+        public string Id => _id;
+
+        //todo invioke
+        public void Initialize(string id)
         {
-            triggerDetector.Detected += OnDetected;
-        }
-        
-        private void OnDetected(GameObject player)
-        {
-            PickedUp?.Invoke(this);
+            _id = id;
         }
 
         public void Destroy()

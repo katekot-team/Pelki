@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementThreshold: 0.1
-  _movementSpeed: 3.5
+  _movementSpeed: 4.72
   _speedAccelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -161,7 +161,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   _brakingTime: 2
   _jumpVelocity: 9
-  _gravityFactor: 0.6
+  _gravityFactor: 0.5
   _groundMask:
     serializedVersion: 2
     m_Bits: 256

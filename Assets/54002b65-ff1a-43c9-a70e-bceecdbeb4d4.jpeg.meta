@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 817ccf99ef6da4942bf91967c7f20e5f
+guid: 394a6bf4cbb44424eb9da01fc7566825
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 300
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -115,110 +115,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: cube 2_0
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 800
-        width: 649
-        height: 693
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 197}
-      outline: []
-      physicsShape:
-      - - {x: -262, y: 346.5}
-        - {x: -325, y: 324.5}
-        - {x: -325, y: -346.5}
-        - {x: 325, y: -346.5}
-        - {x: 325, y: 346.5}
-      tessellationDetail: 0
-      bones: []
-      spriteID: c8a6cc328b0e66445b6c47fa2fa0ab26
-      internalID: 1475834143
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cube 2_1
-      rect:
-        serializedVersion: 2
-        x: 805
-        y: 800
-        width: 700
-        height: 670
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 181, y: 0, z: 172, w: 151}
-      outline:
-      - - {x: 325, y: 274}
-        - {x: 244, y: 335}
-        - {x: -34, y: 335}
-        - {x: -30, y: 331}
-        - {x: -32, y: 333}
-        - {x: -37, y: 335}
-        - {x: -171, y: 335}
-        - {x: -259, y: 311}
-        - {x: -319, y: 332}
-        - {x: -350, y: 245}
-        - {x: -350, y: -335}
-        - {x: 350, y: -335}
-        - {x: 350, y: 211}
-        - {x: 344, y: 239}
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 64a177fff9eab7a47872672b8fc90518
-      internalID: 816687082
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cube 2_2
-      rect:
-        serializedVersion: 2
-        x: 61
-        y: 69
-        width: 669
-        height: 693
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 190, w: 180}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 353324bcb7800a042bc87e1789efec67
-      internalID: -1313429874
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cube 2_3
-      rect:
-        serializedVersion: 2
-        x: 805
-        y: 69
-        width: 676
-        height: 693
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 200, y: 0, z: 0, w: 179}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0b2f8320c7766e440aa8503d3c607c1c
-      internalID: 1040104783
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -229,11 +126,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      cube 2_0: 1475834143
-      cube 2_1: 816687082
-      cube 2_3: 1040104783
-      cube 2_2: -1313429874
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

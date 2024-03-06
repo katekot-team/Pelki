@@ -16,7 +16,6 @@ namespace Pelki.Gameplay
         private readonly LevelsConfig _levelsConfig;
         private readonly ScreenSwitcher _screenSwitcher;
         private readonly IInput _input;
-        private readonly IPuzzleInput _puzzleInput;
         private readonly CharactersConfig _charactersConfig;
 
         private Level _level;
@@ -28,7 +27,7 @@ namespace Pelki.Gameplay
 
         public Game(LevelsConfig levelsConfig, CharactersConfig charactersConfig, ScreenSwitcher screenSwitcher,
             IInput input, LevelProgress progress, CameraDistributor cameraDistributor, 
-            InventoryProgress inventoryProgress, IPuzzleInput puzzleInput)
+            InventoryProgress inventoryProgress)
         {
             _charactersConfig = charactersConfig;
             _input = input;
@@ -37,7 +36,6 @@ namespace Pelki.Gameplay
             _levelProgress = progress;
             _cameraDistributor = cameraDistributor;
             _inventoryProgress = inventoryProgress;
-            _puzzleInput = puzzleInput;
         }
 
         public void ThisUpdate()
@@ -50,11 +48,6 @@ namespace Pelki.Gameplay
             _level = Object.Instantiate(levelPrefab);
             
             InitializeSavePoints();
-
-            /*foreach (var puzzleItem in _level.PuzzlesRegister)
-            {
-                puzzleItem.Value.Construct(_puzzleInput);
-            }*/
 
             foreach (var pickUpPuzzleKey in _inventoryProgress.PickedUpPuzzleKeys)
             {

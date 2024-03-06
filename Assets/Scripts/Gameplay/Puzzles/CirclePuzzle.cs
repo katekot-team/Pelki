@@ -30,7 +30,6 @@ namespace Pelki.Gameplay.Puzzles
                     solvedCount += 1;
                 }
             }
-            Debug.Log(solvedCount);
 
             if (circleSegments.Count == solvedCount) {
                 Debug.Log("Puzzle is solved");
@@ -45,8 +44,7 @@ namespace Pelki.Gameplay.Puzzles
             var segment = touchObject.GetComponent<CirclePuzzleSegment>();
             if (!segment.IsRotationEnabled)
             {
-                segment.CalculateFutureRotationZ(direction);
-                segment.EnableRotation();
+                segment.DoRotate(direction);
             }
         }
     }

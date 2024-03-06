@@ -40,18 +40,24 @@ namespace Pelki.Gameplay.Puzzles
         {
             return Mathf.Abs(currentRotationZ - correctRotationZ) < 0.01f;
         }
+
+        public void DoRotate(Vector2 direction)
+        {
+            CalculateFutureRotationZ(direction);
+            EnableRotation();
+        }
         
-        public void EnableRotation() 
+        private void EnableRotation() 
         {
             isRotationEnabled = true;
         }
 
-        public void DisableRotation() 
+        private void DisableRotation() 
         {
             isRotationEnabled = false;
         }
         
-        public void CalculateFutureRotationZ(Vector2 direction)
+        private void CalculateFutureRotationZ(Vector2 direction)
         {
             if (direction.x == 1)
             {

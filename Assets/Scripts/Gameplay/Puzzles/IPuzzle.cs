@@ -6,7 +6,5 @@ namespace Pelki.Gameplay.Puzzles
     public interface IPuzzle
     {
         public event Action Solved;
-
-        //public void Construct(IPuzzleInput puzzlesInput);
     }
 }

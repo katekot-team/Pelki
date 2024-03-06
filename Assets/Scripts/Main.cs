@@ -20,7 +20,6 @@ namespace Pelki
 
         private Game game;
         private IInput input;
-        private IPuzzleInput _puzzleInput;
         private LevelProgress levelProgress;
         private InventoryProgress inventoryProgress;
 
@@ -31,7 +30,6 @@ namespace Pelki
 #else
             input = new InputBySimpleInput(mainSettingsConfig.InputConfig);
 #endif
-            //_puzzleInput = new PuzzleInput();
 
             LevelProgress.Factory levelProgressFactory = new LevelProgress.Factory(gameProgressStorage);
             levelProgress = levelProgressFactory.Create(mainSettingsConfig.LevelsConfig.DebugLevelPrefab);
@@ -46,7 +44,7 @@ namespace Pelki
             menuScreen.Construct((IMain)this);
 
             game = new Game(mainSettingsConfig.LevelsConfig, mainSettingsConfig.CharactersConfig, screenSwitcher,
-                input, levelProgress, cameraDistributor, inventoryProgress, _puzzleInput);
+                input, levelProgress, cameraDistributor, inventoryProgress);
 
             //SichTM: temporal addition until game menu will be done
             StartGame();

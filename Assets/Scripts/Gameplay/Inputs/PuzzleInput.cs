@@ -25,7 +25,7 @@ namespace Pelki.Gameplay.Inputs
                 if (hit != null && Mathf.Abs(_swipeDetector.SwipeDelta.x) > Mathf.Abs(_swipeDetector.SwipeDelta.y))
                 {
                     GameObject touchedObject = hit.transform.gameObject;
-                    if ((layerMask & (1 << touchedObject.gameObject.layer)) != 0)
+                    if (touchedObject && (layerMask & (1 << touchedObject.gameObject.layer)) != 0)
                     {
                         Vector2 direction = _swipeDetector.SwipeDelta.x > 0 ? Vector2.right : Vector2.left;
                         Swiped.Invoke(direction, touchedObject);
